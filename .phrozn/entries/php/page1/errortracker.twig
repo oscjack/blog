@@ -1,0 +1,66 @@
+title: 通过register_shutdown_function记录fatal error
+path: page1
+keywords: php fatal error,register_shutdown_function,register_shutdown_function记录fatal error
+permalink: /php/:path/register-shutdown.html
+---
+<h2>php中通过register_shutdown_function记录fatal error</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr />
+
+<p>今天发现php中,如果要记录fatal error的时候,可以实用一个不错的函数,叫register_shutdown_function,小结如下:</p>
+
+<p>register_shutdown_function可以让我们设置一个当执行关闭时可以被调用的另一个函数.也就是说当我们的脚本执行完成或意外死掉导致PHP执行即将关闭时,我们的这个函数将会被调用.所以,我们可以使用在脚本开始处设置一个变量为false,然后在脚本末尾将之设置为true的方法,让PHP关闭回调函数检查脚本完成与否. 如果我们的变量仍旧是false,我们就知道脚本的最后一行没有执行,因此它肯定在程序执行到某处死掉了;</p>
+
+<h3>例子如下: </h3>
+
+<pre>
+    <code data-language="php">
+        $clean = false;  
+        function shutdown_func(){  
+         global $clean;  
+         if (!$clean){  
+          die("not a clean shutdown");  
+         }  
+         return false;  
+        }  
+          
+        register_shutdown_function("shutdown_func");  
+          
+        $a = 1;  
+        $a = new FooClass(); // 将因为致命错误而失败  
+        $clean = true;  
+    </code>
+</pre>
+
+<h3>再来一个记录fatal error的例子</h3>
+
+<pre>
+    <code data-language="php">
+        function catch_fatal_error()  
+        {  
+           
+            $last_error =  error_get_last();  
+            
+            // 检查是否属于fatal_error  
+            if(isset($last_error['type']) &&$last_error['type']==E_ERROR)  
+            {    
+                //相关的处理  
+            }  
+          
+        }  
+        register_shutdown_function('catch_fatal_error');  
+    </code>
+</pre>
+
+<div class="alert alert-info">
+    <h3>注意的是; </h3>
+    <ol>
+        <li>register_shutdown_function()函数可重复调用，但执行的顺序与注册的顺序相同</li>
+        <li>如果在调用register_shutdown_function()函数之前有exit()函数调用，register_shutdown_function()函数将不能执行</li>
+        <li>PHP4后支持注册函数参数传递</li>
+        <li>在某些服务端，如Apache，当前目录在register_shutdown_function()函数中能够改变</li>
+        <li>register_shutdown_function()函数执行在headers发送之后 </li>
+    </ol>
+</div>

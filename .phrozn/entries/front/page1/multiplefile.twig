@@ -1,0 +1,109 @@
+title: html5多文件上传处理
+path: page1
+keywords: html5多文件上传,文件上传,多文件上传处理,文件上传处理
+permalink: /front/:path/mulitple-upload.html
+---
+<h2>html5多文件上传处理</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<p>发现Firefox, Chrome以及Safari三大浏览器已经支持多文件上传，只需要一个添加一个带一个multiple属性的input就可以实现！</p>
+
+<h3>HTML结构</h3>
+
+<pre>
+    <code data-language="html">
+        <!-- 注意:  表单的 enctype属性必须是"multipart/form-data", 这样表单提交的时候，文件数据会被分割成多段-->
+        <form method="post" action="upload-page.php" enctype="multipart/form-data">
+          <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" />
+        </form>
+    </code>
+</pre>
+
+<h3>使用javascript列出选中的文件</h3>
+
+<pre>
+    <code data-language="html">
+        <ul id="fileList">
+          <li>暂无文件上传</li>
+        </ul>
+    </code>
+</pre>
+
+<pre>
+    <code data-language="javascript">
+        function makeFileList() {
+            var input = document.getElementById("filesToUpload");
+            var ul = document.getElementById("fileList");
+    
+            while (ul.hasChildNodes()) 
+            {
+                ul.removeChild(ul.firstChild);
+            }
+    
+            for (var i = 0; i < input.files.length; i++) 
+            {
+                var li = document.createElement("li");
+                li.innerHTML = input.files[i].name;
+                ul.appendChild(li);
+            }
+    
+            if( ! ul.hasChildNodes()) 
+            {
+                var li = document.createElement("li");
+                li.innerHTML = 'No Files Selected';
+                ul.appendChild(li);
+            }
+        }
+    </code>
+</pre>
+
+<p>通过input.files属性获取选中的文件，其值是一个数组。所以，我们可以length属性来判断文件数组的长度并且遍历它来得到具体的文件路径以及文件名</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79aP6vF/Lc0bT.jpg" class="img-polaroid" /></p>
+
+<h3>服务器端获取的上传数组格式</h3>
+
+<pre>
+    <code data-language="php">
+        Array
+        (
+            [filesToUpload] => Array
+                (
+                    [name] => Array
+                        (
+                            [0] => Armenian_1.1stable.zip
+                            [1] => Catalan_1.1stable.zip
+                        )
+        
+                    [type] => Array
+                        (
+                            [0] => application/zip
+                            [1] => application/zip
+                        )
+        
+                    [tmp_name] => Array
+                        (
+                            [0] => D:\xampp\tmp\phpA5C7.tmp
+                            [1] => D:\xampp\tmp\phpA5C8.tmp
+                        )
+        
+                    [error] => Array
+                        (
+                            [0] => 0
+                            [1] => 0
+                        )
+        
+                    [size] => Array
+                        (
+                            [0] => 309810
+                            [1] => 289961
+                        )
+        
+                )
+        
+        )
+    </code>
+</pre>

@@ -1,0 +1,128 @@
+title: 你必须了解的session的本质- 续篇1 – 固定会话ID
+path: page1
+keywords: 固定会话ID,session安全,session的漏洞,php session的安全性
+permalink: /php/:path/session-hijack.html
+---
+<h2>你必须了解的session的本质- 续篇1 – 固定会话ID</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<p>随着php语言的流行，出现了无数的使用php开发的web应用程序，这吸引了大批的攻击者开始寻找，攻击有安全漏洞的php应用程序。 所以，程序的安全问题得到了越来越多的关注。做为一个专业的php开发者，必须要重视安全问题。</p>
+
+<p>接下来，我们来谈谈攻击session的方法之一 – 固定会话ID。 这种攻击方式的核心要点就是让合法用户使用攻击者预先设定的session ID来访问被攻击的应用程序，一旦用户的会话ID被成功固定，攻击者就可以通过此session id来冒充用户访问应用程序(只要该session id还是有效的，也就是没有被系统重新生成或者销毁)。 通过这种方式，攻击者就不需要捕获用户的Session id(该种方式难度相对稍大)。</p>
+
+<p>当然，以上的解释的前提是攻击者也知道session name了。我们简单讲个概念啊，下面提到的session标识符，php中默认的格式就是PHPSESSID=1234。等号前面的是session name, 后面的是session id。</p>
+
+<h3>固定会话ID</h3>
+
+<p>在我看来，Session的安全性应该说是最重要的，也是最复杂的。对于web应用程序来说，加强安全性的第一条原则就是 – 不要信任来自客户端的数据，一定要进行数据验证以及过滤，才能在程序中使用，进而保存到数据层。 然而，为了维持来自同一个用户的不同请求之间的状态， 客户端必须要给服务器端发送一个唯一的身份标识符(Session ID)。 很显然，这和前面提到的安全原则是矛盾的，但是没有办法，http协议是无状态的，为了维持状态，我们别无选择。 可以看出，web应用程序中最脆弱的环节就是session，因为服务器端是通过来自客户端的一个身份标识来认证用户的， 所以session是web应用程序中最需要加强安全性的环节。</p>
+
+<p>基于session的攻击有很多种方式。大部分的手段都是首先通过捕获合法用户的session, 然后冒充该用户来访问系统。也就是说，攻击者至少必须要获取到一个有效的session标识符，用于接下来的身份验证。</p>
+
+<p>据我所知，攻击者至少可以通过以下三种方式来获取一个有效的session标识符:</p>
+
+<ul>
+    <li>预测</li>
+    <li>捕获（劫持）</li>
+    <li>固定</li>
+</ul>
+
+<p>预测这种方式，也就是攻击者需要猜测出系统中使用的有效的session标识符，有点类似暴力破解。 php内部session的实现机制虽然不是很安全，但是关于生成session id的关节还是比较安全的，这个随机的session id往往是极其复杂的并且难于被预测出来，所以说，这种攻击方式基本上是不太可能成功的。</p>
+
+<p>捕获一个有效的session标识符 – 这种方式使用的就比较普遍了，很多的攻击类型都是使用这种方式来获取session标识符。当session标识符存储在浏览器的cookie中的时候，如果浏览器有漏洞的话（比如早期的IE），就就可能暴露其中的session标识符信息。当通过url参数来传递session标识符的话，那就更加容易暴露这个标识符，有很多方法可以捕获存在于url中的session标识符。所以，一般都是通过cookie来存储传递session标识符，尽管也有可能因为浏览器的漏洞而被攻击，但是相比通过url来传递，cookie这种方式要安全的多。</p>
+
+<p>Session固定这种方式，简单来讲，攻击者要想办法，让某个用户通过他预先选择的session标识符来访问系统。一旦系统接收到了这个用户的请求，并且使用用户传递过来的session标识创建了会话，攻击者就可以使用这个session标识了。这种方式是最简单的获取有效的session标识符，但是不一定能成功，因为有的系统发现在服务器端找不到对应该session标识符的数据的话，会自动重新创建一个session标识符，并且保存到客户端。</p>
+
+<h3>看个示例</h3>
+
+<p>举个最简单的例子，一个可以固定会话id的链接:</p>
+
+<pre>
+    <code data-language="html">
+        <a href="http://host/index.php?PHPSESSID=1234"> 
+            Click here 
+        </a>
+    </code>
+</pre>
+
+<p>或者一个php程序中的重导向,也就是应用http协议中的header来进行对请求重导向:</p>
+
+<pre>
+    <code data-language="php">
+        header('Location: http://host/index.php?PHPSESSID=1234');
+    </code>
+</pre>
+
+<p>当然，关于重导向请求的方法，还有其它几种方式。 比如， 通过HTTP中的Refresh头部来实现以及在html head标签中加入一个具有http-equiv属性的meta tag。不管使用哪种方式，关键点就是要使某个用户访问某个url， 在这个url中包括了攻击者预先设定的session标识符。这就是一般攻击中的第一步，图1对此过程进行了简单描述：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D73fiQB3/GyEa4.png" class="img-polaroid" /></p>
+<p><strong>图1. 固定session id示例图</strong></p>
+
+<p>如果系统没有对此进行防御的话，用户的session标识符就这样被攻击者固定住了，接着攻击者就可以通过此session标识符来对系统进行更危险的攻击。</p>
+
+<p>建议你用下面的示例代码1进行一下试验，来验证此种攻击的危险性:</p>
+
+<h4>示例代码1</h4>
+
+<pre>
+    <code data-language="php">
+        session_start(); 
+
+        if (!isset($_SESSION['count'])) 
+        { 
+           $_SESSION['count'] = 0; 
+        } 
+        else 
+        { 
+           $_SESSION['count']++; 
+        } 
+         
+        echo $_SESSION['count'];
+    </code>
+</pre>
+
+<p>请将以上示例代码保存为session.php, 并且放在能通过域名进行测试的目录下面，你可以在本地建立web服务器然后配置一个虚拟域名，这个就不在这里详细讲怎么做了。假设，你在本地可以通过http://www.myhost.me/session.php在firefox浏览器中访问这个文件，请清除firefox浏览器中关于该自定义域名的所有cookie, 然后再通过http://www.myhost.me/session.php?PHPSESSID=1234再次访问session.php文件。这种情况下，在第一次访问的时候，这段代码会输出0,刷新页面，将输出1。不断刷新的话，输出的数值会不断增大，这意味着每一次请求的值得到了保留，客户端和服务端之间的状态得到了保持。</p>
+
+<p>Okay.现在请换用另外一个浏览器进行测试，就用chrome(google的产品确实够快)吧。请同样地访问http://www.myhost.me/session.php?PHPSESSID=1234，你会发现初次访问的输出值不是0，而是在firefox上面浏览器中最后输出值基础上增加了1。这说明你已经侵入了前一次创建的session,虽然你在同一台电脑上，但是这两个不同的浏览器就可以代表两个不同的用户，后者成功冒充成了前者。你甚至可以换一台电脑，只要能访问到http://www.myhost.me/session.php?PHPSESSID=1234,那么你也能在另一台电脑上看到同样的结果。</p>
+
+<p>所以，假如你的系统只是使用了session_start()， 请尽量不要通过url来传递session标识符，这是相当危险的，因为php默认如果没有发现cookie中的session标识符的话，就会查找是否有session标识符包含在get或者post数据中，也就是session标识符处于url参数中或者表单的隐藏域中，如果php发现了session标识符，就不在重新生成一个新的随机session id了，它会使用来自请求中获得的session id来标识此次会话。</p>
+
+<p>当然，这种简单的攻击方式只对那些接受来自url的session标识符的系统起作用，不然就会失败。既然是这样，那么无论在什么情况下，对于第一次请求，我们必须保证系统要生成一个新的session id,并且颁发给客户端。有很多方法可以实现这个目标，请看下面的示例代码2（这个方式，还是有些问题，不够完善，下面还有更专业些的方案）:</p>
+
+<h4>示例代码2</h4>
+
+<pre>
+    <code data-language="php">
+        session_start(); 
+ 
+        if (!isset($_SESSION['initiated'])) 
+        { 
+           session_regenerate_id(); 
+           $_SESSION['initiated'] = true; 
+        } 
+    </code>
+</pre>
+
+<p>假如使用上述代码来启动所有的sessions,任何已成功创建的session肯定会包含一个初始的initiated,并且其值为true。如果没有包含这个初始值，那么可以断定这是个新会话，系统会调用session_regenerate_id这个函数来重新随机生成一个session id，原先的session id会被替代，但是其下的信息还是保留的,如果要删除旧的session的数据，可以给这个函数传递一个bool参数来实现。可以看出，在这种情况下，即使攻击者已经成功使某个用户携带预先设定的session id来访问系统，该用户也会被颁发一个新的session id。很明显，这个新的id，攻击者暂时是无法获知的，除非使用其它方式获取。但是，一个老练的攻击者还是有办法来绕过以上检查，请看下节。</p>
+
+
+<h3>老练的攻击</h3>
+
+<p>一个经验丰富一些的攻击者，往往会自己先访问目标系统，从而从系统处获得一个合法的session标识符，并且保持这个session标识符不过期，然后再使用前面讲过的方式，来使某个目标用户使用攻击者获取的，当前有效的session标识符来访问目标系统。这种情况下，如果该用户登录后（假设在用户登录时，系统没有重新生成session id），那么攻击者就可以通过同样的session标识符来侵入用户在该系统中的账务，这是很危险的事情，意味着用户的敏感信息会被泄露，或者导致后续更危险的操作的发生。所以，在用户登录的时候，切记一定要重新生成session id,因为这个时刻关于此用户的敏感信息会被保存到session数据中。建议你在认证了用户的用户名以及密码后，可以先调用session_regenerate_id来重新生成一个session id,然后再初始化一个表明用户处在登录状态的session变量，例如下面的示例代码：</p>
+
+<pre>
+    <code data-language="php">
+        session_regenerate_id(); 
+        $_SESSION['logged_in'] = true;
+    </code>
+</pre>
+
+<p>以上代码，可以有效地抵御固定会话ID的攻击。事实上，最好在用户权限发生变化的时候或者因为闲置时间太长而导致session过期，用户再次进行验证身份的时候，就进行一次session id的重新生成。这样的话，可以肯定的说，你的系统就不会受到以上攻击方式的侵害。</p>
+
+<p>由此可见，以上方式比前面的例子安全级别高多了，因为我们给攻击者制造了另外一层障碍，这道障碍有效地防止了攻击者先获取合法session标识符，并且保持有效性，然后再实施侵入。</p>
+
+<h3>总结</h3>
+
+<p>总的来说，抵御固定会话ID此类攻击的最有效的措施就是在用户提供验证信息，相应的权限级别发生改变的时候，就进行session id的重新生成。当然，情况总是不断变化，这不总是万无一失的。 你可能还有更好的办法，愿意分享的话，请在下面留言!</p>

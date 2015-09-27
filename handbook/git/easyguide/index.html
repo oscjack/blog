@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>360weboy - git 参考手册</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="360weboy - git 参考手册" />
+        <meta name="description" content="360weboy - git 参考手册" />
+        <meta name="keywords" content="git 手册,git教程,git 参考,git 参考手册" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <h2>Git 简明参考手册</h2>
+
+<div class="container-fluid publish-info clearfix">
+    <div class="row-fluid">
+      <div class="span8">
+        <p><i class="icon-user"></i>作者: 360weboy</p>
+        <p><i class="icon-comment"></i>QQ群: 197642724</p>
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+      </div>
+      <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+      </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row-fluid">
+    <div class="span2 guide-siderbar">
+        <ul class="nav nav-list">
+    <li class="nav-header">
+        <a href="./create.html"><i class="icon-hand-right"></i>获取与创建项目</a>
+    </li>
+    <li>
+        <a href="./create.html#init">init</a>
+    </li>
+    <li>
+        <a href="./create.html#clone">clone</a>
+    </li>
+    
+    <li class="divider"></li>
+    
+    <li class="nav-header">
+        <a href="./basic.html"><i class="icon-hand-right"></i>基本的快照</a>
+    </li>
+    <li>
+        <a href="./basic.html#add">add</a>
+    </li>
+    <li>
+        <a href="./basic.html#status">status</a>
+    </li>
+    <li>
+        <a href="./basic.html#diff">diff</a>
+    </li>
+    <li>
+        <a href="./basic.html#commit">commit</a>
+    </li>
+    <li>
+        <a href="./basic.html#reset">reset</a>
+    </li>
+    <li>
+        <a href="./basic.html#rm">rm, mv</a>
+    </li>
+    
+    <li class="divider"></li>
+    
+    <li class="nav-header">
+        <a href="./branch.html"><i class="icon-hand-right"></i>分支与合并</a>
+    </li>
+    <li>
+        <a href="./branch.html#branch">branch</a>
+    </li>
+    <li>
+        <a href="./branch.html#branch">checkout</a>
+    </li>
+    <li>
+        <a href="./branch.html#merge">merge</a>
+    </li>
+    <li>
+        <a href="./branch.html#log">log</a>
+    </li>
+    <li>
+        <a href="./branch.html#tag">tag</a>
+    </li>
+    
+    <li class="divider"></li>
+    
+    <li class="nav-header">
+        <a href="./share.html"><i class="icon-hand-right"></i>分享与更新项目</a>
+    </li>
+    <li>
+        <a href="./share.html#fetch-pull">fetch, pull</a>
+    </li>
+    <li>
+        <a href="./share.html#push">push</a>
+    </li>
+    <li>
+        <a href="./share.html#remote">remote</a>
+    </li>
+</ul>    </div>
+   
+    <div class="span10 guide-content clearfix">
+        <div class="span3 guide-topbar pull-right">
+             <div class="btn-group pull-right">
+      <button class="btn">选择章节</button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu nav nav-list">
+        <li class="nav-header">
+            <a href="./create.html"><i class="icon-hand-right"></i>获取与创建项目</a>
+        </li>
+        <li>
+            <a href="./create.html#init">init</a>
+        </li>
+        <li>
+            <a href="./create.html#clone">clone</a>
+        </li>
+        
+        <li class="divider"></li>
+        
+        <li class="nav-header">
+            <a href="./basic.html"><i class="icon-hand-right"></i>基本的快照</a>
+        </li>
+        <li>
+            <a href="./basic.html#add">add</a>
+        </li>
+        <li>
+            <a href="./basic.html#status">status</a>
+        </li>
+        <li>
+            <a href="./basic.html#diff">diff</a>
+        </li>
+        <li>
+            <a href="./basic.html#commit">commit</a>
+        </li>
+        <li>
+            <a href="./basic.html#reset">reset</a>
+        </li>
+        <li>
+            <a href="./basic.html#rm">rm, mv</a>
+        </li>
+        
+        <li class="divider"></li>
+        
+        <li class="nav-header">
+            <a href="./branch.html"><i class="icon-hand-right"></i>分支与合并</a>
+        </li>
+        <li>
+            <a href="./branch.html#branch">branch</a>
+        </li>
+        <li>
+            <a href="./branch.html#branch">checkout</a>
+        </li>
+        <li>
+            <a href="./branch.html#merge">merge</a>
+        </li>
+        <li>
+            <a href="./branch.html#log">log</a>
+        </li>
+        <li>
+            <a href="./branch.html#tag">tag</a>
+        </li>
+        
+        <li class="divider"></li>
+        
+        <li class="nav-header">
+            <a href="./share.html"><i class="icon-hand-right"></i>分享与更新项目</a>
+        </li>
+        <li>
+            <a href="./share.html#fetch-pull">fetch, pull</a>
+        </li>
+        <li>
+            <a href="./share.html#push">push</a>
+        </li>
+        <li>
+            <a href="./share.html#remote">remote</a>
+        </li>
+      </ul>
+</div>        </div>
+        <h3>GIT 手册简介</h3>
+        <p>本站为 Git 参考手册。目的是为学习与记忆 Git 使用中最重要、最普遍的命令提供快速翻阅。 这些命令以你可能需要的操作类型划分，并且将提供日常使用中需要的一些常用的命令以及参数。</p>
+        <p>每个章节都有到下一个章节的链接，所以本手册也可以当作一个入门指导。 每个页面还有一个深度 Git 文档阅读的链接，比如官方的使用手册页面或者 《Pro Git》 书中的相关章节，以便于你学习了解更多的 Git 命令。首先，我们要从如何以 Git 的思维方式管理源代码开始。
+        </p>
+        
+        <h3>如何以 GIT 的方式思考</h3>
+        <p>懂得 Git，第一件重要的事情就是要知道它与 Subversion、Perforce 或者任何你用过的版本控制工具都有着很大的差别。 通常，忘掉你预想的版本控制方式，改以 Git 的方式思考，能够帮助你更好地学习 Git。</p>
+        <p>让我们从头开始。假设你正在设计一个新的源代码管理系统。在你使用某个工具之前，是如何完成基本的源码版本控制工作的呢？ 十有八九，你只是在项目到达某些阶段的时候，对项目做一份拷贝。</p>
+<pre>
+<code data-language="shell">
+$ cp -R project project.bak 
+</code>
+</pre>
+        <p>这样，你就可以在事情变得一团糟的时候很方便的返回到之前的状态，或者通过对比当前的项目与之前的拷贝，看看自己在之后的工作中，都做了哪些修改。</p>
+        <p>如果你有点偏执，你可能会经常作上面说的事情，或许还会给项目拷贝加个日期：</p>
+<pre>
+<code data-language="shell">
+$ cp -R project project.2010-06-01.bak
+</code>
+</pre>
+        <p>如此，你就有了一堆项目在各个阶段的快照，来作比较、查看。使用这种模式，你还可以有效地与人分享项目变更。 如果你会在项目到达一定阶段的时候给它打个包，丢到自己的网站上，那其他的开发者们，就能很方便地下载它，做点改动，并给你补丁回馈。</p>
+<pre>
+<code data-language="shell">
+ $ wget http://sample.com/project.2010-06-01.zip
+ $ unzip project.2010-06-01.zip
+ $ cp -R project.2010-06-01 project-my-copy
+ $ cd project-my-copy
+ $ (做了某些修改)
+ $ diff project-my-copy project.2010-06-01 > change.patch
+ $ (通过E-mail发送修改补丁)
+</code>
+</pre>
+        <p>以此方式，原先的开发者就能将其他人的改动应用到他的项目中去，其他开发者也能了解你做的变更。其实这便是许多开源项目采用过多年的协作方式。</p>
+        <p>这办法其实很好使，所以假设我们现在想要写个工具，让这个办法更快、更简单。 我们与其实现一个工具以记录每个文件的版本，可能不如去实现个工具以使创建、储存项目的快照更加方便，不用每次都去人肉作整个项目的拷贝。</p>
+        <p>这就是 Git 的精要所在。你通过 <em>git commit</em>告诉 Git 你想保存一份项目快照， Git 就会为你的项目中的各个文件的当前状态存一份记录。之后，绝大部分的 Git 命令都围绕这些记录展开。 比如查看它们的区别（diff），提取它们的内容，等等。
+        </p>
+        <p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D7MOtEaz/11WEAP.png" class="img-polaroid" /></p>
+        <p>如果你将 Git 看作一个排序、对比以及合并项目更新的工具，那就容易理解状况和正确做事了</p>
+        
+        <p class='more'><a href="./create.html" class="btn btn-large btn-success"><i class="icon-arrow-right"></i>接下来：获取与创建项目»</a></p>
+    </div>
+</div>
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>

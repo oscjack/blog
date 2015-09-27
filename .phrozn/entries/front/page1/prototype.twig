@@ -1,0 +1,300 @@
+title: 深入理解Javacript之Prototype
+path: page1
+keywords: javascript prototype,javascript原型,javascript原型链,javascript原型的本质,javascript原型的原理
+permalink: /front/:path/prototype.html
+---
+<h2>深入理解Javacript之Prototype</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<p>对于javascript这样一种前端语言，个人觉得，要真正的理解其oop, 就必须要彻底搞清楚javascript的对象，原型链，作用域，闭包，以及this所引用的对象等概念。这些对弄明白了，应该就可以比较自信的驾驭这种语言了。</p>
+
+<p>大家都知道，javascript中的继承不是使用的类继承的机制,而是使用的另一种方式 – 原型继承。在原型继承方式中，本质上是javascript语言加入原型链这种机制，从而实现了面向对象的重要特性之一 – 继承。在这篇博文中，基于个人的理解，来说说javascript之原型链。</p>
+
+<p>首先，我觉得有必要先总结一下以下一些概念:</p>
+
+<ul>
+    <li>Javascript中的对象实例本质上是由一系列的属性组成的，在这些属性中，有一个内部的不可见的特殊属性-__proto__，该属性的值指向该对象实例的原型，一个对象实例只拥有一个唯一的原型。</li>
+    <li>函数可以用来作为构造函数来使用。另外只有函数才有prototype属性并且可以访问到，但是对象实例不具有该属性，只有一个内部的不可访问的__proto__属性。</li>
+    <li>原型对象本质是也是一个对象实例，并且也拥有自己的属性以及方法。Object.prototype是所有对象的最顶层的原型。</li>
+    <li>对象实例的原型，默认的是Object构造函数的一个实例，除非该对象实例是由一个自定义构造函数的实例，并且给改自定义构造函数设置了一个自定义的原型。</li>
+    <li>原型链是一条由一系列原型对象组成的自底而上的访问链，主要目的是用来实现对象属性的共享以及继承，然而这个原型链顶端的原型对象的原型是null，也就是说整个原型链结束与此。</li>
+    <li>读取一个对象的属性时，如果该对象不具有这个属性，那么就会通过原型链往上查找。首先查找该对象的原型对象是否包含所要读取的属性，假如还是没有查找到，进而会查找原型对象的原型对象，直到原型链的顶端。最终没有查到的话，会返回的值为undefined。</li>
+    <li>写一个属性到对象时，即使该对象的原型对象中拥有该属性，系统也会给所操作的对象添加一个独立的属性，并且写入对应的值。换句话说，在这种情况下，对象与它的原型对象都具有了属于自身的相同的属性，但是其值是独立的。改变原型对象中对应属性的值，不会影响到对象中的值，因为当读取该属性时，首先访问到的是对象中的对应属性。</li>
+    <li>本质上，javascript语言中，维护着两条原型链，一条是用于链接对象实例的，该条原型链是系统内部的，不可见的。另外一条，就是用于维护构造器之间的关系，可以通过prototype属性访问到。</li>
+</ul>
+
+<p>上述概念很重要，务必仔细思考。下面将逐步对以上各个概念加以证明</p>
+
+<h3>从一个object讲起</h3>
+
+<p>大家都知道，我们在javascript创建一个不带任何自定义属性的对象的话，可以使用下面的代码实现:</p>
+
+<pre>
+    <code data-language="javascript">
+        var obj = {};
+
+        console.dir(obj);
+    </code>
+</pre>
+
+<p>上面的代码中，初始化一个空对象，并且在firefox控制台中，通过console.dir来打印下, 输出如下结果：</p>
+
+<img src="/media/img/object.jpg" class="img-polaroid" />
+
+<p>可见，该对象下没有任何属性。是不是真的没有任何属性可访问呢？我们来在firefox控制台中尝试下如下代码:</p>
+
+<pre>
+    <code data-language="javascript">
+       console.log(obj.constructor);
+    </code>
+</pre>
+
+<img src="/media/img/object2.jpg" class="img-polaroid" />
+
+<p>正如在控制台中输出的，新建的obj对象实例的属性constructor的值为Object。既然obj对象实例是个空对象，哪里来的这个constructor属性呢？事实上，该属性存在于该对象的原型中，当我们访问obj.constructor的时候，js引擎先查找obj对象是否包含constructor属性，如果没有找到该属性，就会查找obj的原型对象是否包含此属性，以此类推，直到Object.prototype，最后如果查找失败的话，返回undefined。在这个示例中，obj对象的原型就是Object.prototype，因为constructor指向的就是构建obj示例的构造函数，也就是Object构造函数，该构造函数的原型可以通过Object.prototype访问到（只有构造函数才拥有prototype属性，并且该属性值指向构造函数的原型。），所以js引擎在obj中找不到constructor属性后，就直接查找Object.prototype了，然后不管找到了还是没找到，就不再查找下去，因为这个已经是原型链的顶端了。</p>
+
+<p>这里有个疑问，既然obj对象实例没有保存任何属性，那js引擎内部是怎么知道obj对象实例的原型对象的呢? 答案是obj虽然没有可见的属性，但是内部还保存着一个不可见的__proto__属性，该属性的值指向Object.prototype。这个属性是不可访问的，但是在firefox的控制台中可以输出来，我们通过以下代码来对其进行输出：</p>
+
+<pre>
+    <code data-language="javascript">
+       var obj = {};
+
+        console.log(obj.__proto__);
+    </code>
+</pre>
+
+<img src="/media/img/object3.jpg" class="img-polaroid" />
+
+<p>由此可见，obj对象实例内部具有__proto__属性，它指向的是一个由Object构造的对象，也就是Object.prototype指向的对象。那么我们来验证下这个该对象是否具有constructor这个属性，并且指向的是Object构造函数。在控制台中输入以下代码:</p>
+
+<pre>
+    <code data-language="javascript">
+       var obj = {};
+
+        console.dir(obj.__proto__);
+    </code>
+</pre>
+
+<img src="/media/img/object4.jpg" class="img-polaroid" />
+
+<p>正如我们预计的，obj.__proto__具有constructor这个属性，并且指向的是Object构造函数。那么既然obj.__proto__和Object.prototype指向的是同一个Object构造的原型对象，我们应该也可以通过以下代码来打印出obj对象的原型的属性:</p>
+
+<pre>
+    <code data-language="javascript">
+       console.dir(Object.prototype);
+    </code>
+</pre>
+
+<img src="/media/img/object5.jpg" class="img-polaroid" />
+
+<p>两者输出的结果相同，所以在执行var obj = {};这代代码的时候，实际过程应该如下:</p>
+
+<ol>
+    <li>通过Object构造函数实例化一个对象</li>
+    <li>给实例化对象设置一个__proto__属性，其值指向Object.prototype</li>
+</ol>
+
+<h3>原型链</h3>
+
+<p>下面，我们来看下在javascript中，如果通过原型继承来实现代码的重用。我创建了三个对象，a, b, c。对象a具有对象b,c共有的属性和方法，对象b,c又拥有各自的属性。</p>
+
+<pre>
+    <code data-language="javascript">
+       var a = {
+          x: 10,
+          calculate: function (z) {
+            return this.x + this.y + z
+          }
+        };
+        
+        var b = {
+          y: 20,
+          __proto__: a
+        };
+        
+        var c = {
+          y: 30,
+          __proto__: a
+        };
+        
+        // 执行原型中的calculate方法
+        b.calculate(30); // 60
+        c.calculate(40); // 80
+    </code>
+</pre>
+
+<p>在以上代码中，我们执行对象b,c上的calculate方法。显然，b,c对象不具有这个属性，所以系统通过b，c对象的__proto__属性，沿原型链向上追朔，获得calculate方法。注意，虽然calculate方法存在于原型上面，但是当在b,c对象上执行该方法时，其中的this指向的是对象b或者c，而不是a。</p>
+
+<p>类似以上的a,b,c对象，都是通过new Object来实例化出来的，所以，三者的__proto__都指向object.prototype。object.prototype也具有__proto__属性，只不过指向的是null，也即原型链的顶端。</p>
+
+<p>下面的示例图，描述了以上a,b,c三者之间的关系:</p>
+
+<img src="/media/img/prototype-chain.png" class="img-polaroid" />
+
+<p>但是在实际开发中，我们往往需要的对象 – 是具有相似的对象结构，也就是具有相同的属性，但是属性值是不同的。那么，这种对象只能通过自定义构造器(函数)来进行实例化，在javascipt中，构造器本身也就是个函数，下面来看看javascript中的构造器。</p>
+
+<h3>构造器</h3>
+
+<p>事实上，javascript的构造器就是一个函数，并且函数本质上也是一个对象实例，该对象实例中的不可见属性__proto__指向该实例的原型，也就是Function.prototype。我们前面的概念中已经讲过，构造器是具有prototype属性（默认指向的是一个Object的对象实例，该对象实例的属性__proto__指向原型Object.prototype）的，并且可以访问到。所以，假如声明一个函数的话，其下就会拥有两个属性，一个是__proto__，另一个是prototype。下面我们声明一个函数来验证下：</p>
+
+<pre>
+    <code data-language="javascript">
+        var Foo = function() {};
+
+        //输出true
+        console.log(Foo instanceof Function);
+        
+        //输出true
+        console.log(Foo.prototype instanceof Object);
+        
+        //输出true
+        console.log(Foo.prototype.__proto__ == Object.prototype);
+        
+        //输出true
+        console.log(Foo.__proto__ == Function.prototype);
+        
+        //输出true
+        console.log(Foo.__proto__ instanceof Object);
+        
+        //输出true
+        console.log(Function.prototype.__proto__ == Object.prototype);
+        
+        //输出null
+        console.log(Foo.prototype.__proto__.__proto__);
+        
+        //输出null
+        console.log(Foo.__proto__.__proto__.__proto__);
+        
+        //输出null
+        console.log(Object.prototype.__proto__);
+    </code>
+</pre>
+
+<p>javascript中的instanceof操作符是用来判断某个对象实例是否是由某个指定的构造器实例化出来的，操作符左边为对象实例，右边为构造器。那么在上述的第四行代码输出为true，说明声明的Foo函数，本身也是个对象实例，并且是由内置构造器Function构造而来。</p>
+
+<p>第七行代码输出为true，说明Foo函数具有prototype可见属性，并且指向一个有Object构造器构造的对象，换句话说，Foo函数的原型就是一个Object构造的对象。</p>
+
+<p>第十行代码输出为true，说明Foo函数的原型对象具有一个不可见属性__proto__，并且该属性指向Object.prototype，换句话说，Foo函数的原型对象的原型就是Obejct构造器的原型对象。</p>
+
+<p>第十三行代码输出为true，说明Foo函数是个对象实例，具有一个不可见属性__proto__，并且该属性指向Function.prototype，因为Foo对象实例是由Function构造函数实例化所得，所以Foo对象的__proto__指向Function.prototype。</p>
+
+<p>第十六行输出为true，说明Foo对象实例实例的原型为一个Object构造的对象实例，也就是说Function.prototype为一个Object构造的对象实例。</p>
+
+<p>第十九行输出为true，说明Function构造器的原型对象的原型指向的是Object.prototype。</p>
+
+<p>第二十二行，输出为null，说明Foo构造函数的原型对象的原型的原型为null。前面已经讲过Foo构造函数的prototype属性指向的是一个Object实例，该实例的__proto__指向Object.prototype，那么Foo.prototype.__proto__.__proto__就是Object.prototype.__proto__。因为Object.prototype是原型链的顶端了，所以该对象的__proto__的值为null，也即是原型链的终点。</p>
+
+<p>第二十五行，输出为null，说明Foo对象实例的原型对象的原型的原型为null。前面已经讲过Foo对象实例的__proto__指向Function.prototype，那么Foo.__proto_.__proto__指向的就是Funciton.prototype.__proto__，而Function.prototype.__proto__指向的是Object.prototype，所以Foo.__proto__.__proto__.__proto__指向的就是Object.prototype.__proto__，跟上面结果一样，也是null，意即原型链的终点。</p>
+
+<p>第二十八行，输出为null，说明Object.prototype的原型为null。</p>
+
+<p>由此可见，当声明一个函数后，它具有了prototype以及__proto__属性，这两个属性分别构成两条原型链，如果不改变函数的默认的prototype的指向，那么这两天原型链最终都是达到原型链的顶端。</p>
+
+<div class="alert alert-info">
+    <p>注意，通过以上代码的验证，我们确定了，函数具有prototype以及__proto__属性，对象实例具有__proto__属性。</p>
+</div>
+
+<p>好了，接下来，我们使用构造器来重写一下上一节原型链中列举的关于a，b，c三个对象的示例。</p>
+
+<pre>
+    <code data-language="javascript">
+        // 构造器Foo
+        function Foo(y) {
+          //建立属性y 
+          this.y = y;
+        }
+         
+        // "Foo.prototype" 指向它的原型对象
+        // Foo构造的对象实例从Foo.prototype继承属性或者方法,
+        
+        // 将属性x添加到原型对象上，新建的对象实例可以继承这个属性
+        Foo.prototype.x = 10;
+         
+        // 添加共有方法calculate到原型对象上
+        Foo.prototype.calculate = function (z) {
+          return this.x + this.y + z;
+        };
+         
+        // 构造对象b以及c
+        var b = new Foo(20);
+        var c = new Foo(30);
+         
+        // 在b，c上调用从原型对象中继承的方法calculate
+        b.calculate(30); // 60
+        c.calculate(40); // 80
+         
+        // 验证一下对象实例b以及c的不可见属性__proto__是否和构造器的prototype属性指向同一个原型对象
+        console.log(
+          b.__proto__ === Foo.prototype, // true
+          c.__proto__ === Foo.prototype, // true
+         
+          // 验证下对象b以及c的"constructor"属性, 当调用new操作符建立对象实例时
+          // 会自动将构造器的原型对象的constructor属性指向构造器本身，这里指向的Foo
+          // 因为对象b以及c中拥有内部的__proto__属性，并且指向Foo.prototype
+          // 所以到访问b.constructor以及c.constructor时，都是输出Foo
+          // 事实上两者都是访问的Foo.prototype中的constructor属性
+         
+          b.constructor === Foo, // true
+          c.constructor === Foo, // true
+          Foo.prototype.constructor === Foo // true
+         
+          // 验证下，当访问对象b的calculate方法时，实际上访问的是Foo.prototype.calculate
+          b.calculate === b.__proto__.calculate, // true
+          b.__proto__.calculate === Foo.prototype.calculate // true
+        );
+    </code>
+</pre>
+
+<p>以上构造器，原型对象，对象实例之间的关系可以用以下的示例图来加以描述：</p>
+
+<img src="/media/img/constructor.png" class="img-polaroid" />
+
+<p>在以上示例图中，Foo是一个函数，我们在前面已经说过，函数本质上也是一个对象实例，并且是由Function构造函数实例化出来的，所以Foo的__proto__属性指向Function.prototype，又由于Function.prototype是由new Object()实例出来的对象实例，所以Function.prototype的__proto__属性指向Object的原型对象，即Object.prototype。因为Foo函数又是作为一个构造器来使用的，所以Foo具有prototype可见属性，该属性值指向Foo构造器的原型对象，默认的这个原型对象是由Object构造所得，所以Foo.prototype.__proto__指向Object.prototype。我们在这个原型对象上共有属性x，calculate方法以及系统自动添加的constructor属性。由此可见，原型对象本质是就是一个对象实例，然后维持一张自身的成员列表，仅此而已。</p>
+
+<div class="alert alert-info">
+    <p>注意，Foo.prototype默认是一个Object的实例，但是你可以改变它所指向的对象，从而改变所有Foo构造出来的对象实例的属性以及行为。</p>
+</div>
+
+<p>最后，因为对象b以及c是由Foo构造器实例化而来，所以对象b以及c的__proto__指向Foo的原型对象。从而我们访问b.x，c.x，b.calculate，c.calculate的时候，系统通过对象内部的__proto__属性找到其原型，并且访问其x以及calculate属性。另外当调用new操作符时，实际上内部应该是以下的过程：</p>
+
+<pre>
+    <code data-language="javascript">
+       //实例化一个对象
+        var foo_obj = new Object();
+        
+        Foo.prototype = new Object();
+        
+        foo_obj.__proto__ = Foo.prototype;
+        Foo.prototype.constructor = Foo;
+        
+        //this指向foo_obj，初始化属性
+        
+        return foo_obj;
+    </code>
+</pre>
+
+<p>也就是说，在new一个Foo的对象实例的时候，系统会自动完成以下几件事情:</p>
+
+<ol>
+    <li>通过Object构建一个对象实例</li>
+    <li>通过Object初始化一个原型对象，使Foo.prototype指向该对象</li>
+    <li>给新建的对象建立一个__proto__属性，该属性指向Foo.prototype</li>
+    <li>给Foo.prototype建立一个constructor属性，改属性指向Foo构造行数</li>
+</ol>
+
+<p>所以，当我们访问b.constructor以及c.constructor的时候，实际上访问的是Foo.prototype中的constructor属性，所谓回返回Foo。</p>
+
+<p>由此可见，我们在用户代码中虽然不可以直接通过b.__proto__或者c.__proto来获得对象实例的原型，但是可以通过访问b.constructor或者c.constructor来追溯到对象实例的构造函数Foo，接下来，是否通过Foo.prototype来获取对象b以及c的原型了？因为Foo.prototype是可见属性，显然是可以在用户代码中直接访问到的，这样我们就可以追溯到对象b以及c的原型了。但是，如果我们自定义了Foo.prototype指向的对象实例（也即原型），而不是使用的默认的对象实例作为其原型，那么通过对象实例的constructor属性来在用户代码中回溯整条原型链也是行不通的，至于具体原因在后续的续篇博文中再做说明吧！</p>
+
+<p>最后，引用两张非常棒的说明原型链的图片，分别来自风之雪愚以及Richie的博客。</p>
+
+<img src="/media/img/javascript_object_layout.jpg" class="img-polaroid" />
+
+<hr/>
+
+<img src="/media/img/js_object_model.jpg" class="img-polaroid" />
+
+<p>好了，关于javascript中的原型链，暂且就说到这吧。感谢你的耐心阅读，有何感想，请在评论中指出，有何概念表述错误，也请赐教！</p>

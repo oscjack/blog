@@ -1,0 +1,52 @@
+title: fsockopen传递客户端的cert到服务端
+path: fsockopen
+permalink: /php/:path/
+---
+<h2>fsockopen传递客户端的cert到服务端</h2>
+
+<hr/>
+
+<ul>
+    <li>作者：360weboy</li>
+    <li>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+    <li>QQ群：197642724</li>
+</ul>
+
+<p>如果使用curl的话，直接设置对应的option就可以传递cert到服务器端，那么使用fsockopen的时候，怎么样传递它呢？</p>
+
+<pre>
+    <code data-language="php">
+        $context = stream_context_create();
+        $result = stream_context_set_option($context, "ssl", "verify_peer", true);
+        $result = stream_context_set_option($context, "ssl", "cafile",     "/etc/httpd/opencountry/ssl.crt/ca-bundle.crt");
+        $result = stream_context_set_option($context, 'ssl', 'local_cert', "/etc/httpd/opencountry/ssl.crt/client.pem");
+        
+        # some other valid options to stream_context_set_option() are: verify_depth, CN_match, passphrase, capath,  ciphers
+        $fp = fsockopen ("ssl://192.168.0.28",443, $errno, $errstr, 30 ,$context);
+        
+        if (!$fp) {
+            echo "<br>ERROR: '$fp' $errstr ($errno)";
+        
+        } else {
+            $request = "GET /about HTTP/1.0\r\n";
+        
+            $request .= "Host: 192.168.0.28\r\n";
+        
+            $request .= "Connection: Close\r\n\r\n";
+        
+            fputs ($fp, $request);
+        
+            print "waiting for response...\n";
+        
+            while (!feof($fp)) {
+                $result = fgets($fp,1024);
+        
+                print "$result ";
+            }
+        
+            fclose($fp);
+        }
+    </code>
+</pre>
+
+<p>看来，只要通过stream_context_set_option设置就可以，然后将创建的上下文传递给fsockopen就能实现。</p>

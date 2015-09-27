@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>利用媒体查询进行响应式设计</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="利用媒体查询进行响应式设计" />
+        <meta name="description" content="利用媒体查询进行响应式设计" />
+        <meta name="keywords" content="媒体查询,响应式设计,responsive design,responsive page,响应式页面,响应式站点" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <h2>利用媒体查询进行响应式设计</h2>
+
+<div class="container-fluid publish-info clearfix">
+    <div class="row-fluid">
+      <div class="span8">
+        <p><i class="icon-user"></i>作者: <a href="http://webdesignerwall.com/" target="_blank">Nick La</a></p>
+         <p><i class="icon-user"></i>译者: <a href="http://weizhifeng.net/" target="_blank">JeremyWei</a></p>
+         <p><i class="icon-bookmark"></i>E原文: <a href="http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries">http://webdesignerwall.com/tutorials/responsive-design-with-css3-media-queries</a></p>
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+      </div>
+      <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+      </div>
+    </div>
+</div>
+
+<hr/>
+
+
+<p>如今屏幕分辨率的范围已经从320px（iPhone）涵盖到2560px（大显示器）或者更高了。用户不单单在桌面电脑上浏览网站。用户如今会使用移动电话，小的笔记本，平板设备（比如iPad或者Playbook）来访问互联网。所以传统的固定宽度设计不再适用了。web设计需要有自适应能力。页面布局要可以自动的去适应所有的分辨率和设备。这个教程将会告诉你如何利用HTML5和CSS3媒体查询来创建一个跨浏览器的响应式设计。</p>
+
+<h3>首先看个实例</h3>
+
+<p>在你开始之前，看下<a href="http://webdesignerwall.com/demo/adaptive-design/final.html">最终demo</a>是什么样子。改变你浏览器的大小，然后看看页面布局在基于viewport（浏览器可视区域）宽度的情况下是如何自动的进行浮动的。</p>
+
+<p><a href="http://webdesignerwall.com/demo/adaptive-design/final.html"><img alt="" src="http://s0-weizhifeng-net.b0.upaiyun.com/images/rwd-css3-mq/final-demo.jpg"></a></p>
+
+<h3>更多例子</h3>
+
+<p>如果你想看更多的例子，看一下下面我用媒体查询设计的<a href="http://themify.me/">WordPress模板</a>：<a href="http://themify.me/themes/tisa">Tisa</a>，<a href="http://themify.me/themes/elemin">Elemin</a>，<a href="http://themify.me/themes/suco">Suco</a>，<a href="http://themify.me/themes/itheme2">iTheme2</a>，<a href="http://themify.me/themes/funki">Funki</a>，<a href="http://themify.me/themes/minblr">Minblr</a>和<a href="http://themify.me/themes/wumblr">Wumblr</a>。</p>
+
+<h3>概览</h3>
+
+<p>对于任何宽度大于1024px的分辨率，页面容器的宽度会为980px。媒体查询被用来检查如果viewport窄于980px，那么页面布局会变成流动宽度而不是固定宽度。如果viewport窄于650px，那么页面布局将会把内容容器和侧边栏展开为整体宽度，从而形成一个单栏的布局。</p>
+
+<p><img alt="" src="http://s0-weizhifeng-net.b0.upaiyun.com/images/rwd-css3-mq/design-overview.jpg"></p>
+
+<h3>HTML代码</h3>
+
+<p>我不会去讲HTML代码的细节。下面是页面布局的整体结构。我拥有一个pagewrap容器，它把header，content，sidebar，footer包裹在了一起。</p>
+
+<pre><code>&lt;div id="pagewrap"&gt;
+    &lt;header id="header"&gt;
+        &lt;hgroup&gt;
+            &lt;h1 id="site-logo"&gt;Demo&lt;/h1&gt;
+            &lt;h2 id="site-description"&gt;Site Description&lt;/h2&gt;
+        &lt;/hgroup&gt;
+        &lt;nav&gt;
+            &lt;ul id="main-nav"&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+        &lt;form id="searchform"&gt;
+            &lt;input type="search"&gt;
+        &lt;/form&gt;
+    &lt;/header&gt;
+
+    &lt;div id="content"&gt;
+        &lt;article class="post"&gt;
+            blog post
+        &lt;/article&gt;
+    &lt;/div&gt;
+
+    &lt;aside id="sidebar"&gt;
+        &lt;section class="widget"&gt;
+             widget
+        &lt;/section&gt;
+    &lt;/aside&gt;
+
+    &lt;footer id="footer"&gt;
+        footer
+    &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+
+<h4>HTML5.js</h4>
+
+<p>注意一下我在demo中使用了HTML5标签。低于9的IE浏览器不支持HTML5中引入的新元素，比如 <code>&lt;header&gt;</code>，<code>&lt;article&gt;</code>，<code>&lt;footer&gt;</code>，<code>&lt;figure&gt;</code>等等。在HTML文档中包含<a href="http://code.google.com/p/html5shiv/">html5.js</a>这个Javscript文件可以使IE识别这些新元素。</p>
+
+<pre><code>&lt;!--[if lt IE 9]&gt;
+    &lt;script src="http://html5shim.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+</code></pre>
+
+<h3>CSS</h3>
+
+<h4>重置HTML5元素为块元素</h4>
+
+<p>下面的CSS将会把HTML元素（article，aside，figure，header，footer等等）重置为块元素。</p>
+
+<pre><code>article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+    display: block;
+}
+</code></pre>
+
+<h4>主结构CSS</h4>
+
+<p>这次我还是不会去讲细节。主容器pagewrap是980px宽。Header拥有一个固定的160px高度。容器content是600px宽并且向左浮动。sidebar是280px宽并向右浮动。</p>
+
+<pre><code>#pagewrap {
+    width: 980px;
+    margin: 0 auto;
+}
+
+#header {
+    height: 160px;
+}
+
+#content {
+    width: 600px;
+    float: left;
+}
+
+#sidebar {
+    width: 280px;
+    float: right;
+}
+
+#footer {
+    clear: both;
+}
+</code></pre>
+
+<h4>第一步的Demo</h4>
+
+<p>这里是这个设计<a href="http://webdesignerwall.com/demo/adaptive-design/demo-step1.html">demo</a>。注意媒体查询还没有实现。改变浏览器窗口的尺寸，你应该看到页面布局并不具有扩展能力。</p>
+
+<h3>有关CSS3媒体查询</h4>
+
+<p>现在是有趣的部分－－<a href="http://webdesignerwall.com/tutorials/css3-media-queries">媒体查询</a></p>
+
+<h4>包含媒体查询的JavaScript文件</h4>
+
+<p>Internet Explorer8或者更老的版本不支持CSS3媒体查询。你可以通过添加<a href="http://code.google.com/p/css3-mediaqueries-js/">css3-mediaqueries.js</a>这个Javascript文件来使其支持媒体查询。</p>
+
+<pre><code>&lt;!--[if lt IE 9]&gt;
+    &lt;script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+</code></pre>
+
+<h4>包含媒体查询的CSS文件</h4>
+
+<p>为媒体查询创建一个新的样式表。看下我之前的教程来搞清楚<a href="http://webdesignerwall.com/tutorials/css3-media-queries">媒体查询</a>是如何工作的。</p>
+
+<pre><code>&lt;link href="media-queries.css" rel="stylesheet" type="text/css"&gt;
+</code></pre>
+
+<h4>Viewport小于980px（流动布局）</h4>
+
+<p>对于窄于980px的viewport，如下的规则将会被应用：</p>
+
+<ul>
+<li>pagewrap = 重置width为95%</li>
+<li>content = 重置width为60%</li>
+<li>sidebar = 重置width为30%</li>
+</ul>
+
+
+<p>提示: 使用百分比（%）的值来使容器变得流动。</p>
+
+<pre><code>@media screen and (max-width: 980px) {
+    #pagewrap {
+        width: 95%;
+    }
+
+    #content {
+        width: 60%;
+        padding: 3% 4%;
+    }
+
+    #sidebar {
+        width: 30%;
+    }
+    #sidebar .widget {
+        padding: 8% 7%;
+        margin-bottom: 10px;
+    }
+}
+</code></pre>
+
+<h4>Viewport小于650px（一栏布局）</h4>
+
+<p>接下来对窄于650px的viewport我拥有另一个CSS集合：</p>
+
+<ul>
+<li>header = 重置height为auto</li>
+<li>searchform = 重新定位searchform为离顶部5px</li>
+<li>main-nav = 重置<code>position</code>为<code>static</code></li>
+<li>site-logo = 重置<code>position</code>为<code>static</code></li>
+<li>site-description =  重置<code>position</code>为<code>static</code></li>
+<li>content = 重置width为auto（这会使得容器展开为整体宽度）并且不进行浮动</li>
+<li>sidebar = 重置width为100%并且不进行浮动</li>
+</ul>
+
+
+<!-- hack -->
+
+
+<pre><code>@media screen and (max-width: 650px) {
+    #header {
+        height: auto;
+    }
+
+    #searchform {
+        position: absolute;
+        top: 5px;
+        right: 0;
+    }
+
+    #main-nav {
+        position: static;
+    }
+
+    #site-logo {
+        margin: 15px 100px 5px 0;
+        position: static;
+    }
+
+    #site-description {
+        margin: 0 0 15px;
+        position: static;
+    }
+
+    #content {
+        width: auto;
+        float: none;
+        margin: 20px 0;
+    }
+
+    #sidebar {
+        width: 100%;
+        float: none;
+        margin: 0;
+    }
+
+}
+</code></pre>
+
+<h4>小于480px的Viewport</h4>
+
+<p>下面的CSS将会在viewport宽度小于480px（即横屏模式下iPhone屏幕的宽度）的时候生效。</p>
+
+<ul>
+<li>html = 禁止文本大小调整（text size adjustment）。默认情况下，iPhone放大了文本大小，这样读起来更加舒服。你可以通过添加<code>-webkit-text-size-adjust: none</code>来禁止文本大小调整。</li>
+<li>main-nav = 重置字体大小为90%</li>
+</ul>
+
+
+<!-- hack -->
+
+
+<pre><code>@media screen and (max-width: 480px) {
+
+    html {
+        -webkit-text-size-adjust: none;
+    }
+
+    #main-nav a {
+        font-size: 90%;
+        padding: 10px 8px;
+    }
+
+}
+</code></pre>
+
+<h1>弹性图片</h1>
+
+<p>为了使图片具有弹性，只需要添加<code>max-width:100%</code>和<code>height:auto</code>。给图片加上<code>max-width:100%</code>和<code>height:auto</code>在IE7中是工作的，但是在IE8中不工作（是的，另一个奇怪的IE&#12288;bug）。为了解决这个问题，你需要为IE8添加<code>width:auto\9</code>。</p>
+
+<pre><code>img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+</code></pre>
+
+<h3>弹性的嵌入视频</h3>
+
+<p>为了使嵌入视频具有弹性，可以使用上面所提到的相同技巧。由于未知原因，（嵌入元素的）<code>max-width:100%</code>在Safari中不工作。解决方式是使用<code>width:100%</code>做为替代。</p>
+
+<pre><code>.video embed,
+.video object,
+.video iframe {
+    width: 100%;
+    height: auto;
+}
+</code></pre>
+
+<h3>进行初始缩放的Meta标签（iPhone）</h3>
+
+<p>默认情况下，iPhone中的Safari会收缩HTML页面来适应iPhone屏幕。下面的meta标签告诉iPhone中的Safari使用设备的宽度做为viewport的宽度，并且禁用初始缩放比例。</p>
+
+<pre><code>&lt;meta name="viewport" content="width=device-width; initial-scale=1.0"&gt;
+</code></pre>
+
+<h3>最终Demo</h3>
+
+<p>查看最终demo并且调整你浏览器窗口的大小来看看真实工作的媒体查询。不要忘记用iPhone，iPad，Blackberry（新版本）和Android电话来访问demo，以便看看移动版本的样子。</p>
+
+<p><a href="http://webdesignerwall.com/demo/adaptive-design/final.html"><img alt="" src="http://s0-weizhifeng-net.b0.upaiyun.com/images/rwd-css3-mq/final-demo.jpg"></a></p>
+
+<h3>总结</h3>
+
+<ul>
+<li>媒体查询的Javascript备胎：</li>
+</ul>
+
+
+<p>css3-mediaqueries.js是使那些不支持媒体查询的浏览器可以使用媒体查询所必需的。</p>
+
+<pre><code>&lt;!--[if lt IE 9]&gt;
+    &lt;script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;
+</code></pre>
+
+<ul>
+<li>CSS媒体查询：</li>
+</ul>
+
+
+<p>创建自适应设计的手段是根据viewport的宽度来用CSS重写页面布局结构。</p>
+
+<pre><code>@media screen and (max-width: 560px) {
+
+    #content {
+        width: auto;
+        float: none;
+    }
+
+    #sidebar {
+        width: 100%;
+        float: none;
+    }
+
+}
+</code></pre>
+
+<ul>
+<li>具有弹性的图片：</li>
+</ul>
+
+
+<p>使用<code>max-width:100%</code>和<code>height:auto</code>来使图片变得具有弹性。</p>
+
+<pre><code>img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+</code></pre>
+
+<ul>
+<li>具有弹性的嵌入视频：</li>
+</ul>
+
+
+<p>使用<code>width:100%</code>和<code>height:auto</code>使嵌入视频具有弹性。</p>
+
+<pre><code>.video embed,
+.video object,
+.video iframe {
+    width: 100%;
+    height: auto;
+}
+</code></pre>
+
+<ul>
+<li>Webkit字体大小调整（Text Size Adjust）：</li>
+</ul>
+
+
+<p>在iPhone上使用<code>-webkit-text-size-adjust:none</code>来禁用文本大小调整。</p>
+
+<pre><code>html {
+    -webkit-text-size-adjust: none;
+}
+</code></pre>
+
+<ul>
+<li>重置iPhone的Viewport和初始缩放比例：</li>
+</ul>
+
+
+<p>下面的meta标签在iPhone上重置viewport和初始缩放比例：</p>
+
+<pre><code>&lt;meta name="viewport" content="width=device-width; initial-scale=1.0"&gt;
+</code></pre>
+
+	(完)
+
+
+
+
+
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>

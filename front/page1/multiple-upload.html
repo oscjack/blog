@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>html5多文件上传处理</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="description" content="html5多文件上传处理" />
+        <meta name="keywords" content="html5多文件上传,文件上传,多文件上传处理,文件上传处理" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/metro-bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/styles/main.css">
+        <link href="/scripts/themes/github.css" rel="stylesheet" type="text/css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid socialbar">
+    <div class="row-fluid">
+        <div class="span8 offset1 jiashare">
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_style">
+                <span class="jiathis_txt">分享到：</span>
+                <a class="jiathis_button_tools_2"></a>
+                <a class="jiathis_button_tools_3"></a>
+                <a class="jiathis_button_tools_4"></a>
+                <a class="jiathis_counter_style"></a>
+            </div>
+            <script type="text/javascript">
+            var jiathis_config = {data_track_clickback:'true'};
+            </script>
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1697615" charset="utf-8"></script>
+            <!-- JiaThis Button END -->
+        </div>
+        
+        <div class="span3 weibo">
+            <wb:follow-button uid="2963100852" type="gray_2" width="136" height="24" ></wb:follow-button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid topbar">
+    <div class="row-fluid">
+        <div class="span3 logo"> 
+            <img width="48" height="48" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" />
+            <div class="row-fluid">
+                <a href="/">
+                    <h3><strong>360weboy</strong></h3>
+                </a>
+                <em><small>一个web开发者的360天</small></em>
+            </div>
+        </div>
+
+        <div class="span9">
+            <ul class="thumbnails">
+                <li class="span2 tile tile-orange">
+                    <a href="/" >
+                        <img src="/media/img/home-48.png">
+
+                        <h2 class="tile-text">首页</h2>
+                    </a>
+                </li>
+                <li class="span2 tile">
+                    <a href="/php" >
+                        <img src="/media/img/variable-48.png">
+
+                        <h2 class="tile-text">PHP</h2>
+                    </a>
+                </li>
+                <li class="span2 tile tile-green">
+                    <a href="/front" >
+                        <img src="/media/img/console-48.png">
+
+                        <h2 class="tile-text">前端</h2>
+                    </a>
+                </li>
+                <li class="span2 tile tile-lime">
+                    <a href="/" >
+                        <img src="/media/img/database-48.png">
+
+                        <h2 class="tile-text">数据库</h2>
+                    </a>
+                </li>
+                <li class="span2 tile tile-purple">
+                    <a href="/system/" >
+                        <img src="/media/img/framework-48.png">
+
+                        <h2 class="tile-text">系统</h2>
+                    </a>
+                </li>
+                <li class="span2 tile tile-teal">
+                    <a href="/" >
+                        <img src="/media/img/github-48.png">
+
+                        <h2 class="tile-text">开源</h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+  </div>
+</div>
+        <div class="container-fluid main-content">
+            <h2>html5多文件上传处理</h2>
+
+<hr/>
+
+<ul>
+    <li>作者：360weboy</li>
+    <li>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+    <li>QQ群：197642724</li>
+</ul>
+
+<p>发现Firefox, Chrome以及Safari三大浏览器已经支持多文件上传，只需要一个添加一个带一个multiple属性的input就可以实现！</p>
+
+<h3>HTML结构</h3>
+
+<pre>
+    <code data-language="html">
+        <!-- 注意:  表单的 enctype属性必须是"multipart/form-data", 这样表单提交的时候，文件数据会被分割成多段-->
+        <form method="post" action="upload-page.php" enctype="multipart/form-data">
+          <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" />
+        </form>
+    </code>
+</pre>
+
+<h3>使用javascript列出选中的文件</h3>
+
+<pre>
+    <code data-language="html">
+        <ul id="fileList">
+          <li>暂无文件上传</li>
+        </ul>
+    </code>
+</pre>
+
+<pre>
+    <code data-language="javascript">
+        function makeFileList() {
+            var input = document.getElementById("filesToUpload");
+            var ul = document.getElementById("fileList");
+    
+            while (ul.hasChildNodes()) 
+            {
+                ul.removeChild(ul.firstChild);
+            }
+    
+            for (var i = 0; i < input.files.length; i++) 
+            {
+                var li = document.createElement("li");
+                li.innerHTML = input.files[i].name;
+                ul.appendChild(li);
+            }
+    
+            if( ! ul.hasChildNodes()) 
+            {
+                var li = document.createElement("li");
+                li.innerHTML = 'No Files Selected';
+                ul.appendChild(li);
+            }
+        }
+    </code>
+</pre>
+
+<p>通过input.files属性获取选中的文件，其值是一个数组。所以，我们可以length属性来判断文件数组的长度并且遍历它来得到具体的文件路径以及文件名</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79aP6vF/Lc0bT.jpg" class="img-polaroid" /></p>
+
+<h3>服务器端获取的上传数组格式</h3>
+
+<pre>
+    <code data-language="php">
+        Array
+        (
+            [filesToUpload] => Array
+                (
+                    [name] => Array
+                        (
+                            [0] => Armenian_1.1stable.zip
+                            [1] => Catalan_1.1stable.zip
+                        )
+        
+                    [type] => Array
+                        (
+                            [0] => application/zip
+                            [1] => application/zip
+                        )
+        
+                    [tmp_name] => Array
+                        (
+                            [0] => D:\xampp\tmp\phpA5C7.tmp
+                            [1] => D:\xampp\tmp\phpA5C8.tmp
+                        )
+        
+                    [error] => Array
+                        (
+                            [0] => 0
+                            [1] => 0
+                        )
+        
+                    [size] => Array
+                        (
+                            [0] => 309810
+                            [1] => 289961
+                        )
+        
+                )
+        
+        )
+    </code>
+</pre>
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/php">Php</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/database">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/framework">架构</a></li>
+                <li><i class="icon-tag"></i><a href="/operation-system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/session-enssence/">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/file-upload">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/curl">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/session-hijack">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/prototype">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/execution-context">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@sina.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy - 苏ICP备12063714号-1</p>
+     
+    <div class="navbar navbar-fixed-bottom">
+        <ul class="nav nav-pills">
+          <li class="active"><a href="/">首页</a></li>
+          <li><a href="/php">Php</a></li>
+          <li><a href="/front">前端开发</a></li>
+          <li><a href="/database">数据库</a></li>
+          <li><a href="/system">系统</a></li>
+          <li><a href="/opensource">开源</a></li>
+        </ul>
+    </div>
+</div>    </body>
+    <script src="/scripts/all.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?f3c780e9561c585e259fe18bd4123f56";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</html>

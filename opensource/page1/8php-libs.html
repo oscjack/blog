@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>分享几款靠谱的php类库</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="分享几款靠谱的php类库" />
+        <meta name="description" content="分享几款靠谱的php类库" />
+        <meta name="keywords" content="php类库,PHP Library,Php Error,Php Thumb, php Detector" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <h2>靠谱的php类库 - 你值得尝试</h2>
+
+<div class="container-fluid publish-info clearfix">
+    <div class="row-fluid">
+      <div class="span8">
+        <p><i class="icon-user"></i>作者: 360weboy</p>
+        <p><i class="icon-comment"></i>QQ群: 197642724</p>
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+      </div>
+      <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+      </div>
+    </div>
+</div>
+
+<hr />
+
+<p>面向对象的编程的最大优点就是可以让你使用第三方的类库，不需要重复地发明轮子，大大地简化以及加快你的开发过程。下面，我收集了8个貌似比较靠谱的类库，分享给你，希望对你有用！</p>
+
+<h3>1. PhpFastCache</h3>
+
+<img alt="PhpFastCache" src="http://pic.yupoo.com/sinaweibo1623108588_v/DckmkVlZ/15ptrv.png" class="img-polaroid" />
+
+<p>phpfastcache宣称自己是高性能的对象缓存系统。通过减轻database load来加快提高动态应用程序的性能。支持APC,Xcache,MemCache,MemCached,WinCache以及Files.使用phpfastcache后，你不必在每次更换服务器以后重写caching class。</p>
+
+<p class="clearfix"><a class="btn btn-primary pull-left" href="http://www.phpfastcache.com/" target="_blank">主站</a></p>
+
+<hr />
+
+<h3>2. Whoops: 用于错误调试的类库</h3>
+
+<img alt="Whoops" src="http://filp.github.io/whoops/screen.png" class="img-polaroid" />
+
+<p>这个类库很实用，可以使你项目中的错误处理以及debug变的异常轻松。并且支持基于栈的错误处理机制，错误的报告界面看起来也很舒服。处理exception的API也很简单，你可以尝试把它整合到你的项目中。</p>
+
+<p class="clearfix"><a class="btn btn-primary pull-left" href="http://filp.github.io/whoops/" target="_blank">主站</a></p>
+
+<hr />
+
+<h3>3. Detector</h3>
+
+<img alt="Detector" src="http://pic.yupoo.com/sinaweibo1623108588_v/DcoEbXLA/zjYFP.png" class="img-polaroid" />
+
+<p>Detector是github上开源的类库，主要用于探测客户端的环境信息，比如浏览器的html5&css3的支持，是否支持cookie，具体的设备类型 - 手机，平板，PC。还可以获取一些其它的信息，自己看下文档试用下吧。</p>
+
+<p class="clearfix"><a class="btn btn-primary pull-left" href="http://detector.dmolsen.com/" target="_blank">主站</a></p>
+
+<hr />
+
+<h3>4. PHP Error</h3>
+
+<img alt="PHP Error<" src="http://pic.yupoo.com/sinaweibo1623108588_v/DcoG7tTw/MGUTU.png" class="img-polaroid" />
+
+<p>PHP Error也是一款不错的开源的错误处理类，更详细的错误信息，语法高亮显示，代码片段，以及支持AJAX请求的错误反馈。可以参考github上的文档。</p>
+
+<p class="clearfix"><a class="btn btn-primary pull-left" href="http://phperror.net/" target="_blank">主站</a></p>
+
+<p>很有必要收集一些好的类库，一般可以到比较火的github上去寻找，如果被fork, star的次数比较多的话，就说明一定是一个不错的开源类库，建议可以关注下。</p>
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>

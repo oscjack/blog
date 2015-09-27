@@ -1,0 +1,234 @@
+title: 深入浅出PHP下的文件上传
+path: page1
+keywords: php文件上传,php文件上传教程,php文件上传原理,php文件上传方法
+permalink: /php/:path/file-upload.html
+---
+<h2>深入浅出PHP下的文件上传</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr />
+<p>文件作为一种特殊的表单数据，通过http post请求方式提交至服务器的时候，php会生成一个$_FILES全局数组，相关的文件信息会存放在这个全局数组中。我将在这篇文章中通过一些示例代码来阐述php下的文件上传，并且深入看下关于文件上传内部的实现机制，最后简单说下如何加强这方面的安全性!</p>
+
+<h3>文件上传</h3>
+
+<p>为了让客户端的用户能够上传文件，我们必须在用户界面中提供一个表单用于提交上传文件的请求。由于上传的文件是一种特殊数据，不同于其它的post数据，所以我们必须给表单设置一个特殊的编码:</p>
+
+<pre>
+    <code data-language="html">
+        <form action="upload.php" method="POST" enctype="multipart/form-data"></form>
+    </code>
+</pre>
+
+<p>以上的enctype属性，你可能不太熟悉，因为这常常会被忽略掉。但是，如果http post请求中既有常规数据，又包含文件类数据的话，这个属性就应该显示加上，这样可以提高针对各种浏览器的兼容性。</p>
+
+<p>接下来，我们得向表单中添加一个用于上传文件的字段：</p>
+
+<pre>
+    <code data-language="html">
+        <input type="file" name="attachment">
+    </code>
+</pre>
+
+<p>上述文件字段在各种浏览器中可能表现会有所不同。对于大多数的浏览器，上述字段都会被渲染成一个文本框加上一个浏览按钮。这样，用户既可以自行输入文件的路径到文本框中，也可以通过浏览按钮从本地硬盘上选择所要上传的文件。但是，在苹果的Safari中，貌似只能使用浏览这种方式。当然，你也可以自定义这个上传框的样式，使它看起来比默认的样式优雅些。</p>
+
+<p>下面，为了更好的阐述怎么样处理文件上传，举一个完整的例子。比如，以下一个表单允许用户向我的本地服务器上上传附件：</p>
+
+<pre>
+    <code data-language="html">
+        <p>请上传你的附件:</p>
+        <form action="upload.php" method="POST" enctype="multipart/form-data"> 
+        <input type="file" name="attachment" /> 
+        <input type="submit" value="上传附件" /> 
+        </form>
+    </code>
+</pre>
+
+<div class="alert alert-info">
+    <p>提示：可以通过php.ini中的upload_max_filesize来设置允许上传文件的最大值。另外，还有一个post_max_size也可以用来设置允许上传的最大表单数据，具体意思就是表单中各种数据之和，所以你也可以通过设置这个字段来控制上传文件的最大值。但是，注意后者的值必须大于前者，因为前者属于后者的一部分表单数据。</p>
+</div>
+
+<p><img src="/media/img/upload_attachments.jpg" class="img-polaroid" /></p>
+<p><strong>图1. 显示在在firefox中的上传表单</strong></p>
+
+<p>当这个表单提交的时候，http请求会被发送到upload.php。为了显示具体哪些信息可以在upload.php中使用，我在upload.php将其打印出来:</p>
+<pre>
+    <code data-language="php">
+        header('Content-Type: text/plain');
+        print_r($_FILES);
+    </code>
+</pre>
+
+<p>下面来做个试验，假如我通过以上表单上传一个本博客的logo到我的本地服务器www.360weboy.me/upload.php，看看在upload.php中会输出什么信息：</p>
+
+<pre>
+    <code data-language="php">
+        Array
+        (
+            [attachment] => Array
+                (
+                    [name] => boy.jpg
+                    [type] => image/jpeg
+                    [tmp_name] => D:\xampp\tmp\php1168.tmp
+                    [error] => 0
+                    [size] => 11490
+                )
+        
+        )
+    </code>
+</pre>
+
+<p>以上就是文件上传后，在全局数组中的关于当前上传文件的所有信息。但是，我们是否能够保证这些信息是安全的，假如name或者其它信息被篡改过了呢？我们时刻需要对来自客户端的信息保持警惕！</p>
+
+<h4>具体的http请求的各个部分</h4>
+
+<p>为了更好的理解文件上传，我们必须核对下客户端发送的http请求中到底包含了那些具体的信息。先前我上传的附件是本博客的logo，因为是图片，不太适合我们做以上实验。所以，我重新上传一个test.text文本文件，其中具体包含了以下内容：</p>
+
+<pre>
+    360weboy
+    
+    360days
+    
+    Life Of A Web Boy
+</pre>
+
+<p>Okay。现在我上传这个文本文件，在upload.php中会输出：</p>
+
+<pre>
+    <code data-language="php">
+        Array
+        (
+            [attachment] => Array
+                (
+                    [name] => test.txt
+                    [type] => text/plain
+                    [tmp_name] => D:\xampp\tmp\php51C0.tmp
+                    [error] => 0
+                    [size] => 40
+                )
+        
+        )
+    </code>
+</pre>
+
+<p>我们再来看下相关的浏览器发送的http post请求(一些可选的头部我省略了)：</p>
+
+<pre>
+    <code data-language="html">
+        POST /upload.php HTTP/1.1
+        Host: www.360weboy.me
+        Referer: http://www.360weboy.me/
+        multipart/form-data; boundary=---------------------------24464570528145
+        Content-Length: 234
+         
+        -----------------------------24464570528145 
+        Content-Disposition: form-data; name="attachment"; filename="test.txt" 
+        Content-Type: text/plain 
+        
+        360weboy 
+        
+        360days 
+        
+        Life Of A Web Boy 
+        -----------------------------24464570528145--
+    </code>
+</pre>
+
+<p>从上面的请求格式中有几个字段我们要关注下的，分别是name, filename以及Content-Type.它们分别表示上传文件框在form表单中的字段名-attachment，用户从本地硬盘中上传的文件名 – test.txt,以及上传的文件格式 – text/plain(代表文本文件)。然后，我们看到一行空行下面的，就是这个上传文件中的具体内容。</p>
+
+<h4>安全性的加强</h4>
+
+<p>为了加强文件上传中的安全性，我们需要检查下$_FILES全局数组中的tmp_name和size。为了确保tmp_name指向的文件确实是刚刚用户在客户端上传的文件，而不是指向的类似/etc/passwd,可以使用php中的函数is_uploaded_file()来进行下判断：</p>
+
+<pre>
+    <code data-language="php">
+        $filename = $_FILES['attachment']['tmp_name'];
+         
+        if (is_uploaded_file($filename)) { 
+            /* 是一个上传的文件. */
+        }
+    </code>
+</pre>
+
+<p>某些情况下，用户上传文件后，可能会将上传成功的文件的内容显示给用户看下，那么上述代码的检查尤其重要。</p>
+
+<p>另外一个需要检查的就是上传文件的mime-type, 也就是上述upload.php中输出数组的type字段。 我在第一个例子中上传的是一个图片，所以$_FILES['attachment']['type']的值为’image/jpeg’。 如果打算在服务器端只接受image/png, image/jpeg, image/gif, image/x-png 以及 image/p-jpeg这些mime-type的图片，可以用类似下面的代码了进行检查(只是举个例子，具体代码，比如报错等，应该遵循你的系统中的机制):</p>
+
+<pre>
+    <code data-language="php">
+        $allow_mimes = array(
+            'image/png',
+            'image/x-png',
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg'
+        );
+        
+        $image = $_FILES['attachment'];
+        
+        if(!in_array($image['type'], $allow_mimes)) {
+            die('对不起, 你上传的文件格式不准确；我们只接受图片文件.');
+        }
+        
+        // 继续处理上传的图片文件
+    </code>
+</pre>
+
+<p>正如你看到的，我们已经保准了文件的mime-type是符合服务器端的要求的。但是，这样是不是就可以防止恶意用户上传其它有害文件，还是不够的，因为这个mime-type恶意用户是可以伪装的。 比如用户做了一张jpg图片，在图片的元数据中写入了一些恶意的php代码，然后保存为后缀名为php的文件。当这个恶意文件上传的时候，将顺利通过服务器端对于mime-type的检查，被认为是一张图片，里面的危险的php代码将会被执行。具体的图片的元数据类似如下:</p>
+
+<pre>
+    <code>
+        File name    : image.jpg
+        File size    : 182007 bytes
+        File date    : 2012:11:27 7:45:10
+        Resolution   : 1197 x 478
+        Comment      : passthru($_POST['cmd']); __halt_compiler();
+    </code>
+</pre>
+
+<p>我们可以看到，在图片元数据的Comment字段中加入了php代码。所以，很显然，为了防止类似危险情况发生，还必须对上传文件的扩展名进行一次必要的检查。下面的代码对前面的检查Mime-type的代码进行了加强：</p>
+
+<pre>
+    <code data-language="php">
+        $allow_mimes = array(
+            'image/png' => '.png',
+            'image/x-png' => '.png',
+            'image/gif' => '.gif',
+            'image/jpeg' => '.jpg',
+            'image/pjpeg' => '.jpg'
+        );
+        
+        $image = $_FILES['attachment'];
+        
+        if(!array_key_exists($image['type'], $allow_mimes )) {
+            die('对不起, 你上传的文件格式不准确；我们只接受图片文件.');
+        }
+        
+        // 获取略去后缀名的文件名:
+        $filename = substr($image['name'], 0, strrpos($image['name'], '.'));
+        
+        // 添加后缀名
+        $filename .= $allow_mimes[$image['type']];
+        
+        // 继续处理上传的文件
+    </code>
+</pre>
+
+<p>通过上述的代码，我们确保即使上传的图片的元文件中包含了php代码的话，图片文件会被重名为后缀名为图片格式的文件，所以其中的php代码也不会被执行了。上述代码对正常的上传的图片也不会有任何负面影响。</p>
+
+<p>进行了上述的几步提高安全性的检查步骤后，如果你只是要把上传的文件保存到一个指定的目录中，那么就可以使用php的默认函数move_uploaded_file来实现了：</p>
+
+<pre>
+   <code data-language="php">
+        $tmp_filename = $_FILES['attachment']['tmp_name'];
+        $filename = '/path/to/attachment.txt';
+         
+        if (move_uploaded_file(tmp_filename, $filename)) { 
+            /* $temp_filename 保存在临时目录中的上传文件, 然后成功将其保存到对应目录下的attachment.txt文件中. */
+        }
+    </code>
+</pre>
+
+<p>你也许还要对上传文件的大小进行限制，那么你可以通过filesize函数来获取上传文件的大小，进行判断后做进一步处理，这具体就不在这将了，自己去折腾吧。</p>
+
+<p>好了，关于文件上传暂时就写到这里吧。希望这篇入门篇文章对你有所帮助。后续有时间再补充该主题的博文吧！</p>

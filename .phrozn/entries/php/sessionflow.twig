@@ -1,0 +1,88 @@
+title: php获取Google Analytics中的访问量
+path: google analytics
+permalink: /php/:path/
+---
+<h2>php获取Google Analytics中的访问量</h2>
+
+<ul>
+    <li>作者：360weboy</li>
+    <li>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+    <li>QQ群：197642724</li>
+</ul>
+
+<p>Google Analtyics很强大，统计了整个站点的各项数据，但是说实话，有些数据是没兴趣看的。很多站长估计最关心的就是站点的访问量(Visits)以及页面流浏览量（PV。但是，每次要获知这两项数据的话，必须要进登录进google的账户，感觉非常麻烦。干脆用程序来获取这些数据好了，然后显示在站点上，省的每次跑去看。</p>
+
+<p>想自己写个类来调用Google Analytics的API获取需要的数据，但是本人很懒惰，相信互联网上肯定有开发者已经写了相应的类，发现了一个老外写的类，功能不错，可以到这里下载源代码 > <a href="http://code.google.com/p/gapi-google-analytics-php-interface/" target="_blank">GAPI</a>。</p>
+
+<h3>类的使用实例 – 获取本站的流量来源：</h3>
+
+<pre>
+    <code data-language="php">
+        require 'gapi/gapi.class.php';
+ 
+        /* 设置账户信息 */
+        define('ga_account'     ,'360weboy@gmail.com');
+        define('ga_password'    ,'password');
+        define('ga_profile_id'  ,'profile_id');
+         
+        $ga = new gapi(ga_account,ga_password);
+         
+        /* 获取流量来源 */
+        $dimensions = array('source');
+        $metrics    = array('visits');
+         
+        /* 根据访问量大小，从大到小排序排列流量来源，所以在visits前面需要加上-号*/
+        $ga->requestReportData(ga_profile_id, $dimensions, $metrics,'-visits');
+         
+        $gaResults = $ga->getResults();
+         
+        $i=1;
+         
+        foreach($gaResults as $result)
+        {
+            printf("%-4d %-40s %5d\n",
+                   $i++,
+                   $result->getSource(),
+                   $result->getVisits());
+        }
+    </code>
+</pre>
+
+<h3>成功获取数据</h3>
+
+<pre>
+    <code data-language="php">
+        1    weibo.com                                  693
+        2    (direct)                                   567
+        3    segmentfault.com                           145
+        4    topic.csdn.net                             115
+        5    google                                      47
+        6    bbs.chinaunix.net                           46
+        7    e.weibo.com                                 38
+        8    bbs.csdn.net                                34
+        9    h2w.iask.cn                                 34
+        10   s.yanghao.org                               25
+        11   baidu                                       16
+        12   link.chinaz.com                             14
+        13   blogread.cn                                 12
+        14   rss.itwwt.com                               11
+        15   bbs.51cto.com                               10
+        16   km.oa.com                                    5
+        17   wss.zol.com.cn                               5
+        18   home.51cto.com                               4
+        19   s.weibo.com                                  4
+        20   api.uyan.cc                                  3
+        21   pangee.me                                    3
+        22   renren.com                                   3
+        23   web.qq.com                                   3
+        24   10.210.12.253                                2
+        25   getpocket.com                                2
+        26   192.168.95.204                               1
+        27   bing                                         1
+        28   blog.mail.163.com                            1
+        29   blog.z.qq.com                                1
+        30   coweibo.cn                                   1
+    </code>
+</pre>
+
+<p>新站，流量很少(:! 你还可以非常方便的获取其它数据或者过滤数据，这里就不演示了，自己去研究折腾吧！</p>

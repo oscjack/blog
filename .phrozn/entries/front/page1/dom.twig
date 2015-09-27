@@ -1,0 +1,99 @@
+title: 常用Javascript DOM 方法速查
+path: page1
+keywords: javascript dom, javascript dom方法， dom方法， dom方法速查, javascript dom方法速查
+permalink: /front/:path/dom.html
+---
+<h2>常用Javascript DOM 方法速查</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<h3>Reaching Elements in a Document</h3>
+
+<pre>
+    <code data-language="javascript">
+        //Retrieves the element with the given id as an object 
+        document.getElementById('id')
+        
+        //Retrieves all elements with the tag name tagname and stores them in an arraylike list
+        document.getElementsByTagName('tagname')
+    </code>
+</pre>
+
+<h3>Reading Element Attributes, Node Values and Other Data</h3>
+
+<pre>
+    <code data-language="javascript">
+        //Retrieves the value of the attribute with the name attribute
+        node.getAttribute('attribute')
+        
+        //Sets the value of the attribute with the name attribute to value
+        node.setAttribute('attribute', 'value')
+        
+        //Reads the type of the node (1 = element, 3 = text node)
+        node.nodeType
+        
+        //Reads the name of the node (either element name or #textNode)
+        node.nodeName
+        
+        //Reads or sets the value of the node (the text content in the case of text nodes)
+        node.nodeValue
+    </code>
+</pre>
+
+<h3>Navigating Between Nodes</h3>
+
+<pre>
+    <code data-language="javascript">
+        //Retrieves the previous sibling node and stores it as an object.
+        node.previousSibling
+        
+        //Retrieves the next sibling node and stores it as an object
+        node.nextSibling
+        
+        /*Retrieves all child nodes of the object and stores them in an list. here are shortcuts for the first and last child 
+        node, named node.firstChild and node.lastChild.*/
+        node.childNodes
+        
+        //Retrieves the node containing node
+        node.parentNode
+    </code>
+</pre>
+
+<h3>Creating New Nodes</h3>
+
+<pre>
+    <code data-language="javascript">
+        /*Creates a new element node with the name element. You provide the name as a string*/
+        document.createElement(element)
+        
+        //Creates a new text node with the node value of string
+        document.createTextNode(string)
+        
+        /* Creates newNode as a copy (clone) of node. If bool is true, the clone includes clones of all the 
+        child nodes of the original.*/
+        newNode = node.cloneNode(bool)
+        
+        //Adds newNode as a new (last) child node to node
+        node.appendChild(newNode)
+        
+        // Inserts newNode as a new child node of node before oldNode
+        node.insertBefore(newNode,oldNode)
+        
+        // Removes the child oldNode from node
+        node.removeChild(oldNode)
+        
+        //Replaces the child node oldNode of node with newNode
+        node.replaceChild(newNode, oldNode)
+        
+        /*Reads or writes the HTML content of the given element as a string—including all child nodes with their attributes and text content*/
+        element.innerHTML
+    </code>
+</pre>
+
+<h3>Known browser quirks:</h3>
+
+<p>getAttribute and setAttribute are not reliable. Instead, assign the property of the element object directly: obj.property = value. Furthermore, some attributes are actually reserved words, so instead of class use className and instead of for use HTMLfor.</p>
+
+<p>Real DOM compliant browsers will return linebreaks as text nodes in the childNodes collection, make sure to either remove them or test for the nodeType</p>

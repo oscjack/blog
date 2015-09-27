@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /.phrozn/
+Disallow: /scripts/
+Disallow: /styles/
+Disallow: /media/ 

@@ -1,0 +1,29 @@
+title: Php session内部执行流程的再次剖析
+path: page1
+keywords: session内部执行流程,Php session内部执行流程
+permalink: /php/:path/session-mechanism.html
+---
+<h2>Php session内部执行流程的再次剖析</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<p>近期再次分析了php session内部的执行流程，我将在这篇文章中简要地概括出php内部关于session的执行步骤。</p>
+
+<ol>
+    <li>首先php中的session其实就是作为一个扩展载入到php内核中的。我们可以将它理解成一个扩展就可以了。当session扩展被载入时，php会调用内部核心函数来获取处理session的save_handler – 也就是存储读取session数据的接口类或者函数。 Php默认地是通过写或者读取文件来处理session数据的。但是，php也提供了user自定义的方式 – 也就是自定义处理session数据的接口，可以通过session_set_save_handler函数来注册。关于这方面，后续我会详细写一篇文章。同时，php会判断session.auto_start是否已经在配置中默认开启。如果开启了session.auto_start，PHP便会调用内部函数自动开启Session功能。以上，就是session扩展被载入时php内部所处理的两件事情。</li>
+    <li>
+        接下来，php在启动session的时候，如果发现请求的Cookies,Get,Post中不存在session id,说明这是客户端的第一次访问，php会自动调用php_session_create_id函数创建一个唯一的session id,并且在http response中通过set-cookie头部发送给客户端保存(在客户端cookie被禁用的情况下，php也可以自动将session id添加到url参数中以及form的hidden 字段中,这需要将php.ini中的session.use_trans_sid设为开启，也可以在运行时调用ini_set来设置这个配置项)。相反，如果请求中已经携带了session id,那么php会做以下几件事情:
+        <ol>
+            <li>从cookie中获取Session ID</li>
+            <li>调用save_handler的open接口打开存储上下文</li>
+            <li>如果读取不到对应的session id, 生成新的Session Id</li>
+            <li>注册$_SESSION和$_HTTP_SESSION_VARS全局变量，$_SESSION和$_HTTP_SESSION_VARS会被注册为同一个数组</li>
+            <li>接着调用save_handler的read接口读取Session数据，如果是使用files方式存储的话，就从文件中读取Session数据，数据库方式的话，就从数据库中读取。 读取完毕后会把读到的数据写入到$_SESSION数组中</li>
+        </ol>
+    </li>
+    <li>最后，当一个请求执行完毕时，php会调用内部函数获取$_SESSION数组中的值，然后调用php_session_encode将其系列化后，通过调用save_handler的write接口将session系列化数据存储起来。</li>
+</ol>
+
+<p>以上大致按照顺序列出了php session的内部执行流程。至于php的源代码，我想就不贴出来了。</p>

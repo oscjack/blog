@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>前端开发者的基本素养</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="前端开发者的基本素养" />
+        <meta name="description" content="前端开发者的基本素养" />
+        <meta name="keywords" content="前端开发者的基本素质,前端开发者" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <h2>前端开发者的基本素养</h2>
+<ul>
+    <li>译者: <a href="http://www.cnblogs.com/chyingp/" target="_blank">chyingp</a></li>
+    <li>E文链接: <a href="http://rmurphey.com/blog/2012/04/12/a-baseline-for-front-end-developers/" target="_blank">http://rmurphey.com/blog/2012/04/12/a-baseline-for-front-end-developers/</li>
+</ul>
+<div class="container-fluid publish-info clearfix">
+    <div class="clearfix">
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+    </div>
+    <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+    </div>
+</div>
+<hr/>
+<p>前几天我为一个项目写README文档，我希望其他开发者能够看到这个项目，并从中学到一些东西。突然我意识到，若放在几年前，我写作的过程中随口提到的Node，npm，Homebrew，git，测试还有产品构建，会把我魂都吓没了。</p>
+<p>曾经有段时间，一个前端开工程师基本的工作流程是：编辑文件，本地测试下（尽我们可能做到最好），然后通过FTP上传到服务器。我们评价一个前端工程师的水平，是通过他是否能够兼容IE6，或者取得跨浏览器的像素级的一致。很多社区的成员——包括我在内——缺少传统的编程经验。HTML、CSS和JavaScript——通常指jQuery——是自学的技能。</p>
+<p>这些事情在过去的几年里发生了变化。可能是因为大家开始认真的看待前端开发者的工作，或者是因为浏览器开发商开始臭味相投（趋向一致？原句getting their shit together），又或者是前端开发者自己——同样，包括我在内——开始看到软件开发变得完善的曙光。</p>
+<p>不管怎么说，我们看到前端开发的重点，从繁琐转向了重视工具化。想要成为一名成功的前端开发者，你需要掌握一套新的基础技能，而不满足要求的前端开发者会感觉到落后越来越多，而那些正在分享他们知识的工程师们觉得这些事情是自然而然的。
+
+</p>
+<p>下面提到的一些内容是我希望人们能够熟悉的，除此之外还有一些相关的资源，如果你觉得你需要在成长的道路上加速的话。（感谢Paul Irish，Mike Taylor，Angus Croll，以及Vlad Fillppov的贡献）</p>
+
+<h3>JavaScript</h3>
+
+<p>这个不用多说，但仅仅知道一个javascript库再也不够了。我并不是说你需要知道如何用原生的JavaScript实现一个JavaScript库的所有特性，但你需要知道，什么时候的确需要用库，同时，在不需要用库的时候，有能力用简单而古老的JavaScript完成你的工作。
+
+</p>
+<p>这意味着，你已经读过《JavaScript语言精粹》—— 希望不止一次。你理解像对象、数组这样的数据结构；函数，包括如何、为什么你需要～call和apply他们；掌握原型继承；掌握javascript的异步操作。</p>
+<p>如果你的原生JS比较弱，这里有一些资源可以帮到你：</p>
+<ul>
+<li><a href="http://eloquentjavascript.net/" target="_blank">《JavaScript编程精解》</a>：一本可以带你回归JavaScript基础的书，挺不错的（有纸质版的）</li>
+<li><a href="https://github.com/rmurphey/js-assessment" target="_blank">《测试驱动的JS评价》</a>: 一系列失败测试，它们覆盖了不同的JavaScript主题；你能够编写让测试通过的代码吗？</li>
+<li><a href="http://paulirish.com/2010/10-things-i-learned-from-the-jquery-source/" target="_blank">《我从jQuery源码中学到的10点》</a>: Paul Irish给我们带来的礼物，虽然比较旧，但的确不错，它让我们知道从阅读他人的代码中所能学到的东西。</li>
+</ul>
+
+<h3>Git（还有一个Github账户）</h3>
+
+<p>如果你没访问过Github，你绝对无法参与到这个资源丰富的开源社区中来，它已经在前端开发技术领域呈现欣欣向荣之势。克隆一个分支然后跑一下应该成为你的习惯，同时你需要知道在<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank">多人协作的项目中如何使用分支</a>。</p>
+<h4>需要提升你的git技能？</h4>
+<ul>
+    <li><a href="http://help.github.com/">help.github.com</a></li>
+    <li><a href="http://help.github.com/git-cheat-sheets/">Github git cheat sheet</a></li>
+    <li><a href="http://cheat.errtheblog.com/s/git">More cheat sheet</a></li>
+    <li><a href="http://pinboard.in/u:rmurphey/t:git/">More git links</a></li>
+</ul>
+
+<h3>模块化，依赖管理，产品构建</h3>
+
+<p>通过在页面塞几个script或style标签来管理依赖的日子已经一去不复返了。即使你还没能能够将RequireJS引入你的工作流程中去，也应该找时间在自己的个人项目，或像<a href="https://github.com/tbranyen/backbone-boilerplate">Backbone Boilerplate</a>这样的项目里试下它，因为它能给我们带来许多好处。RequireJS能够让你开发的JS、CSS文件保持模块化、粒度足够细，而在产品上线前可以通过配套的优化工具进行文件压缩、合并。</p>
+<p>AMD听起来很吓人？再也没有借口什么也不干了。至少，你应该知道存在像<a href="https://github.com/mishoo/UglifyJS">UglifyJS</a>、<a href="https://developers.google.com/closure/compiler/">Closure Compiler</a>这样的工具，它们能够在你的产品上线前，对你的代码进行智能压缩和合并。</p>
+<p>如果你还在写原生的CSS &mdash;&mdash; 也就是说，目前没有用像Sass或者Stylus这样的CSS预处理器 &mdash;&mdash; RereireJS也能够帮你保持你的CSS文件模块化。在一个基础样式文件里使用<code>@import</code>声明来加载相关依赖文件，然后对这个基础文件运行<a href="http://requirejs.org/docs/optimization.html#onecss">ReqireJS Optimizer</a>来构建实际生产环境所要用到的文件。</p>
+
+<h3>浏览器内置开发者工具</h3>
+<p>在过去的几年里，基于浏览器的开发工具已经大大得到了提升，如果你知道怎么利用好它们的话，它们能够大大提高你的开发体验。（提示：如果你还在使用<code>alert</code>调试代码的话，你会浪费很多时间）</p>
+<p>你或许需要确定一款浏览器，你主要使用它的开发者工具 &mdash;&mdash; 近来我比较倾向于使用<a href="https://developers.google.com/chrome-developer-tools/">Google Chrome开发者工具</a> &mdash;&mdash; 但不要立即抛弃其他浏览器的开发者工具，因为他们经常会根据开发者的反馈来添加有用的特性。特别值得一提的是，Opera的<a href="http://my.opera.com/dragonfly/blog/">Dragonfly</a>的某些功能让它的开发者工具与众不同，比如（尚在实验中的）CSS分析器，可用户自定义的键盘快捷键，无需USB连接的远程调试，以及能够保存并使用自定义的调色板。</p>
+
+<h3>命令行</h3>
+
+<p>说到命令行，适应它(being comfortable with it)再也不是可选项了&mdash;&mdash;如果你没有准备好坐到终端窗口前，并亲自动手敲命令行的话，你一路上会错过非常多的东西。我并不是说你必须在终端上完成所有事情&mdash;&mdash;我不会抢走你的git GUI（图形化用户操作界面），虽然我的确觉得最终你离开它会更好&mdash;&mdash;但不管做什么项目，你最好一直开着你的命令行终端。下面几个命令行任务是你必须不假思索就必须能够完成的：</p>
+<ul>
+    <li>
+    <code>ssh</code> 登录另一台机器或服务器</li>
+    <li>
+    <code>scp</code> 拷贝文件到另一台机器或服务器</li>
+    <li>
+    <code>ack</code>或者<code>grep</code> 找到文件名包含某个字符串或符合某种模式的文件</li>
+    <li>
+    <code>find</code> 定位文件名符合某种模式的文件</li>
+    <li>
+    <code>git</code> 至少能够用它完成如下事情：<code>add</code>，<code>commit</code>，<code>status</code>和<code>pull</code>
+    </li>
+    <li>
+    <code>brew</code> 通过Homebrew 来安装文件</li>
+    <li>
+    <code>npm</code> 安装Node包</li>
+    <li>
+    <code>gem</code> 安装Ruby包</li>
+</ul>
+<p>如果有些命令你用得比较多，你可以编辑<code>.bashrc</code>或者<code>.profile</code>或者<code>.zshrc</code>或者其他，然后创建<a href="http://tldp.org/LDP/abs/html/aliases.html">alias</a>，这样你就不用像之前那样敲很多字符。你也可以添加alias到你的<code>~/.gitconfig</code>文件里。Gianni Chiappetta的<a href="https://github.com/gf3/dotfiles">dofiles</a>是个不错的范例。</p>
+<p><strong>注意</strong>：如果你在Windows上开发，我不知道如何帮助你，除了建议使用Cygwin。在Windows上参与前端开源社区的活动比较麻烦，当然我说的不一定正确。相反的，MacBook Air便宜、强大，而且不可思议地便携，而且总是会有Ubuntu或者各种*nix。</p>
+
+<h3>前端模板</h3>
+
+<p>在不久之前，对于前端的XHR请求，服务器典型的应答方式是返回一段HTML文本。但在过去的12到18个月间，前端开发社区看到了曙光，要求服务端返回单纯的数据。将数据转成HTML是件麻烦的事情，如果处理得不好的话，可维护性会相当糟糕。这就是<a href="http://www.slideshare.net/garann/using-templates-to-achieve-awesomer-architecture">前端模版库</a>诞生的目的：你仅需要维护一套模板，在需要的时候提供数据，就能够将模板转换成HTML。在模板库的选择上需要帮助？Garann Mean的<a href="http://garann.github.com/template-chooser/">template chooser</a>能够给你指明方向。</p>
+
+<h3>CSS预处理器</h3>
+
+<p>Paul Irish前些天注意到，前端开发者编写的代码，跟最终在生产环境部署的差别开始变得很大。通过CSS预处理器写出来的代码就是很好的例子。仍然有不少人坚持说原生的CSS才是唯一的出路，但它们<a href="http://www.stuffandnonsense.co.uk/blog/about/less">离我们越来越近</a>(but they are starting to come around)。这些工具提供了一些CSS属性按理来说早就该有的特性，包括&mdash;&mdash;变量、数学运算、逻辑、混合(mixin)，它们能够帮你从一堆冗余的特性前缀中解放出来。</p>
+
+<h3>测试</h3>
+
+<p>编写模块化、松耦合代码的乐趣之一就是，你的代码变得很容测试。如果你用了<a href="https://github.com/cowboy/grunt">Grunt</a>这样的工具，创建一个包含测试用例的项目再简单不过了。虽然Grunt集成了QUnit，但是还有许多测框架供你选择&mdash;&mdash;<a href="https://github.com/pivotal/jasmine/wiki">Jasmine</a>和<a href="http://visionmedia.github.com/mocha/">Mocha</a>是我喜欢的两个测试框架&mdash;&mdash;框架的选择取决于你的个人偏好，以及你项目的结构(the mark up of the rest of your stack)。</p>
+<p>如果你的代码是模块化、松耦合的，测试是件有趣的事情。然而，对于那些组织糟糕的代码，测试不单困难，有时甚至不可能的。换句话说，强迫自己编写测试用例&mdash;&mdash;甚至可能在你正式编码之前&mdash;&mdash;有助于帮你理清你的思路以及你的代码组织。后续当你重构你的代码的时候，它也能让你充满自信。</p>
+<ul>
+<li>我录制的<a href="http://vimeo.com/20457625">一段很短的视频</a>，关于如何使用Jasmine测试jQuery</li>
+<li>一个jquery-bbq插件<a href="https://github.com/cowboy/jquery-bbq/blob/master/unit/unit.js">单元测试</a>的例子</li>
+</ul>
+
+<h3>流程自动化(rake/make/grunt/其他)</h3>
+<p>流程自动化的一个例子：通过Grunt创建内置单元测试的项目。前端开发的现状是，我们有一大堆重复性的工作需要做，但有个朋友曾经告诉我，一个好的开发者是个“懒惰”的开发者：首要的一点是，如果你发现自己做同一件同样的事件超过三次，那么是时候将它变成自动化的。</p>
+<p>像make这样的工具已经存在很长一段时间，主要用来帮我们解决上述问题，但也有类似<code>rake</code>、<code>grunt</code>以及其他类似的工具。如果你想把跟需要跟文件系统打交道的任务变成自动化，学习一门JavaScript以外的语言非常有帮助，因为当你仅仅想要处理文件时，Node的异步特性会让事情变得更加麻烦。也有许多针对特定任务的自动化工具&mdash;&mdash;部署，构建，代码质量保证，还有其他。</p>
+
+<h3>代码质量</h3>
+
+<p>如果你曾经被缺失分号，或多一个逗号这样的问题困扰过， 你就知道这样小的代码缺陷可以浪费你多少时间。这就是为什么你正在类似<a href="http://www.jshint.com/">JSHint</a>这样的工具里运行你的代码，没错吧？它不仅<a href="http://www.jshint.com/options/">可配置</a>，而且有很多方式可以将它集成到你的<a href="http://www.jshint.com/platforms/">编辑器或构建流程</a>中去。</p>
+
+<h3>好的参考手册</h3>
+
+<p>唉，没有针对前端开发的手册，但<a href="https://developer.mozilla.org/en-US/">MDN</a>触手可及。好的前端开发者会在任何搜索查询里加上mdn前缀，比如<code>mdn javascript arrays</code>，避免搜到像w3schools那样的盈利性组织的内容。</p>
+
+<h3>结尾</h3>
+
+<p>阅读上面这些东西没办法让你成为一个专家，哪怕是变得更有经验些&mdash;&mdash;在某件事情上做得更好的唯一途径就是<a href="http://rmurphey.com/blog/2011/05/20/getting-better-at-javascript/">做那件事</a>。祝你好运。</p>
+
+<div class="container-fluid publish-info clearfix">
+    <div class="clearfix">
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+    </div>
+    <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+    </div>
+</div>
+
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>

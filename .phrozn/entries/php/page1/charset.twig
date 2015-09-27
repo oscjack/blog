@@ -1,0 +1,79 @@
+title: 剖析网页字符集的设置顺序
+path: page1
+keywords: 网页字符集,网页字符集的设置,网页字符集的设置顺序,web字符集,web字符集的设置
+permalink: /php/:path/charset.html
+---
+<h2>剖析网页字符集的设置顺序</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<p>上个星期在为一个电子商务网站进行数据转移到新系统中的时候，发现一些产品描述字符老是输出乱码，确定是字符集的问题以后，对字符集再次进行了一次调研，确定了影响页面字符集的方式主要下面几种方式:</p>
+
+<ol>
+    <li>文件的编码方式</li>
+    <li>Apache2的默认字符集设置</li>
+    <li>PHP.ini中的默认字符集的设置</li>
+    <li>PHP脚本中手动输出header(‘Content-type:text/html;charset=xxx’);</li>
+    <li>html页面中加入</li>
+</ol>
+
+<p>我对以上五种方式都进行了一一测试，并且确定了5种方式对于浏览器字符集选择的优先级。首先我创建了一个以utf8编码的test.php文件，内容如下:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79kyqqU/11ox3l.jpg" class="img-polaroid" /></p>
+
+<p>我使用chrome访问test.php, 因为我的chrome浏览器的默认字符集不是utf8,应该是gb2312或者gbk，所以我在浏览器中看到了如下乱码:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79l2aX0/134nlM.jpg" class="img-polaroid" /></p>
+
+<h3>header与meta的优先级比较</h3>
+
+<p>接下来，先来测试以上的4,5两种方式。我向html页面中分别加入了，内容显示正常。</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79lphYW/6HRUK.jpg" class="img-polaroid" /></p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79lIsh2/g8AkI.jpg" class="img-polaroid" /></p>
+
+<p>去掉header中的meta标签，加入header(‘Content-type:text/html;charset=utf8′);内容显示正常。那么，meta标签和header的方式，那个优先级高呢，我在页面里同时设置了这两项，header设置为gb2312, meta设置为utf8:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79lZpxV/FGKkF.jpg" class="img-polaroid" /></p>
+
+<p>结果内容显示不正常，说明header的优先级高。浏览器先采用http头部中的字符集设置，然后是html页面中meta标签设置的字符集。</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79mnRIT/HNvI6.jpg" class="img-polaroid" /></p>
+
+<h3>php.ini中设置默认字符集以后的影响</h3>
+
+<p>接下来，我们来看下在php.ini中设置默认字符集以后的情形。为了测试下优先级，我们先将页面中的header以及meta设置的字符集都改为gb2312,那么这样内容肯定显示为乱码。然后，我们打开php.ini文件，找到如下设置，去掉前面的引号，设置字符集为utf8:
+</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79mRWdg/yAld3.jpg" class="img-polaroid" /></p>
+
+<p>设置好以后，记得要重启下apache2服务器，结果显示如下:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79n9KAT/pmRJS.jpg" class="img-polaroid" /></p>
+
+<p>我们看到，在php.ini设置默认字符集为utf8以后，它被加入到了响应头Content-type末尾，从而覆盖了在php脚本中通过header函数输出的gb2312的字符集，浏览器根据该头部中的信息，认为内容是utf8的字符集，最后内容现实正常。由此可见，php.ini中字符集设置的优先级高于header函数以及meta标签。</p>
+
+<h3>apache2中设置默认字符集</h3>
+
+<p>最后，我们来设置下apache2中的默认字符集来测试下。这次将header,meta,php.ini中的字符集都设置为gb2312,然后在apache2设置默认字符集为utf8:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79nDJrV/L3ptM.jpg" class="img-polaroid" /></p>
+
+<p>重启apache2服务器，内容显示如下：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79nZ2vv/xwwOO.jpg" class="img-polaroid" /></p>
+
+<p>由此可见,apache2中的字符集的设置没有影响到http响应中的Content-Type头部，所以浏览器认为应该用gb2312来解码，导致出现乱码。那么，如果去掉php.ini中的字符集的设置以后内，页面是否会显示正常。经过测试，显示如下：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79oonbC/ENWvZ.jpg" class="img-polaroid" /></p>
+
+<p>看来，apache2中的字符集的优先级同样小于header函数的字符集设置。我们继续去掉header的设置看下：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79oKpGs/uXIQQ.jpg" class="img-polaroid" /></p>
+
+<p>以上证明，apache2中的字符集设置的优先级高于meta标签的字符集设置。charset=utf8加入到了http头部中。</p>
+
+<p>综合上述实验，得出字符集设置优先级顺序: <strong>php.ini默认字符集设置 > header函数字符集设置 > apache2默认字符集设置 > meta标签字符集设置</strong></p>

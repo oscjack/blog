@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>PHP之道</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="PHP之道" />
+        <meta name="description" content="PHP之道" />
+        <meta name="keywords" content="PHP最佳实践,php编码规范" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <h3>PHP之道</h3>
+
+<div class="container-fluid publish-info clearfix">
+    <div class="clearfix">
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+    </div>
+    <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+    </div>
+</div>
+
+<hr />
+
+<div class="row-fluid">
+    <div class="span2 guide-siderbar">
+      <ul>
+                <li><a href="/php/page1/zenphp.html#site-header">Welcome</a></li>
+                
+                
+                    
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#getting_started">Getting Started</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#use_current_stable_version">使用当前稳定版本 (5.4)</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#builtin_web_server">内置的Web服务器</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#mac_setup">Mac 安装</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#windows_setup">Windows 安装</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#vagrant">Vagrant</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#code_style_guide">代码风格指南</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#language_highlights">Language Highlights</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#programming_paradigms">编程范式</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#namespaces">Namespaces</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#standard_php_library">标准PHP库</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#command_line_interface">命令行接口</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#xdebug">XDebug</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#dependency_management">依赖管理</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#composer_and_packagist">Composer And Packagist</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#pear">Pear</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#coding_practices">Coding Practices</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#the_basics">基础知识</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#date_and_time">日期和时间</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#design_patterns">设计模式</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#exceptions">Exceptions</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#databases">数据库</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#security">安全</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#web_application_security">Web应用安全</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#password_hashing">Password Hashing</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#data_filtering">数据过滤</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#configuration_files">配置文件</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#register_globals">注册全局变量</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#error_reporting">错误提示</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#testing">测试</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#test_driven_development">测试驱动开发</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#behavior_driven_development">行为驱动开发</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#complementary_testing_tools">测试辅助工具</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#servers_and_deployment">服务器和部署</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#paas">平台即服务(PaaS)</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#virtual_or_dedicated_servers">虚拟或独立主机</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#shared_servers">共享主机</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#building_your_application">Building your application</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#caching">缓存</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#bytecode_cache">字节码缓存</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#object_caching">对象缓存</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#resources">资源</a>
+                                                            
+                    
+                
+                    <ul>
+                    
+                    
+                    <li><a href="/php/page1/zenphp.html#frameworks">框架</a>
+                                                            
+                    
+                
+                    
+                    
+                    
+                    </li><li><a href="/php/page1/zenphp.html#components">组件</a>
+                                                            
+                    
+                
+                    
+                    </li></ul>
+                    
+                    </li><li><a href="/php/page1/zenphp.html#community">Community</a>
+                                                            
+                    
+                
+                </li><li><a href="/php/page1/zenphp.html#site-footer">Credits</a></li>
+            </ul>    </div>
+    <div class="span10 content clearfix">
+        <div class="site-content">
+            <header id="site-header" class="site-header">
+                <hgroup>
+                    <h3 class="site-title"><a href="/php-the-right-way">PHP之道</a></h3>
+                </hgroup>
+                翻译：<a target="_blank" href="http://wulijun.github.com">wulijun</a>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://www.weibo.com/wulijun01234">关注我的微博</a>
+            </header>
+            
+<h3 id="welcome">Welcome</h3>
+
+<p>目前网络上充斥着大量的陈旧信息，让PHP新手误入歧途，传播着错误的实践和糟糕的代码，这必须得到纠正。<em>PHP之道</em>网站的目标就是搜集PHP最佳实践、编码规范和网络上的权威学习指南，给PHP学习者提供一个易于阅读，快速查找的入口。</p>
+
+<h3 id="id21">翻译</h3>
+
+<p><em>PHP之道</em>已经翻译成多种语言:</p>
+
+<ul>
+<li><a href="http://www.phptherightway.com">English</a></li>
+
+<li><a href="http://wulijun.github.com/php-the-right-way">中文版</a></li>
+
+<li><a href="http://ja.phptherightway.com">日文版</a></li>
+
+<li><a href="http://pl.phptherightway.com/">Polish</a></li>
+
+<li><a href="http://br.phptherightway.com/">Portuguese</a></li>
+
+<li>Russian (Coming Soon)</li>
+
+<li><a href="http://es.phptherightway.com">西班牙语</a></li>
+
+<li><a href="http://iflista.github.com/php-the-right-way/">Ukrainian</a></li>
+
+<li><a href="http://bg.phptherightway.com/">Bulgarian</a></li>
+</ul>
+
+<h3 id="id22">免责声明</h3>
+
+<p><em>PHP没有规范化的使用方式</em>，本网站只是展示业界的最佳实践、可用的选项和有用的信息，目的是帮助PHP新手，并对以往的经验进行反思。</p>
+
+<p>本文档会随着相关技术的发展，持续更新其中的信息和示例。</p>
+
+<h3 id="id23">如何参与网站建设</h3>
+
+<p>参与我们，让这个网站成为PHP开发者的最好学习资源！<a href="https://github.com/wulijun/php-the-right-way/tree/gh-pages">去GitHub参与建设网站</a></p>
+
+<h3 id="id24">推广网站</h3>
+
+<p><em>PHP之道</em> 有多个banner宣传图片可以放在你的站点上显示，让更多开发者知道这个网站，找到权威的学习资料！</p>
+
+<p><a href="banners.html">查看banner图片</a></p>
+
+
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="getting_started">Getting Started</h3>
+
+    
+    <h3 id="use_current_stable_version">使用当前稳定版本 (5.4)</h3>
+<p>如果你刚开始学习PHP，请使用最新稳定版本 <a href="http://www.php.net/downloads.php">PHP 5.4</a>. PHP近年来有了巨大的改进，增加了许多强大的 <a href="#language_highlights">新特性</a>。不要让低版本的PHP如5.2的缺陷误导你，这些新特性是对旧版本的重要改进。如果 你想查找一个函数及其用法，可以去官方PHP手册<a href="http://www.php.net/manual/en/">php.net</a>查找。</p>
+
+    
+    <h3 id="builtin_web_server">内置的Web服务器</h3>
+<p>有了它，你可以不用安装和配置功能齐全的Web服务器，就可以开始学习PHP(要求PHP 5.4版本)。要启动内置Web服务器，需要从你的命令行终端进入项目的Web根目录，执行下面的命令:</p>
+
+<pre><code>&gt; php -S localhost:8000</code></pre>
+
+<ul>
+<li><a href="http://www.php.net/manual/en/features.commandline.webserver.php">了解更多内置的命令行Web服务器</a></li>
+</ul>
+
+    
+    <h3 id="mac_setup">Mac 安装</h3>
+<p>OSX系统会预装PHP，只是版本比最新稳定版低一点。 目前Lion下是PHP 5.3.6，Mountain Lion下是5.3.10.</p>
+
+<p>要更新OSX中的PHP，你可以通过那些Mac<a href="http://www.php.net/manual/en/install.macosx.packages.php">包管理器</a>来安装，推荐使用<a href="http://php-osx.liip.ch/">php-osx by Liip</a>。</p>
+
+<p>另外一种方式是<a href="http://www.php.net/manual/en/install.macosx.compile.php">自己编译</a>，不过要确认已经安装Xcode或<a href="https://developer.apple.com/downloads">“Command Line Tools for Xcode”</a>，它们可以 从Apple的Mac Developer Center下载。</p>
+
+<p>如果想安装包含了PHP、Apache和MySQL的一键安装包，可以试试<a href="http://www.mamp.info/en/downloads/index.html">MAMP</a>，里面包含了相应的图形管理工具。</p>
+
+    
+    <h3 id="windows_setup">Windows 安装</h3>
+<p>Windows下有多种方式来安装PHP，你可以<a href="http://windows.php.net">下载二进制安装包</a>。</p>
+
+<p>若只是本地开发和学习，可以直接使用PHP 5.4内置的Web服务器，还能省去配置服务器的麻烦。如果你喜欢包含PHP、Apache和MySQL的 一键安装包，可以下载<a href="http://www.microsoft.com/web/downloads/platform.aspx">Web Platform Installer</a>、<a href="http://www.zend.com/en/products/server-ce/">Zend Server CE</a>、<a href="http://www.apachefriends.org/en/xampp.html">XAMPP</a>或<a href="http://www.wampserver.com/">WAMP</a>，它们可以帮你快速搭建出PHP运行环境。 不过这些工具和你产品的正式运行环境会有一些差别，特别是你在Windows下开发，而代码最终部署在Linux服务器上的时候。</p>
+
+<p>如果你需要把产品部署在Windows上，那么IIS7将给你最稳定和性能最佳的环境，你可以使用<a href="http://phpmanager.codeplex.com/">phpmanager</a>(IIS7下的PHP 管理插件)来配置和管理PHP。IIS7已经内置FastCGI，你只需把PHP配置为它的处理器即可。更多详情可以参考<a href="http://php.iis.net/">dedicated area on iis.net</a>。</p>
+
+    
+    <h3 id="vagrant_title">Vagrant</h3>
+
+<p>如果你在开发应用和发布应用的时候采用了不同的环境，那么在正式使用时，应用可能出现许多奇怪的BUG。如果你是在开发团队里工作，那么保证各位的开发环境和所有的库文件都是最新的并且处在同一版本，会是件更麻烦的事。 如果你在Windows平台开发并准备部署到Linux（或其他非Windows的平台）上，或者你是在开发团队里工作，那你应该考虑用个虚拟机。这虽然听起来挺麻烦，但是 <a href="http://vagrantup.com/">Vagrant</a>这个程序可以辅助你用几步就创建一个简单的虚拟机。 接下来，你可以手动配置这些基础的环境，或者你可以找个部署软件来替你完成这些事情，比如说<a href="http://www.puppetlabs.com/">Puppet</a>或<a href="http://www.opscode.com/">Chef</a>。部署个基础环境，能很好地保证大家的开发环境建立的方式都大致相似，而且还能省去你维护那些复杂的“安装命令”列表的麻烦。 你也可以轻易地毁掉现有的基础环境后再做一个新的出来，这样你就能有一个全新的换精灵。</p>
+
+<p><a href="http://vagrantup.com/">Vagrant</a>会创建一些共享文件夹，用来给你在主机和虚拟机之间共享代码用。也就是说，你可以在主机上写好程序，然后在虚拟机中运行。</p>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="code_style_guide">代码风格指南</h3>
+<p>PHP社区百花齐放，拥有大量的函数库、框架和组件。PHP开发者通常会在自己的项目中使用若干个外部库，因而PHP代码遵循或尽量接近 同一个代码风格就非常重要，可以让开发者方便地把多个代码库集成在自己的项目中。</p>
+
+<p><a href="http://www.php-fig.org/">框架互操作组</a>(即PHP标准组)发布了一系列代码风格推荐标准，即<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0</a>，<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md">PSR-1</a>，<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md">PSR-2</a>和<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md">PSR-3</a>。 不要让这些名称所混淆，这些推荐仅是一些被其它项目所遵循的规则，如Drupal, Zend, Symfony, CakePHP, phpBB, AWS SDK, FuelPHP, Lithium等，你可以把这些规则用在自己的项目中，或者继续使用你自己的风格。</p>
+
+<p>通常情况下，你的PHP代码应该遵循其中一项或多项标准，从而其他开发者可以方便地阅读和使用你的代码。这些标准都是在前一个标准 上附加新的规则，所以使用PSR-1就同时要求遵循PSR-0，但可以不遵循PSR-2。</p>
+
+<ul>
+<li><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">阅读PSR-0</a></li>
+
+<li><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md">阅读PSR-1</a></li>
+
+<li><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md">阅读PSR-2</a></li>
+
+<li><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md">阅读PSR-3</a></li>
+
+<li><a href="http://pear.php.net/manual/en/standards.php">Read about PEAR Coding Standards</a></li>
+
+<li><a href="http://framework.zend.com/wiki/display/ZFDEV2/Coding+Standards">Read about Zend Coding Standards</a></li>
+</ul>
+
+<p>可以使用<a href="http://pear.php.net/package/PHP_CodeSniffer/">PHP_CodeSniffer</a>来检查代码是否符合这些标准，文本编辑器插件<a href="https://github.com/benmatselby/sublime-phpcs">Sublime Text 2</a>还能 提供实时检查。如果不符合规范，可以使用Fabien Potencier提供的工 具<a href="http://cs.sensiolabs.org/">PHP Coding Standards Fixer</a>自动修复，不用自己手工修复。</p>
+
+<p>变量名和代码结构建议使用英文符号编写，注释则可以使用各种语言，没有限制。</p>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="language_highlights">Language Highlights</h3>
+
+    
+    <h3 id="programming_paradigms">编程范式</h3>
+<p>PHP是一个灵活的动态语言，支持多种编程范式。这些年来一直在不断的进化，重要的里程碑包括PHP 5.0 (2004)增加完善的 面向对象模型、PHP 5.3 (2009)增加匿名函数和命名空间和PHP 5.4 (2012)增加traits.</p>
+
+<h3 id="id1">面向对象编程</h3>
+
+<p>PHP具有完整的面向对象编程特性，如类、抽象类、接口、继承、构造函数、克隆和异常等。</p>
+
+<ul>
+<li><a href="http://www.php.net/manual/en/language.oop5.php">学习PHP面向对象编程</a></li>
+
+<li><a href="http://www.php.net/traits">学习Traits</a></li>
+</ul>
+
+<h3 id="id2">函数式编程</h3>
+
+<p>PHP支持第一类函数(first-class function)，即函数可以赋值给变量，包括用户自定义的函数和内置函数，然后动态调用它。 函数可以作为参数传递给其他函数(即高阶函数)，也可以作为函数返回值返回。</p>
+
+<p>PHP支持函数递归调用，即函数自己调用自己，不过在实际的PHP代码中，我们更喜欢用迭代来代替递归。</p>
+
+<p>2009年发布的PHP 5.3开始引入支持闭包的匿名函数。</p>
+
+<p>PHP 5.4支持把闭包绑定到对象作用域，并改善其可调用性，从而可以在大部分场景中使用匿名函数替代普通函数。</p>
+
+<ul>
+<li><a href="/pages/Functional-Programming.html">学习更多PHP函数式编程</a></li>
+
+<li><a href="http://www.php.net/manual/en/functions.anonymous.php">学习匿名函数</a></li>
+
+<li><a href="http://php.net/manual/en/class.closure.php">Read about the Closure class</a></li>
+
+<li><a href="https://wiki.php.net/rfc/closures">More details in the Closures RFC</a></li>
+
+<li><a href="http://php.net/manual/en/language.types.callable.php">Read about Callables</a></li>
+
+<li><a href="http://php.net/manual/en/function.call-user-func-array.php">学习动态调用函数<code>call_user_func_array</code></a></li>
+</ul>
+
+<h3 id="id3">元编程</h3>
+
+<p>PHP通过反射API和魔术方法机制，支持多种方式的元编程。开发者通过魔术方法，如<code>__get()</code>, <code>__set()</code>, <code>__clone()</code>, <code>__toString()</code>, <code>__invoke()</code>等，可以改变类的行为。Ruby开发者经常说PHP没有<code>method_missing</code>方法，实际上通过<code>__call()</code>和<code>__callStatic()</code>就可以 完成同样的功能。</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/language.oop5.magic.php">学习魔术方法</a></li>
+
+<li><a href="http://www.php.net/manual/en/intro.reflection.php">学习反射</a></li>
+</ul>
+
+    
+    <h3 id="namespaces">命名空间</h3>
+<p>如前所述，PHP社区的众多开发者已经开发了大量的代码。这意味着一个函数库中的PHP代码可能使用了另外一个库中相同的类名，如果它们共享一个命名空间，则会产生冲突导致异常。</p>
+
+<p><em>命名空间</em>解决了这个问题。如PHP手册里描述的那样，命名空间类似于操作系统中的目录，两个同名文件可以共存于不同的目录。同理，同名的PHP类可以在不同的PHP命名空间下共存，就这么简单。</p>
+
+<p>因而把代码放在自己的命名空间下就显得非常必要，这样其他人就可以放心的使用这些代码，而无需担心与其他函数库的命名冲突。</p>
+
+<p><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">PSR-0</a> 里提供了命名空间的推荐使用方式, 它试图提供一个标准的文件、类和命名空间的使用惯例，从而让代码做到即插即用。</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/language.namespaces.php">了解更多命名空间</a></li>
+
+<li><a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">了解更多PSR-0</a></li>
+</ul>
+
+    
+    <h3 id="standard_php_library">标准PHP库</h3>
+<p>标准PHP库(SPL)和PHP一起发布，提供了一组类和接口，包括了常用的数据结构如栈，队列和堆等，以及遍历这些数据结构的迭代器， 或者你还可以自己实现SPL接口。</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/book.spl.php">学习更多SPL</a></li>
+</ul>
+
+    
+    <h3 id="command_line_interface">命令行接口</h3>
+<p>PHP的主要目的是开发Web应用，不过它的命令行脚本接口(CLI)也非常有用。PHP命令行编程可以帮你完成自动化的任务，如测试，部署和 应用管理。</p>
+
+<p>CLI PHP编程非常强大，可以直接调用你自己的app代码而无需创建Web图像界面，需要注意的是不要把CLI PHP脚本放在公开的web目录下！</p>
+
+<p>在命令行下运行PHP:</p>
+<div class="highlight"><pre><code class="bash">&gt; php -i
+</code></pre></div>
+<p>选项<code>-i</code>将会打印PHP配置，类似于<a href="http://php.net/manual/en/function.phpinfo.php"><code>phpinfo</code></a>函数。</p>
+
+<p>选项<code>-a</code>提供交互式shell，和ruby的IRB或python的交互式shell相似，此外还有很多其他有用的<a href="http://www.php.net/manual/en/features.commandline.options.php">命令行选项</a>。</p>
+
+<p>接下来写一个简单的”Hello, $name” CLI程序，先创建名为<code>hello.php</code>的脚本：</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Usage: php hello.php [name].</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nv">$name</span> <span class="o">=</span> <span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="k">echo</span> <span class="s2">"Hello, </span><span class="si">$name</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+</code></pre></div>
+<p>PHP会在脚本运行时根据参数创建两个特殊的变量，<a href="http://php.net/manual/en/reserved.variables.argc.php"><code>$argc</code></a>是一个整数，表示参数<em>个数</em>，<a href="http://php.net/manual/en/reserved.variables.argv.php"><code>$argv</code></a>是一个数组变量，包含每个参数的<em>值</em>， 它的第一个元素一直是PHP脚本的名字，如本例中为<code>hello.php</code>。</p>
+
+<p>命令运行失败时，可以通过<code>exit()</code>表达式返回一个非0整数来通知shell，常用的exit返回码可以查看<a href="http://www.gsp.com/cgi-bin/man.cgi?section=3&amp;topic=sysexits">列表</a></p>
+
+<p>运行上面的脚本，在命令行输入：</p>
+<div class="highlight"><pre><code class="bash">&gt; php hello.php
+Usage: php hello.php <span class="o">[</span>name<span class="o">]</span>
+&gt; php hello.php world
+Hello, world
+</code></pre></div>
+<ul>
+<li><a href="http://php.net/manual/en/features.commandline.php">学习如何在命令行运行PHP</a></li>
+
+<li><a href="http://www.php.net/manual/en/install.windows.commandline.php">学习如何在Windows环境下运行PHP命令行程序</a></li>
+</ul>
+
+    
+    <h3 id="xdebug">XDebug</h3>
+<p>调试器是软件开发过程中非常重要的一个工具，通过它，可以跟踪代码的执行过程，查看堆栈信息。XDebug是一个PHP调试器，可以集成在常见的IDE中，提供设置断点、 查看堆栈信息等功能，还可以和PHPUnit、KCacheGrind等工具配合，执行代码覆盖率测试和性能调优。</p>
+
+<p>如果你现在还没有使用调试器，仅仅依靠var_dump/print_r调试的话，XDebug就是你的最佳选择。</p>
+
+<p><a href="http://xdebug.org/docs/install">安装XDebug</a>有点复杂，其中一个重要功能”远程调试”&mdash;&mdash;如果你在本地开发代码，然后在虚拟机或其他主机中测试，那么它对你就非常有用。</p>
+
+<p>通常，你需要修改Apache虚拟主机或者.htaccess配置文件，增加：</p>
+
+<pre><code>php_value xdebug.remote_host=192.168.?.?
+php_value xdebug.remote_port=9000</code></pre>
+
+<p>“remote host”和”remote port”对应本机IDE的监听地址和端口，然后设置IDE为”等待连接”模式，打开URL:</p>
+
+<pre><code>http://your-website.example.com/index.php?XDEBUG_SESSION_START=1</code></pre>
+
+<p>这样IDE就会监控脚本的执行，允许用户设置断点和查看内存中的变量值。</p>
+
+<ul>
+<li><a href="http://xdebug.org/docs/">Learn more about XDebug</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="dependency_management">依赖管理</h3>
+<p>如今有大量的PHP函数库、框架和组件可供选择，一个项目中可能会使用其中的若干&mdash;&mdash;这就是项目的依赖。到目前为止，PHP还没有有效的 项目依赖管理方案。即使你手工的管理它们，你还不得不处理它们的自动加载问题。</p>
+
+<p>目前主要有两个PHP包管理系统：Composer和PEAR，哪个适合你呢？答案是两个都需要。</p>
+
+<ul>
+<li>管理单个项目的依赖时使用<strong>Composer</strong></li>
+
+<li>管理整个系统的PHP依赖时使用<strong>PEAR</strong></li>
+</ul>
+
+<p>通常情况下，Composer包只在你项目中明确指定时才可用，而PEAR包在所有的PHP项目中可用。尽管PEAR听起来似乎更简单，但是根据每个 项目制定方案可能更合适。</p>
+
+    
+    <h3 id="composer_and_packagist">Composer and Packagist</h3>
+
+<p>Composer是一个<strong>出色</strong>的PHP依赖管理器，把项目的依赖列在<code>composer.json</code>文件中，然后通过一些简单的命令，Composer就会 自动的帮你下载这些依赖，并配置好自动加载路径。</p>
+
+<p>现在已经有很多PHP库支持Composer，可以在项目中使用它们，具体列表可以<a href="http://packagist.org/">点击查看</a>，这是官方支持的Composer兼容的PHP库。</p>
+
+<h3 id="composer">如何安装Composer</h3>
+
+<p>Composer可以安装在本地(在当前工作目录，不推荐这种方式)，也可以安装在系统中(如/usr/local/bin)。假设你要在本地安装，在 项目的根目录执行：</p>
+
+<pre><code>curl -s https://getcomposer.org/installer | php</code></pre>
+
+<p>它会下载<code>composer.phar</code>(PHP二进制文档)，然后你就可以用<code>php</code>运行它来完成项目依赖的管理。 <strong>请注意:</strong>如果 你通过管道直接把下载的代码传给PHP解释器，请先在线阅读代码以确保该代码是安全的。</p>
+
+<h3 id="composer">如何手动安装Composer</h3>
+
+<p>手动安装composer有点麻烦，不过很多开发者可能更喜欢这种安装方式。使用交互式安装程序，它会检查你安装的PHP:</p>
+
+<ul>
+<li>PHP版本满足要求</li>
+
+<li><code>.phar</code>文件可以正确执行 - 相关目录的权限设置正确 - 没有加载某些不兼容的扩展</li>
+
+<li>相应的<code>php.ini</code>设置正确</li>
+</ul>
+
+<p>而手动安装则需要你自己做这些事情，你必须自己权衡利弊，以决定是否手动安装。下面是手动获取Composer的方法:</p>
+
+<pre><code>curl -s https://getcomposer.org/composer.phar -o $HOME/local/bin/composer
+chmod +x $HOME/local/bin/composer</code></pre>
+
+<p>目录<code>$HOME/local/bin</code>(或你自己选择其它目录)应该在你的<code>$PATH</code>环境变量中，从而可以直接运行<code>composer</code>命令。</p>
+
+<p>这样文档中描述的运行Composer的命令<code>php composer.phar install</code>，就可以用如下命令替代：</p>
+
+<pre><code>composer install</code></pre>
+
+<h3 id="id4">如何定义和安装依赖</h3>
+
+<p>首先，在<code>composer.phar</code>所在目录创建文件<code>composer.json</code>，下面是一个依赖<a href="http://twig.sensiolabs.org">Twig</a>例子：</p>
+
+<pre><code>{
+    "require": {
+        "twig/twig": "1.8.*"
+    }
+}</code></pre>
+
+<p>第二步：在项目根目录运行：</p>
+
+<pre><code>php composer.phar install</code></pre>
+
+<p>这会在<code>vendors/</code>下载和安装项目依赖。最后在应用的PHP入口文件添加下面代码，告诉PHP使用Composer自动加载器加载项目的依赖库：</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+</code></pre></div>
+<p>现在你就可以使用项目依赖的库了，它们会在需要的时候自动加载。</p>
+
+<ul>
+<li><a href="http://getcomposer.org/doc/00-intro.md">学习Composer</a></li>
+</ul>
+
+    
+    <h3 id="pear">PEAR</h3>
+
+<p>另外一个常用的包管理器就是很多PHP开发者喜欢的<a href="http://pear.php.net/">PEAR</a>，它的运行方式和Composer有些类似，但是也有一些区别.</p>
+
+<p>PEAR requires each package to have a specific structure, which means that the author of the package must prepare it for usage with PEAR. Using a project which was not prepared to work with PEAR is not possible.</p>
+
+<p>PEAR installs packages globally, which means after installing them once they are available to all projects on that server. This can be good if many projects rely on the same package with the same version but might lead to problems if version conflicts between two projects arise.</p>
+
+<h3 id="how_to_install_pear">How to install PEAR</h3>
+
+<p>You can install PEAR by downloading the phar installer and executing it. The PEAR documentation has detailed <a href="http://pear.php.net/manual/en/installation.getting.php">install instructions</a> for every operating system.</p>
+
+<p>If you are using Linux, you can also have a look at your distribution package manager. Debian and Ubuntu for example have a apt <code>php-pear</code> package.</p>
+
+<h3 id="how_to_install_a_package">How to install a package</h3>
+
+<p>If the package is listed on the <a href="http://pear.php.net/packages.php">PEAR packages list</a>, you can install it by specifying the official name:</p>
+
+<pre><code>pear install foo</code></pre>
+
+<p>If the package is hosted on another channel, you need to <code>discover</code> the channel first and also specify it when installing. See the <a href="http://pear.php.net/manual/en/guide.users.commandline.channels.php">Using channel docs</a> for more information on this topic.</p>
+
+<ul>
+<li><a href="http://pear.php.net/">Learn about PEAR</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="coding_practices">Coding Practices</h3>
+
+    
+    <h3 id="the_basics">基础知识</h3>
+<p>PHP是一个伟大的语言，可以让各个层次的程序员都能够快速高效地完成编码任务。虽然如此，我们还是经常会因为临时救急或者 坏习惯而忽视了PHP的基础。为了解决这个问题，这部分专门给开发者回顾一下PHP的基础编码实践。</p>
+
+<ul>
+<li>继续阅读<a href="pages/The-Basics.html">基础知识</a></li>
+</ul>
+
+    
+    <h3 id="date_and_time">日期和时间</h3>
+<p>PHP使用DateTime类完成读取、设置、比较和计算日期与时间。虽然PHP中有很多日期和时间处理相关的函数，但是DateTime类提供了 完善的面向对象接口完成各项常见操作，而且还能处理时区，这里不作深入介绍。</p>
+
+<p>要使用DateTime，可以用工厂方法<code>createFromFormat()</code>把原始的日期时间字符串转换为DateTime对象，或直接用<code>new \DateTime</code> 获得当前日期和时间的DateTime对象。用<code>format()</code>方法可以把DateTime对象转换成字符串输出。</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="nv">$raw</span> <span class="o">=</span> <span class="s1">'22. 11. 1968'</span><span class="p">;</span>
+<span class="nv">$start</span> <span class="o">=</span> <span class="nx">\DateTime</span><span class="o">::</span><span class="na">createFromFormat</span><span class="p">(</span><span class="s1">'d. m. Y'</span><span class="p">,</span> <span class="nv">$raw</span><span class="p">);</span>
+
+<span class="k">echo</span> <span class="s2">"Start date: "</span> <span class="o">.</span> <span class="nv">$start</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s1">'m/d/Y'</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+</code></pre></div>
+<p>DateTime计算时间时通常需要DateInterval类，如<code>add()</code>和<code>sub()</code>方法，都是将DateInterval作为参数。尽量避免直接用 时间戳表示时间，夏令时和时区会让时间戳产生歧义，使用间隔日期更为妥当。计算两个日期的差值使用<code>diff()</code>方法，返回 DateInterval对象，输出显示也很方便。</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="c1">// create a copy of $start and add one month and 6 days</span>
+<span class="nv">$end</span> <span class="o">=</span> <span class="k">clone</span> <span class="nv">$start</span><span class="p">;</span>
+<span class="nv">$end</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">\DateInterval</span><span class="p">(</span><span class="s1">'P1M6D'</span><span class="p">));</span>
+
+<span class="nv">$diff</span> <span class="o">=</span> <span class="nv">$end</span><span class="o">-&gt;</span><span class="na">diff</span><span class="p">(</span><span class="nv">$start</span><span class="p">);</span>
+<span class="k">echo</span> <span class="s2">"Difference: "</span> <span class="o">.</span> <span class="nv">$diff</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s1">'%m month, %d days (total: %a days)'</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="c1">// Difference: 1 month, 6 days (total: 37 days)</span>
+</code></pre></div>
+<p>DateTime对象之间可以直接比较:</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$start</span> <span class="o">&lt;</span> <span class="nv">$end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"Start is before end!</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最后一个例子是DatePeriod类的用法，它用于循环事项(recurring events)的迭代。它的构造函数参数为：start和end，均为 DateTime对象,以及返回事项的间隔周期。</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="c1">// output all thursdays between $start and $end</span>
+<span class="nv">$periodInterval</span> <span class="o">=</span> <span class="nx">\DateInterval</span><span class="o">::</span><span class="na">createFromDateString</span><span class="p">(</span><span class="s1">'first thursday'</span><span class="p">);</span>
+<span class="nv">$periodIterator</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\DatePeriod</span><span class="p">(</span><span class="nv">$start</span><span class="p">,</span> <span class="nv">$periodInterval</span><span class="p">,</span> <span class="nv">$end</span><span class="p">,</span> <span class="nx">\DatePeriod</span><span class="o">::</span><span class="na">EXCLUDE_START_DATE</span><span class="p">);</span>
+<span class="k">foreach</span><span class="p">(</span><span class="nv">$periodIterator</span> <span class="k">as</span> <span class="nv">$date</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// output each date in the period</span>
+    <span class="k">echo</span> <span class="nv">$date</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="s1">'m/d/Y'</span><span class="p">)</span> <span class="o">.</span> <span class="s2">" "</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><a href="http://www.php.net/manual/book.datetime.php">了解更多DateTime</a></li>
+
+<li><a href="http://www.php.net/manual/function.date.php">学习更多日期格式化知识</a> (accepted date format string options)</li>
+</ul>
+
+    
+    <h3 id="design_patterns">设计模式</h3>
+<p>在代码和项目中使用常见模式是有好处的，可以让代码更易于管理，同时也便于其他开发者理解你的项目。</p>
+
+<p>如果你的项目使用了框架，那么在代码和项目结构上，都会遵循框架的约束，自然也就继承了框架中的各种模式， 这时你所需要考虑的是让上层代码也能够遵循最合适的模式。反之，如果没有使用框架，那么就需要你自己选择 适用于当前项目类型和规模的最佳模式了。</p>
+
+<ul>
+<li><a href="pages/Design-Patterns.html">了解更多设计模式</a></li>
+</ul>
+
+    
+    <h3 id="exceptions">异常</h3>
+<p>异常是大部分流行语言的标准特性，但是PHP开发者却不太重视。其他语言如 Ruby极度倚赖异常，在任何错误发生的时候，如HTTP请求失败 、DB查询错误，甚至图片资源未找到，都会抛出一个异常，以及时提示那里发生了一个错误。</p>
+
+<p>PHP则对此很宽松，如调用<code>file_get_contents()</code>失败，只是返回<code>FALSE</code>并提示一个warning信息而已。很多老的PHP框架，如 CodeIgniter会返回false，然后在自己的日志里记录一个消息，开发者需要使用如<code>$this-&gt;upload-&gt;get_error()</code>的方式来查看发生了什么 错误。这么做需要你自己检查是否有错误，并需要根据不同类调用不同的方法来获取错误消息，而不能让错误明显的显示出来。</p>
+
+<p>这种做法的另外一个弊端是当类自动在屏幕打印一个错误，然后退出进程，阻止了其他开发者动态处理该错误的机会。而异常则是让开发者知道 发生了错误，并让他们选择如何处理：</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="nv">$email</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Fuel\Email</span><span class="p">;</span>
+<span class="nv">$email</span><span class="o">-&gt;</span><span class="na">subject</span><span class="p">(</span><span class="s1">'My Subject'</span><span class="p">);</span>
+<span class="nv">$email</span><span class="o">-&gt;</span><span class="na">body</span><span class="p">(</span><span class="s1">'How the heck are you?'</span><span class="p">);</span>
+<span class="nv">$email</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">(</span><span class="s1">'guy@example.com'</span><span class="p">,</span> <span class="s1">'Some Guy'</span><span class="p">);</span>
+
+<span class="k">try</span>
+<span class="p">{</span>
+    <span class="nv">$email</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">Fuel\Email\ValidationFailedException</span> <span class="nv">$e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// The validation failed</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">Fuel\Email\SendingFailedException</span> <span class="nv">$e</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// The driver could not send the email</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="spl">SPL异常</h3>
+
+<p>默认的异常类Exception包含的上下文信息很少，对于debug不方便，常见的做法是创建更具体的子类：</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">ValidationException</span> <span class="k">extends</span> <span class="nx">Exception</span> <span class="p">{}</span>
+</code></pre></div>
+<p>这使得你可以包含多个catch子句来处理不同的异常，但是这又会导致创建_很多的_自定义异常类，可以用SPL中的异常类来缓解这个问题 <a href="/#standard_php_library">SPL扩展</a>.</p>
+
+<p>如使用<code>__call()</code>魔术方法，对不存在的方法调用抛出一个<code>throw new BadFunctionCallException;</code>，既避免了抛出含义模糊的 Exception异常，也省去了自定义异常类的麻烦。</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/language.exceptions.php">学习更多Exceptions</a></li>
+
+<li><a href="http://php.net/manual/en/spl.exceptions.php">了解跟多SPL Exceptions</a></li>
+
+<li><a href="http://www.brandonsavage.net/exceptional-php-nesting-exceptions-in-php/">PHP中的异常嵌套</a></li>
+
+<li><a href="http://ralphschindler.com/2010/09/15/exception-best-practices-in-php-5-3">PHP 5.3异常最佳实践</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="databases">数据库</h3>
+<p>通常PHP代码使用数据库来持久化存储数据，并有多种方式去连接和操作数据库。在_PHP 5.1.0_之前，推荐的方式有<a href="http://php.net/mysql">mysql</a>、 <a href="http://php.net/mysqli">mysqli</a>和<a href="http://php.net/pgsql">pgsql</a>等。</p>
+
+<p>如果应用只是使用一个数据库的话，原生驱动就工作的非常好，否则使用MySQL的同时，还需要使用MSSQL或Oracle数据库的话，那么 就没有办法只使用一个原生驱动了，只能分别学习各个数据库驱动的API，这非常令人生厌。</p>
+
+<p>另外需要注意，mysql这个原生驱动已经不在活跃开发状态了，从PHP 5.4.0开始被标记为不推荐使用，意味着将来版本如PHP 5.6可能会 移除这个扩展。如果你正在使用<code>mysql_connect()</code>和<code>mysql_query()</code>，那么将来可能要重写部分代码，所以最好用mysqli或PDO来 代替。_如果你正在开发新项目，请不要用mysql扩展，尝试用<a href="http://php.net/mysqli">MySQLi扩展</a>或PDO来替代_</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/mysqlinfo.api.choosing.php">PHP: 选择MySQL API</a></li>
+</ul>
+
+<h3 id="pdo">PDO</h3>
+
+<p>PDO是数据库连接抽象库，从PHP 5.1.0开始提供，提供多种数据库的统一的操作接口。PDO不会转化你的SQL查询或者模拟缺失特性； 它只是提供统一的API去连接不同的数据库而已。</p>
+
+<p>更重要的是，<code>PDO</code>允许你绑定SQL查询语句中的变量，而无需担心SQL注入问题，这主要通过PDO statements和变量绑定来实现。</p>
+
+<p>假设PHP脚本接收一个数字ID作为查询参数，从数据库取回一条记录。下面是一种错误的做法：</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">'sqlite:users.db'</span><span class="p">);</span>
+<span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">"SELECT name FROM users WHERE id = "</span> <span class="o">.</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]);</span> <span class="c1">// &lt;-- NO!</span>
+</code></pre></div>
+<p>这是非常糟糕的代码，直接在SQL中插入一个原始输入变量，导致潜在的SQL注入风险。假如黑客构造URL： <code>http://domain.com/?id=1%3BDELETE+FROM+users</code>来传入恶意参数id，则<code>$_GET['id']</code>的变量值为<code>1;DELETE FROM users</code>， 这将删除数据表中的所有用户！因此，你应该使用PDO的绑定参数功能来处理ID输入参数。</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="nv">$pdo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PDO</span><span class="p">(</span><span class="s1">'sqlite:users.db'</span><span class="p">);</span>
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$pdo</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s1">'SELECT name FROM users WHERE id = :id'</span><span class="p">);</span>
+<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">bindParam</span><span class="p">(</span><span class="s1">':id'</span><span class="p">,</span> <span class="nb">filter_input</span><span class="p">(</span><span class="nx">INPUT_GET</span><span class="p">,</span> <span class="s1">'id'</span><span class="p">,</span> <span class="nx">FILTER_SANITIZE_NUMBER_INT</span><span class="p">),</span> <span class="nx">PDO</span><span class="o">::</span><span class="na">PARAM_INT</span><span class="p">);</span>
+<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div>
+<p>这才是正确的代码，在PDO statement中绑定一个参数，使得查询被发给数据库之前，对输入参数进行转义，防止SQL注入攻击。</p>
+
+<ul>
+<li><a href="http://www.php.net/manual/en/book.pdo.php">学习PDO</a></li>
+</ul>
+
+<p>另外一个要注意的问题是，如果数据库连接没有隐式地关闭，那么数据库连接数可能会超过数据库服务器的限制而连接失败，这种 错误在其他编程语言中比较常见。PDO对象在销毁的时候会隐式的关闭数据库连接，只要你把指向它的引用全部删除即可，如设置 为NULL。如果没有，PHP也会在脚本结束时关闭所有非持久化的数据库连接。</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/pdo.connections.php">了解更多PDO连接</a></li>
+</ul>
+
+<h3 id="id5">抽象层</h3>
+
+<p>很多框架都提供了自己的数据库抽象层，有的是基于PDO，有的不是。它们通过PHP方法来包装实际的查询，能够模拟出只存在于 某些数据库系统的特性，给你一个真正的数据库抽象层。这么做会带来一些性能的损失，但是在一个需要支持MySQL、PostgreSQL 和SQLite的应用中，这个损失相对于由此带来的代码一致性而言是可以接受的。</p>
+
+<p>有些抽象层遵循PSR-0命名空间标准，可以集成在任意的应用中：</p>
+
+<ul>
+<li><a href="https://github.com/auraphp/Aura.Sql">Aura SQL</a></li>
+
+<li><a href="http://www.doctrine-project.org/projects/dbal.html">Doctrine2 DBAL</a></li>
+
+<li><a href="http://packages.zendframework.com/docs/latest/manual/en/index.html#zend-db">ZF2 Db</a></li>
+
+<li><a href="http://framework.zend.com/manual/en/zend.db.html">ZF1 Db</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="security">安全</h3>
+
+    
+    <h3 id="web_application_security">Web应用安全</h3>
+<p>总有一些人会千方百计的想着破坏你的Web应用，提前想办法加强自己的Web应用的安全性非常重要。幸运的是， <a href="https://www.owasp.org/">The Open Web Application Security Project</a> (OWASP) 已经提供详尽的已知安全问题列表和防范对策。 每个关注Web安全的开发者都应该仔细阅读该列表。</p>
+
+<ul>
+<li><a href="https://www.owasp.org/index.php/Guide_Table_of_Contents">阅读OWASP安全指南</a></li>
+</ul>
+
+    
+    <h3 id="password_hashing_title">Password Hashing</h3>
+
+<p>Eventually everyone builds a PHP application that relies on user login. Usernames and passwords are stored in a database and later used to authenticate users upon login.</p>
+
+<p>It is important that you properly <a href="http://en.wikipedia.org/wiki/Cryptographic_hash_function"><em>hash</em></a> passwords before storing them. Password hashing is an irreversible, one way function performed against the users password. This produces a fix length string that can not be feasibly reversed. This means you can compare a hash against another to determine if they both came from the same source string, but you can not determine the original string. If passwords are not hashed and your database is accessed by an unauthorized third-party, all user accounts are now compromised. Some users may (unfortunately) use the same password for other services. Therefore, it is important to take security seriously.</p>
+
+<p><strong>Hashing passwords with <code>password_hash</code></strong></p>
+
+<p>In PHP 5.5 <code>password_hash</code> will be introduced. At this time it is using BCrypt, the strongest algorithm currently supported by PHP. It will be updated in the future to support more algorithms as needed though. The <code>password_compat</code> library was created to provide forward compatibility for PHP &gt;= 5.3.7.</p>
+
+<p>Below we hash a string, we then check the hash against a new string. Because our two source strings are different (‘secret-password’ vs. ‘bad-password’) this login will fail.</p>
+<div class="highlight"><pre><code class="php"><span class="x">                                                                                                                                                                                              </span>
+<span class="cp">&lt;?php</span>                                                                                                                                                                                                            
+<span class="k">require</span> <span class="s1">'password.php'</span><span class="p">;</span>
+
+<span class="nv">$passwordHash</span> <span class="o">=</span> <span class="nx">password_hash</span><span class="p">(</span><span class="s1">'secret-password'</span><span class="p">,</span> <span class="nx">PASSWORD_DEFAULT</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">password_verify</span><span class="p">(</span><span class="s1">'bad-password'</span><span class="p">,</span> <span class="nv">$passwordHash</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">//Correct Password</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">//Wrong password</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><a href="http://us2.php.net/manual/en/function.password-hash.php">Learn about <code>password_hash</code></a></li>
+
+<li><a href="https://github.com/ircmaxell/password_compat"><code>password_compat</code> for PHP &gt;= 5.3.7 &amp;&amp; &lt; 5.5</a></li>
+
+<li><a href="http://en.wikipedia.org/wiki/Cryptographic_hash_function">Learn about hashing in regards to cryptography</a></li>
+
+<li><a href="https://wiki.php.net/rfc/password_hash">PHP <code>password_hash</code> RFC</a></li>
+</ul>
+
+    
+    <h3 id="data_filtering">数据过滤</h3>
+<p>永远不要在PHP代码中信任外部输入，在使用之前一定要先过滤和验证，<code>filter_var</code>和<code>filter_input</code>函数可以帮助过滤文本和 验证文本格式(如邮箱地址)。</p>
+
+<p>外部输入可以是：<code>$_GET</code>和<code>$_POST</code>表单输入数据、<code>$_SERVER</code>超级变量中的某些值和通过<code>fopen('php://input', 'r')</code>获取的 HTTP请求体。要记住外部输入不仅仅是用户提交的表单数据，还包括上传和下载的文件、session变量、cookie数据和第三方Web服务提供的 数据等。</p>
+
+<p>当外部数据被存储合并之后，下次读取时，它们仍然算是外部输入，每次在代码中处理的时候，需要问自己是否已经正确过滤，是否可以 信任它们。</p>
+
+<p>数据需要根据不同用处，进行不同的_过滤_，如果把未经过滤的数据输出到HTML页面，它可以在你的网站里执行HTML和JavaScript！即通常 说的跨站脚本攻击(XSS)。避免XSS的一个策略就是使用<code>strip_tags</code>函数过滤外部输入的所有HTML标签，或者使用<code>htmlentities</code>/ <code>htmlspecialchars</code>转义其中的HTML实体。</p>
+
+<p>另外一个例子是传给命令行命令的选项，这可能非常危险(通常不是一个好主意)，不过你可以用内置的<code>escapeshellarg</code>函数过滤命令行的 参数。</p>
+
+<p>最后一个例子是根据外部输入来从文件系统中加载文件的操作，可以通过修改路径中的文件名实施攻击。你需要过滤输入中的”/”, “../”, <a href="http://php.net/manual/en/security.filesystem.nullbytes.php">null bytes</a>, 或其他特殊字符，以防止加载不能公开的包含敏感数据的文件。</p>
+
+<ul>
+<li><a href="http://www.php.net/manual/en/book.filter.php">学习更多数据过滤</a></li>
+
+<li><a href="http://php.net/manual/en/function.filter-var.php">了解更多<code>filter_var</code></a></li>
+
+<li><a href="http://www.php.net/manual/en/function.filter-input.php">了解更多<code>filter_input</code></a></li>
+
+<li><a href="http://php.net/manual/en/security.filesystem.nullbytes.php">学习更多null字节处理</a></li>
+</ul>
+
+<h3 id="id6">数据清洗</h3>
+
+<p>数据清洗就是删除或转义外部输入中的非法或不安全字符。比如把外部数据输出到HTML或插入到SQL语句之前，需要先清洗外部输入。 当你通过<a href="#databases">PDO</a>绑定数据时，它会替你转义输入数据。</p>
+
+<p>有时候需要允许外部数据包含安全的HTML标签，并输出到HTML页面中。这个比较难处理，可以考虑使用其他更严格的格式，如 或BBCode，实在不能的话，可以使用<a href="http://htmlpurifier.org/">HTML Purifier</a>库来进行数据清洗。</p>
+
+<p><a href="http://www.php.net/manual/en/filter.filters.sanitize.php">了解更多数据清洗过滤器</a></p>
+
+<h3 id="id7">数据验证</h3>
+
+<p>数据验证外部输入就是你预期的，如你在处理注册表单时，需要验证email地址、电话号码和年龄等数据</p>
+
+<p><a href="http://www.php.net/manual/en/filter.filters.validate.php">了解更多数据验证过滤器</a></p>
+
+    
+    <h3 id="configuration_files">配置文件</h3>
+<p>在创建应用的配置文件时，请遵循下面的业界最佳实践：</p>
+
+<ul>
+<li>配置文件保存在Web不能直接访问和上传的目录中。</li>
+
+<li>如果配置文件只能放在文档根目录时，请使用<code>.php</code>作为文件名后缀，这样即使直接访问该配置文件，也不会输出配置信息。 - 配置文件内容应该加密，或者对文件设置访问权限。</li>
+</ul>
+
+    
+    <h3 id="register_globals">注册全局变量</h3>
+<p><strong>提示:</strong>从PHP 5.4.0开始，<code>register_globals</code>配置已经删除，不再生效。保留这个配置，只是提示依赖该配置的应用进行升级。</p>
+
+<p>启用<code>register_globals</code>配置后，<code>$_POST</code>, <code>$_GET</code>和<code>$_REQUEST</code>中的变量自动注册为全局变量，使得应用很难辨别变量的确切来源，从而产生安全漏洞。</p>
+
+<p>例如：<code>$_GET['foo']</code>将注册变量<code>$foo</code>，这会覆盖程序中未声明的同名变量。如果你使用PHP 5.4.0之前的版本，请确保已经把<code>register_globals</code>设置为<strong>off</strong>。</p>
+
+<ul>
+<li><a href="http://www.php.net/manual/en/security.globals.php">Register_globals in the PHP manual</a></li>
+</ul>
+
+    
+    <h3 id="error_reporting">错误提示</h3>
+<p>错误日志可以帮助追查应用的Bug，但是也会暴露应用的结构信息而产生安全问题，为此，需要在开发环境和线上环境设置不同的配置，防止 敏感信息的泄漏。</p>
+
+<h3 id="id8">开发环境</h3>
+
+<p>要在<strong>开发环境</strong>显示错误提示，需要在<code>php.ini</code>中配置以下配置项:</p>
+
+<pre><code>display_errors = On
+display_startup_errors = On
+error_reporting = -1
+log_errors = On</code></pre>
+
+<p>来自<a href="http://php.net/manual/function.error-reporting.php">php.net</a>:</p>
+
+<blockquote>
+<p>-1表示显示各种错误，包括将来增加的新错误类型，和PHP 5.4中的E_ALL行为相同。</p>
+</blockquote>
+
+<p><code>E_STRICT</code>错误级别在5.3.0版本引入，不在<code>E_ALL</code>中，不过5.4.0版本开始，<code>E_ALL</code>包含<code>E_STRICT</code>级别的错误。所以在5.3版本中，要显示 所有错误，需要把<code>error_reporting</code>设置为<code>-1</code>或者<code>E_ALL | E_STRICT</code>。</p>
+
+<p><strong>各PHP版本显示所有错误的配置</strong></p>
+
+<ul>
+<li>&lt; 5.3 <code>-1</code> or <code>E_ALL</code></li>
+
+<li>&nbsp; 5.3 <code>-1</code> or <code>E_ALL | E_STRICT</code></li>
+
+<li>&gt; 5.3 <code>-1</code> or <code>E_ALL</code></li>
+</ul>
+
+<h3 id="id9">线上环境</h3>
+
+<p>要在线上环境隐藏错误提示，需要在<code>php.ini</code>中配置以下配置项:</p>
+
+<pre><code>display_errors = Off
+display_startup_errors = Off
+error_reporting = E_ALL
+log_errors = On</code></pre>
+
+<p>这样设置后，线上错误会记录到Web服务器的错误日志中，而不是直接显示给用户。如果想了解更多错误提示相关的设置，请参考手册：</p>
+
+<ul>
+<li><a href="http://php.net/manual/errorfunc.configuration.php#ini.error-reporting">error_reporting</a></li>
+
+<li><a href="http://php.net/manual/errorfunc.configuration.php#ini.display-errors">display_errors</a></li>
+
+<li><a href="http://php.net/manual/errorfunc.configuration.php#ini.display-startup-errors">display_startup_errors</a></li>
+
+<li><a href="http://php.net/manual/errorfunc.configuration.php#ini.log-errors">log_errors</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="testing">测试</h3>
+<p>为PHP代码编写自动化测试被认为是一个最佳实践，可以帮助你构建出高质量的应用。自动化测试可以帮助你确认没有因为重构或添加 新功能而破坏原有功能，所以应该重视自动化测试。</p>
+
+<p>PHP有多种类型的测试工具和框架可以使用，具体方法各有区别&mdash;&mdash;但是它们的目标都是避免手工测试，满足大型QA组织的需求，保证最新的 更改没有破坏已有功能。</p>
+
+    
+    <h3 id="test_driven_development">测试驱动开发</h3>
+<p><a href="http://en.wikipedia.org/wiki/Test-driven_development">Wikipedia</a>的定义:</p>
+
+<blockquote>
+<p>测试驱动开发(TDD)是以非常短的开发周期，不断进行迭代的软件开发流程：首先开发者针对改进或新功能编写失败的自动化测试用例，然后编写代码使测试用例通过， 最后重构代码，让代码满足可接受的标准。Kent Beck，该技术的创建者或者说重新发现者，在2003年声明TDD鼓励简单的设计和提振信心。</p>
+</blockquote>
+
+<p>目前对应用有多种类型的测试：</p>
+
+<h3 id="id10">单元测试</h3>
+
+<p>单元测试是从编写开始，贯穿于整个开发周期的一种用于保证函数、类和方法的行为与预期一致的编程方法。通过检查各个函数和方法的输入和输出值，你可以保证它们 内部逻辑已经正确执行；通过依赖注入、编写mock类和stubs，你可以验证依赖是否已经正确处理，提高测试覆盖率。</p>
+
+<p>在编写一个类或函数的时候，应该为它的每一个行为创建一个单元测试，至少你要保证它收到错误参数时能够触发错误，而参数正确时能正常工作。这可以帮你在后面 修改类或函数的时候，确认已有功能仍然正常工作。PHP中var_dump()的功能与此类似，但是它是无法用于创建应用的。</p>
+
+<p>单元测试的另外一个用武之地是在给开源项目贡献代码时，如果你编写一个测试，证明代码存在bug，然后修复代码，让测试通过，这样该补丁被接受的概率要高很多。 如果你的项目接受人家的补丁，你应该把单元测试作为项目的一项要求。</p>
+
+<p><a href="http://phpunit.de">PHPUnit</a>是PHP应用的单元测试框架的业界标准，其他几个可选框架是：</p>
+
+<ul>
+<li><a href="http://simpletest.org">SimpleTest</a></li>
+
+<li><a href="http://www.enhance-php.com/">Enhance PHP</a></li>
+
+<li><a href="http://punit.smf.me.uk/">PUnit</a></li>
+
+<li><a href="https://github.com/atoum/atoum">atoum</a></li>
+</ul>
+
+<h3 id="id11">集成测试</h3>
+
+<p><a href="http://en.wikipedia.org/wiki/Integration_testing">Wikipedia</a>的定义:</p>
+
+<blockquote>
+<p>集成测试(也称集成与测试，缩写为I&amp;T)是把各个独立模块集成在一起，作为一个整体进行测试的软件测试阶段，它处于单元测试和验收测试之间。集成测试把已经 做过单元测试的模块集成在一块，然后运行集成测试用例，最终输出一个可以进行系统测试的系统。</p>
+</blockquote>
+
+<p>很多单元测试工具同时也可以用于集成测试，并且原理也是相通的。</p>
+
+<h3 id="id12">功能测试</h3>
+
+<p>有时也称为验收测试，使用工具创建自动化的测试用例，然后在真实的系统上运行，这一点与单元测试验证单个模块的正确性和集成测试验证模块间交互的正确性是有 区别的，这些工具通常使用真实的数据集来模拟真实用户的使用行为来验证系统的正确性。</p>
+
+<h4 id="id13">功能测试工具</h4>
+
+<ul>
+<li><a href="http://seleniumhq.com">Selenium</a></li>
+
+<li><a href="http://mink.behat.org">Mink</a></li>
+
+<li><a href="http://codeception.com">Codeception</a> is a full-stack testing framework that includes acceptance testing tools</li>
+</ul>
+
+    
+    <h3 id="behavior_driven_development">行为驱动开发</h3>
+<p>行为驱动开发(BDD)有两种方式：SpecBDD和StoryBDD。SpecBDD关注技术行为或代码，而StoryBDD关注业务、特性和交互，这两种方式都有对应的PHP框架。</p>
+
+<p>采用StoryBDD，开发者编写人类可读的故事来描述应用的行为，然后这些故事可以作为应用的测试用例。PHP中用于StoryBDD编程的框架是Behat，从Ruby 的<a href="http://cukes.info/">Cucumber</a>项目演化而来，实现了Gherkin DSL来描述特性行为。</p>
+
+<p>采用SpecBDD，开发者编写规格说明来描述实际代码的行为，与测试一个函数或方法不同，规格描述了一个函数或方法应该具有的行为。PHP中的PHPSpec框 架提供该编程方式的支持，它也是从Ruby的<a href="http://rspec.info/">RSpec project</a>演化而来。</p>
+
+<h3 id="bdd">BDD链接</h3>
+
+<ul>
+<li><a href="http://behat.org/">Behat</a>, the StoryBDD framework for PHP, inspired by Ruby’s <a href="http://cukes.info/">Cucumber</a> project;</li>
+
+<li><a href="http://www.phpspec.net/">PHPSpec</a>, the SpecBDD framework for PHP, inspired by Ruby’s <a href="http://rspec.info/">RSpec</a> project;</li>
+
+<li><a href="http://www.codeception.com">Codeception</a> is a full-stack testing framework that uses BDD principles.</li>
+</ul>
+
+    
+    <h3 id="complementary_testing_tools">测试辅助工具</h3>
+<p>除了测试驱动和行为驱动开发框架，还有大量的通用框架和函数库，可以在各种开发方法下使用。</p>
+
+<h3 id="id18">工具链接</h3>
+
+<ul>
+<li><a href="http://seleniumhq.org/">Selenium</a> is a browser automation tool which can be <a href="http://www.phpunit.de/manual/3.1/en/selenium.html">integrated with PHPUnit</a></li>
+
+<li><a href="https://github.com/padraic/mockery">Mockery</a> is a Mock Object Framework which can be integrated with <a href="http://phpunit.de/">PHPUnit</a> or <a href="http://www.phpspec.net/">PHPSpec</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="servers_and_deployment">服务器和部署</h3>
+<p>部署PHP应用到线上Web服务器的方式有很多种。</p>
+
+    
+    <h3 id="paas">平台即服务(PaaS)</h3>
+<p>PaaS提供运行PHP Web应用所需的系统和网络环境，对PHP应用和框架只需要做少量的配置即可。</p>
+
+<p>现在PaaS已经成为部署、托管和扩展各种规模的PHP应用的流行方式，可以在 <a href="#resources">resources部分</a>查看<a href="#php_paas_providers">PHP PaaS “平台即服务”供应商</a>列表。</p>
+
+    
+    <h3 id="virtual_or_dedicated_servers">虚拟或独立主机</h3>
+<p>如果你愿意或想学习系统管理，那么虚拟或独立主机可以让你完全控制自己的运行环境。</p>
+
+<h3 id="nginxphpfpm">nginx和PHP-FPM</h3>
+
+<p>PHP通过内置的FastCGI进程管理器(FPM)，可以非常高效地和轻量级的高性能Web服务器<a href="http://nginx.org">nginx</a>进行通信。 nginx比Apache消耗更少的内存，能更好的处理并发请求，这在内存限制较多的虚拟主机环境中尤为重要。</p>
+
+<ul>
+<li><a href="http://nginx.org">阅读更多nginx</a></li>
+
+<li><a href="http://php.net/manual/en/install.fpm.php">阅读更多PHP-FPM</a></li>
+
+<li><a href="https://nealpoole.com/blog/2011/04/setting-up-php-fastcgi-and-nginx-dont-trust-the-tutorials-check-your-configuration/">学习如何配置安全的nginx和PHP-FPM</a></li>
+</ul>
+
+<h3 id="apachephp">Apache和PHP</h3>
+
+<p>PHP和Apache是一个老搭档，历史悠久。Apache有很强的可配置性和大量的<a href="http://httpd.apache.org/docs/2.4/mod/">扩展模块</a>， 是共享主机中常见的Web服务器，完美支持各种PHP框架和开源应用(如WordPress)。可惜的是，默认情况下，Apache比nginx更耗资源，并发处理能力不强。</p>
+
+<p>Apache有多种方式运行PHP，最常见简单的方式是使用mod_php5的<a href="http://httpd.apache.org/docs/2.4/mod/prefork.html">prefork MPM</a>方式， 缺点是它对内存的利用效率不高，如果你不想深入学习服务器的管理，那么这种最简单的方式就是你的最佳选择了。注意，如果你使用mod_php5，最好使用 prefork MPM方式。</p>
+
+<p>如果你想追求高性能和高稳定性，那么也可以为Apache选择与nginx类似的FPM系统<a href="http://httpd.apache.org/docs/2.4/mod/worker.html">worker MPM</a>或 <a href="http://httpd.apache.org/docs/2.4/mod/event.html">event MPM</a>，它们分别使用mod_fastcgi和mod_fcgid模块。FPM方式可以更高效的利用内存，运行 速度更快，但是配置也相对复杂一些。</p>
+
+<ul>
+<li><a href="http://httpd.apache.org/">阅读更多Apache</a></li>
+
+<li><a href="http://httpd.apache.org/docs/2.4/mod/mpm_common.html">深入学习多进程模块</a></li>
+
+<li><a href="http://www.fastcgi.com/mod_fastcgi/docs/mod_fastcgi.html">阅读更多mod_fastcgi</a></li>
+
+<li><a href="http://httpd.apache.org/mod_fcgid/">阅读更多mod_fcgid</a></li>
+</ul>
+
+    
+    <h3 id="shared_servers">共享主机</h3>
+<p>PHP非常流行，很少有服务器没有安装PHP的，因而有很多共享主机，不过需要注意服务器上的PHP是否是最新稳定 版本。共享主机允许多个开发者把自己的网站部署在上面，这样的好处是费用非常便宜，坏处是你不知道将和哪些 网站共享主机，因此需要仔细考虑机器负载和安全问题。如果项目预算允许的话，避免使用共享主机是上策。</p>
+
+    
+    <h3 id="build_title">Building and Deploying your Application</h3>
+
+<p>If you find yourself doing manual database schema changes or running your tests manually before updating your files (manually), think twice! With every additional manual task needed to deploy a new version of your app, the chances for potentially fatal mistakes increase. Whether you’re dealing with a simple update, a comprehensive build process or even a continuous integration strategy, <a href="http://en.wikipedia.org/wiki/Build_automation">build automation</a> is your friend.</p>
+
+<p>Among the tasks you might want to automate are:</p>
+
+<ul>
+<li>Dependency management</li>
+
+<li>Compilation, minification of your assets</li>
+
+<li>Running tests</li>
+
+<li>Creation of documentation</li>
+
+<li>Packaging</li>
+
+<li>Deployment</li>
+</ul>
+
+<h3 id="build_automation_tools">Build Automation Tools</h3>
+
+<p>Build tools can be described as a collection of scripts that handle common tasks of software deployment. The build tool is not a part of your software, it acts on your software from ‘outside’.</p>
+
+<p>There are many open source tools available to help you with build automation, some are written in PHP others aren’t. This shouldn’t hold you back from using them, if they’re better suited for the specific job. Here are a few examples:</p>
+
+<p><a href="http://www.phing.info/">Phing</a> is the easiest way to get started with automated deployment in the PHP world. With Phing you can control your packaging, deployment or testing process from within a simple XML build file. Phing (which is based on <a href="http://ant.apache.org/">Apache Ant</a>) provides a rich set of tasks usually needed to install or update a web app and can be extended with additional custom tasks, written in PHP.</p>
+
+<p><a href="https://github.com/capistrano/capistrano/wiki">Capistrano</a> is a system for <em>intermediate-to-advanced programmers</em> to execute commands in a structured, repeatable way on one or more remote machines. It is pre-configured for deploying Ruby on Rails applications, however people are <strong>successfully deploying PHP systems</strong> with it. Successful use of Capistrano depends on a working knowledge of Ruby and Rake.</p>
+
+<p>Dave Gardner’s blog post <a href="http://www.davegardner.me.uk/blog/2012/02/13/php-deployment-with-capistrano/">PHP Deployment with Capistrano</a> is a good starting point for PHP developers interested in Capistrano.</p>
+
+<p><a href="http://www.opscode.com/chef/">Chef</a> is more than a deployment framework, it is a very powerful Ruby based system integration framework that doesn’t just deploy your app but can build your whole server environment or virtual boxes.</p>
+
+<p>Chef resources for PHP developers:</p>
+
+<ul>
+<li><a href="http://www.jasongrimes.org/2012/06/managing-lamp-environments-with-chef-vagrant-and-ec2-1-of-3/">Three part blog series about deploying a LAMP application with Chef, Vagrant, and EC2</a></li>
+
+<li><a href="https://github.com/opscode-cookbooks/php">Chef Cookbook which installs and configures PHP 5.3 and the PEAR package management system</a></li>
+</ul>
+
+<p>Further reading:</p>
+
+<ul>
+<li><a href="http://net.tutsplus.com/tutorials/other/automate-your-projects-with-apache-ant/">Automate your project with Apache Ant</a></li>
+
+<li><a href="http://maven.apache.org/">Maven</a>, a build framework based on Ant and <a href="http://www.php-maven.org/">how to use it with PHP</a></li>
+</ul>
+
+<h3 id="continuous_integration">Continuous Integration</h3>
+
+<blockquote>
+<p>Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily &mdash; leading to multiple integrations per day. Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly.</p>
+</blockquote>
+
+<p><em>&ndash; Martin Fowler</em></p>
+
+<p>There are different ways to implement continuous integration for PHP. Recently <a href="https://travis-ci.org/">Travis CI</a> has done a great job of making continuous integration a reality even for small projects. Travis CI is a hosted continuous integration service for the open source community. It is integrated with GitHub and offers first class support for many languages including PHP.</p>
+
+<p>Further reading:</p>
+
+<ul>
+<li><a href="http://jenkins-ci.org/">Continuous Integration with Jenkins</a></li>
+
+<li><a href="http://www.jetbrains.com/teamcity/">Continuous Integration with Teamcity</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="caching">缓存</h3>
+<p>PHP自身效率很高，但是执行创建远程连接、加载文件等操作时容易出现瓶颈，幸运的是，我们有很多工具来加速这部分操作，或减少 这些耗时操作的执行次数。</p>
+
+    
+    <h3 id="bytecode_cache">字节码缓存</h3>
+<p>W在一个PHP文件被执行时，它先被编译为字节码(也称opcode)，然后这些字节码被执行。如果文件没有修改，那么字节码也会保持不变， 这意味着编译这一步白白浪费了CPU资源。</p>
+
+<p>这就是引入字节码缓存的原因，通过把字节码保存在内存中来消除冗余的编译，重用它们完成后续的调用。配置字节码缓存非常简单， 而且可以极大地提高应用的执行效率，没有理由不使用字节码缓存。</p>
+
+<p>流行的字节码缓存方案有：</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/book.apc.php">APC</a></li>
+
+<li><a href="http://xcache.lighttpd.net/">XCache</a></li>
+
+<li><a href="http://www.zend.com/products/server/">Zend Optimizer+</a> (part of Zend Server package)</li>
+
+<li><a href="http://www.iis.net/download/wincacheforphp">WinCache</a> (extension for MS Windows Server)</li>
+</ul>
+
+    
+    <h3 id="object_caching">对象缓存</h3>
+<p>很多时候，在代码中缓存对象可以带来很大的收益，例如获取代价很大的数据和查询结果很少变化的数据库调用。我们可以使用对象 缓存系统缓存这些数据，大大加快后续的同类访问请求。如果你在取得这些数据之后，把它们缓存在系统中，在后续对这些数据的请求 中，就可以直接使用缓存中的对象，这么做可以很大的提示系统性能，减少服务器的负载。</p>
+
+<p>很多流行的字节码缓存方案也允许你缓存自定义数据，因此我们更应该充分利用对象缓存功能。APC、XCache和WinCache都提供API， 让你把数据缓存在他们的内存cache中。</p>
+
+<p>使用最多的内存对象缓存系统是APC和memcached，APC是很好的一个对象缓存方案，它提供了简单的API来让你把对象存储在内存中，而且 配置和使用都非常容易，它的一个缺点是只能在本机使用。Memcached则是另外一种方式，它是一个单独的服务，可以通过网络访问，这 意味着可以在一个地方写入数据，然后在不同的系统中访问这份数据。</p>
+
+<p>在单机性能上，APC通常比Memcached更高，如果你不需要多台服务器或者其他Memcached的高级功能，APC可能是你的最佳选择。</p>
+
+<p>APC的示例:</p>
+<div class="highlight"><pre><code class="php"><span class="cp">&lt;?php</span>
+<span class="c1">// check if there is data saved as 'expensive_data' in cache</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="nb">apc_fetch</span><span class="p">(</span><span class="s1">'expensive_data'</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$data</span> <span class="o">===</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// data is not in cache; save result of expensive call for later use</span>
+    <span class="nb">apc_add</span><span class="p">(</span><span class="s1">'expensive_data'</span><span class="p">,</span> <span class="nv">$data</span> <span class="o">=</span> <span class="nx">get_expensive_data</span><span class="p">());</span>
+<span class="p">}</span>
+
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</code></pre></div>
+<p>学习更多对象缓存系统：</p>
+
+<ul>
+<li><a href="http://php.net/manual/en/ref.apc.php">APC Functions</a></li>
+
+<li><a href="http://memcached.org/">Memcached</a></li>
+
+<li><a href="http://redis.io/">Redis</a></li>
+
+<li><a href="http://xcache.lighttpd.net/wiki/XcacheApi">XCache APIs</a></li>
+
+<li><a href="http://www.php.net/manual/en/ref.wincache.php">WinCache Functions</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="resources">资源</h3>
+<h3 id="from_the_source">From the Source</h3>
+
+<ul>
+<li><a href="http://php.net/">PHP Website</a></li>
+
+<li><a href="http://php.net/docs.php">PHP Documentation</a></li>
+</ul>
+
+<h3 id="people_to_follow">People to Follow</h3>
+
+<ul>
+<li><a href="http://twitter.com/rasmus">Rasmus Lerdorf</a></li>
+
+<li><a href="http://twitter.com/fabpot">Fabien Potencier</a></li>
+
+<li><a href="http://twitter.com/derickr">Derick Rethans</a></li>
+
+<li><a href="http://twitter.com/shiflett">Chris Shiflett</a></li>
+
+<li><a href="http://twitter.com/s_bergmann">Sebastian Bergmann</a></li>
+
+<li><a href="http://twitter.com/weierophinney">Matthew Weier O’Phinney</a></li>
+
+<li><a href="http://twitter.com/padraicb">Pádraic Brady</a></li>
+
+<li><a href="http://twitter.com/ircmaxell">Anthony Ferrara</a></li>
+
+<li><a href="http://twitter.com/nikita_ppv">Nikita Popov</a></li>
+</ul>
+
+<h3 id="mentoring">Mentoring</h3>
+
+<ul>
+<li><a href="http://phpmentoring.org/">phpmentoring.org</a> - Formal, peer to peer mentoring in the PHP community.</li>
+</ul>
+
+<h3 id="php_paas">PHP PaaS供应商</h3>
+
+<ul>
+<li><a href="https://pagodabox.com/">PagodaBox</a></li>
+
+<li><a href="https://appfog.com/">AppFog</a></li>
+
+<li><a href="https://heroku.com">Heroku</a> (PHP support is undocumented but based on stable Facebook partnership <a href="http://net.tutsplus.com/tutorials/php/quick-tip-deploy-php-to-heroku-in-seconds/"><span>link</span></a>)</li>
+
+<li><a href="http://fortrabbit.com/">fortrabbit</a></li>
+
+<li><a href="http://www.engineyard.com/products/orchestra/">Engine Yard Orchestra PHP Platform</a></li>
+
+<li><a href="http://www.redhat.com/products/cloud-computing/openshift/">Red Hat OpenShift Platform</a></li>
+
+<li><a href="http://docs.dotcloud.com/services/php/">dotCloud</a></li>
+
+<li><a href="http://aws.amazon.com/elasticbeanstalk/">AWS Elastic Beanstalk</a></li>
+
+<li><a href="https://www.cloudcontrol.com/">cloudControl</a></li>
+
+<li><a href="http://www.windowsazure.com/">Windows Azure</a></li>
+
+<li><a href="http://www.phpcloud.com/develop">Zend Developer Cloud</a></li>
+</ul>
+
+    
+    <h3 id="frameworks">框架</h3>
+<p>大量的PHP开发者使用框架，而不是重复发明轮子来创建自己的Web应用。框架抽象出底层通用的业务逻辑，给使用者了提供简单易用的接口。</p>
+
+<p>不是所有的项目都需要框架，有时候原生的PHP就能满足需求，但是需要框架的时候，有三种类型的框架可供选择：</p>
+
+<p>* 微框架 * 全能(Full-Stack)框架 * 组件框架</p>
+
+<p>微框架仅是一个包装器(Wrapper)，尽量快地把HTTP请求路由到回调函数、控制器或方法上，有些框架也会提供一些函数库，如基本的数据库 操作。微框架主要用于构建远程HTTP服务。</p>
+
+<p>全能框架则是在微框架的功能之上提供了更多的功能特性，如ORM，验证组件等。</p>
+
+<p>组件框架则是一组独立功能库的集合，多个基于组件的框架集合在一起，甚至可以用作微框架或者全能框架。</p>
+
+<ul>
+<li><a href="https://github.com/codeguy/php-the-right-way/wiki/Frameworks">PHP常用框架列表</a></li>
+</ul>
+
+    
+    <h3 id="components">组件</h3>
+<p>如前所述，组件是另外一种创建、实现和发布开源代码的方式，当前社区存在很多组件库，最主要的两个：</p>
+
+<ul>
+<li><a href="/php-the-right-way/#composer_and_packagist">Packagist</a></li>
+
+<li><a href="/php-the-right-way/#pear">PEAR</a></li>
+</ul>
+
+<p>这两个库都有用于安装和升级的命令行工具，已经在<a href="/php-the-right-way/#dependency_management">依赖管理</a>部分讲述.</p>
+
+<p>还有基于组件的框架，你可以使用其中的组件，它们相互之间依赖很少，或完全独立，如<a href="https://github.com/fuelphp/validation">FuelPHP验证包</a>， 就可以脱离FuelPHP框架而独立使用。这些项目就相当于一个可重用的组件库：</p>
+
+<ul>
+<li><a href="http://auraphp.github.com/">Aura</a></li>
+
+<li><a href="https://github.com/fuelphp">FuelPHP (2.0 only)</a></li>
+
+<li><a href="https://github.com/illuminate">Laravel’s “Illuminate Components”</a></li>
+
+<li><a href="http://symfony.com/doc/current/components/index.html">Symfony Components</a></li>
+</ul>
+
+    
+    <p><a class="top" href="#top">Back to Top</a></p>
+    
+    <h3 id="id19">社区</h3>
+
+<p>The PHP community is as diverse as it is large, and it’s members are ready and willing to support new PHP programmers. You should consider joining your local PHP user group (PUG) or attending larger PHP conferences to learn more about the best practices shown here. You can also hang out on IRC in the #phpc channel on irc.freenode.com and follow the <a href="https://twitter.com/phpc">@phpc</a> twitter account. Get out there, meet new developers, learn new topics and, above all, make new friends. Also there is a large Google+ Community for PHP Programmers where 9,000+ PHP Programmers are available to discuss about problem and solving others problem by each other. You can also join there on Google+ community for <a href="https://plus.google.com/u/0/communities/104245651975268426012">PHP Programmer</a></p>
+
+<p><a href="http://www.php.net/cal.php">Read the Official PHP Events Calendar</a></p>
+
+<h3 id="php_user_groups">PHP User Groups</h3>
+
+<p>If you live in a larger city, odds are there’s a PHP user group nearby. Although there’s not yet an official list of PUGs, you can easily find your local PUG by searching on <a href="https://www.google.com/search?q=php+user+group+near+me">Google</a> or <a href="http://www.meetup.com/find/">Meetup.com</a>. If you live in a smaller town, there may not be a local PUG; if that’s the case, start one!</p>
+
+<p><a href="https://wiki.php.net/usergroups">Read about User Groups on the PHP Wiki</a></p>
+
+<h3 id="php_conferences">PHP Conferences</h3>
+
+<p>The PHP community also hosts larger regional and national conferences in many countries around the world. Well-known members of the PHP community usually speak at these larger events, so it’s a great opportunity to learn directly from industry leaders.</p>
+
+<p><a href="http://php.net/conferences/index.php">Find a PHP Conference</a></p>
+
+<p><a class="top" href="#top">Back to Top</a></p>
+        </div>
+    </div>
+</div>
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>

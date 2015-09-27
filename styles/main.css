@@ -1,0 +1,111 @@
+body {background: #F4F4F4;}
+
+body a, body a:hover {color:#00ABA9;}
+
+.menubar {
+	padding: 5px 10px;background-color:#FFFFFF;border-bottom:1px solid #EEEEEE;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+	position:fixed;
+    right: 0;
+    left: 0;
+    top:0;
+    z-index: 1030;
+    margin-bottom: 0;
+}
+.menubar .logo {padding-left:10px;}
+.menubar .logo, .menubar .site-description {padding-top:10px;color:#00ABA9;}
+.menubar .logo a {text-decoration:none;color:#00ABA9;}
+.menubar .navbar {margin-bottom:0;}
+.menubar .navbar .navbar-inner {border:0;padding:0 0 0 20px;}
+.menubar .navbar .brand {padding: 10px 20px;}
+
+.menubar .navbar .nav > li > a {color:#00ABA9;}
+.menubar .navbar .nav > li > a:hover {color:#000000;}
+
+.mobile-menus button, .mobile-menus .btn:hover {background:#00ABA9;}
+.mobile-menus .btn:hover {opacity:0.8;}
+
+.weibo {position: relative; left: 15px;top: 8px;}
+
+.site-description {margin:70px 20px 10px 20px;}
+.site-description p {margin-bottom:0;font-size:11px;}
+
+.main-content {margin: 0 20px;}
+.main-content .tabbable {margin-bottom:10px;}
+.more {text-align:center;}
+
+.thumbnails .thumbnail {position:relative;}
+
+.thumbnail .btn {background-color:#00ABA9;}
+.thumbnail .btn:hover {opacity:0.8;}
+
+.thumbnails .thumbnail .new {width:75px;height:75px;background: url(http://pic.yupoo.com/sinaweibo1623108588_v/D7r85TCi/square.jpg) no-repeat left top;position:absolute;left:0;top:0;}
+.thumbnails .thumbnail .hot {width:75px;height:75px;background: url(http://pic.yupoo.com/sinaweibo1623108588_v/D7rdnQ9D/square.jpg) no-repeat left top;position:absolute;left:0;top:0;}
+
+.footer ul li {list-style:none;}
+.footer h5 {margin-left:25px;}
+.footer p {text-align:center;margin-bottom: 50px;}
+
+.footer .navbar-fixed-bottom {background: #FFFFFF;text-align:center;border-top: 1px solid #EEEEEE;box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);}
+
+.footer .navbar-fixed-bottom .nav li a {font-size:14px;color:#00ABA9}
+.footer .navbar-fixed-bottom .nav li a:hover {background:#EEEEEE;}
+
+
+.box1, .box2, .box4, .box5, .box6, .box7, .box8{
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.hide {display:none;}
+/* Bootstap overrides */
+
+.thumbnail {background: #FFFFFF;}
+
+.thumbnail h4 {color: #00ABA9}
+
+body .thumbnails {margin-bottom:10px;}
+
+body .thumbnails > li {margin-bottom:10px;}
+
+body .thumbnail > img {height:150px;}
+
+body .thumbnails > li.tile {
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+	padding:10px;
+    height:110px;
+    width:115px;
+}
+
+body .thumbnails > li.tile h1.tile-text,
+body .thumbnails > li.tile h2.tile-text,
+body .thumbnails > li.tile h3.tile-text,
+body .thumbnails > li.tile h4.tile-text {
+  margin-top: 0;
+  padding:0;
+}
+
+/*hide the top navigation as the screen width small than 800px*/
+@media (max-width: 800px) {
+    body .main-content .guide-siderbar {display:none;}
+}
+
+/*hide the top navigation as the screen width small than 1028px*/
+@media (max-width: 1028px) {
+    body .menubar .navbar .nav {display:none;}
+    
+    #tabmenus{display:inline;}
+    .tilemenus .opensource {margin-left:0;}
+    .navbar-fixed-bottom {display:none;}
+}
+
+@media (max-width: 767px) {
+	body {padding:0;}
+
+	.container-fluid {
+      padding: 0 5px;
+    }
+
+    .main-content {
+    	margin: 5px;
+    }
+}
+ 

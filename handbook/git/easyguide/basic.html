@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>基本的快照</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="基本的快照" />
+        <meta name="description" content="基本的快照" />
+        <meta name="keywords" content="git基本的快照" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <div class="row-fluid">
+    <div class="span2 guide-siderbar">
+        <ul class="nav nav-list">
+    <li class="nav-header">
+        <a href="./create.html"><i class="icon-hand-right"></i>获取与创建项目</a>
+    </li>
+    <li>
+        <a href="./create.html#init">init</a>
+    </li>
+    <li>
+        <a href="./create.html#clone">clone</a>
+    </li>
+    
+    <li class="divider"></li>
+    
+    <li class="nav-header">
+        <a href="./basic.html"><i class="icon-hand-right"></i>基本的快照</a>
+    </li>
+    <li>
+        <a href="./basic.html#add">add</a>
+    </li>
+    <li>
+        <a href="./basic.html#status">status</a>
+    </li>
+    <li>
+        <a href="./basic.html#diff">diff</a>
+    </li>
+    <li>
+        <a href="./basic.html#commit">commit</a>
+    </li>
+    <li>
+        <a href="./basic.html#reset">reset</a>
+    </li>
+    <li>
+        <a href="./basic.html#rm">rm, mv</a>
+    </li>
+    
+    <li class="divider"></li>
+    
+    <li class="nav-header">
+        <a href="./branch.html"><i class="icon-hand-right"></i>分支与合并</a>
+    </li>
+    <li>
+        <a href="./branch.html#branch">branch</a>
+    </li>
+    <li>
+        <a href="./branch.html#branch">checkout</a>
+    </li>
+    <li>
+        <a href="./branch.html#merge">merge</a>
+    </li>
+    <li>
+        <a href="./branch.html#log">log</a>
+    </li>
+    <li>
+        <a href="./branch.html#tag">tag</a>
+    </li>
+    
+    <li class="divider"></li>
+    
+    <li class="nav-header">
+        <a href="./share.html"><i class="icon-hand-right"></i>分享与更新项目</a>
+    </li>
+    <li>
+        <a href="./share.html#fetch-pull">fetch, pull</a>
+    </li>
+    <li>
+        <a href="./share.html#push">push</a>
+    </li>
+    <li>
+        <a href="./share.html#remote">remote</a>
+    </li>
+</ul>    </div>
+    
+    <div class="span10 guide-content clearfix">
+        <h3>基本快照</h3>
+        <p>Git 的工作就是创建和保存你的项目的快照及与之后的快照进行对比。本章将对有关创建与提交你的项目的快照的命令作介绍。</p>
+        <p>这里有个重要的概念，Git 有一个叫做“索引”的东东，有点像是你的快照的缓存区。这就使你能够从更改的文件中创建出一系列组织良好的快照，而不是一次提交所有的更改。</p>
+        <p class="alert alert-info">简而言之，使用 git add 添加需要追踪的新文件和待提交的更改， 然后使用 git status 和 git diff 查看有何改动， 最后用 git commit 将你的快照记录。这就是你要用的基本流程，绝大部分时候都是这样的。</p>
+        
+        <h3 id="add">git add 添加文件到缓存</h3>
+        <p>在 Git 中，在提交你修改的文件之前，你需要把它们添加到缓存。如果该文件是新创建的，你可以执行 <strong>git add</strong> 将该文件添加到缓存，但是，即使该文件已经被追踪了 —— 也就是说，曾经提交过了 —— 你仍然需要执行 <strong>git add</strong> 将新更改的文件添加到缓存去。让我们看几个例子：</p>
+        <p>回到我们的 Hello World 示例，初始化该项目之后，我们就要用 <strong>git add</strong> 将我们的文件添加进去了。 我们可以用 <strong>git status</strong> 看看我们的项目的当前状态。</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+?? README
+?? hello.rb
+</code>
+</pre>
+        <p>我们有俩尚未被追踪的文件，得添加一下。</p>
+<pre>
+<code data-language="shell">
+$ git add README hello.rb
+</code>
+</pre>
+        <p>现在我们再执行 <strong>git status</strong>，就可以看到这俩文件已经加上去了。</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+A  README
+A  hello.rb
+</code>
+</pre>
+        <p>新项目中，添加所有文件很普遍，可以在当前工作目录执行命令：<strong>git add .</strong>。 因为 Git 会递归地将你执行命令时所在的目录中的所有文件添加上去，所以如果你将当前的工作目录作为参数， 它就会追踪那儿的所有文件了。如此，<strong>git add .</strong> 就和 <strong>git add README hello.rb</strong> 有一样的效果。 此外，效果一致的还有 <strong>git add *</strong>，不过那只是因为我们这还木有子目录，不需要递归地添加新文件。</p>
+        <p>好了，现在我们改个文件，再跑一下 git status，有点古怪。</p>
+<pre>
+<code data-language="shell">
+$ vim README
+$ git status -s
+AM README
+A  hello.rb
+</code>
+</pre>
+        <p>“AM” 状态的意思是，这个文件在我们将它添加到缓存之后又有改动。这意味着如果我们现在提交快照， 我们记录的将是上次跑 git add 的时候的文件版本，而不是现在在磁盘中的这个。 Git 并不认为磁盘中的文件与你想快照的文件必须是一致的 —— （如果你需要它们一致，）得用 git add 命令告诉它。
+        </p>
+        <p class="alert alert-info">一言以蔽之， 当你要将你的修改包含在即将提交的快照里的时候，执行 git add。 任何你没有添加的改动都不会被包含在内 —— 这意味着你可以比绝大多数其他源代码版本控制系统更精确地归置你的快照。</p>
+        <p class="alert alert-info">请查看《Pro Git》中 git add 的 “-p” 参数，以了解更多关于提交文件的灵活性的例子。</p>
+        
+        <h3 id="status">git status 查看你的文件在工作目录与缓存的状态</h3>
+        <p>正如你在 <strong>git add</strong> 小节中所看到的，你可以执行 <strong>git status</strong> 命令查看你的代码在缓存与当前工作目录的状态。我演示该命令的时候加了 <strong>-s</strong> 参数，以获得简短的结果输出。 若没有这个标记，命令 <strong>git status</strong> 将告诉你更多的提示与上下文欣喜。 以下便是同样状态下，有跟没有 <strong>-s</strong> 参数的输出对比。简短的输出如下：</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+AM README
+A  hello.rb
+</code>
+</pre>
+        <p>而同样的状态，详细的输出看起来是这样的：</p>
+<pre>
+<code data-language="shell">
+$ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached ..." to unstage)
+#
+# new file:   README
+# new file:   hello.rb
+#
+# Changed but not updated:
+#   (use "git add ..." to update what will be committed)
+#   (use "git checkout -- ..." to discard changes in working directory)
+#
+# modified:   README
+#
+</code>
+</pre>
+        <p>你很容易发现简短的输出看起来很紧凑。而详细输出则很有帮助，提示你可以用何种命令完成你接下来可能要做的事情。</p>
+        <p>Git 还会告诉你在你上次提交之后，有哪些文件被删除、修改或者存入缓存了。</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+M  README
+D hello.rb
+</code>
+</pre>
+        <p>你可以看到，在简短输出中，有两栏。第一栏是缓存的，第二栏则是工作目录的。 所以假设你临时提交了 README 文件，然后又改了些，并且没有执行 <strong>git add</strong>，你会看到这个：</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+MM README
+D hello.rb
+</code>
+</pre>
+        <p class="alert alert-info"><strong>一言以蔽之</strong>，执行 <strong>git status</strong> 以查看在你上次提交之后有啥被修改或者临时提交了， 从而决定自己是否需要提交一次快照，同时也能知道有什么改变被记录进去了。</p>
+        
+        <h3 id="diff">git diff 显示已写入缓存与已修改但尚未写入缓存的改动的区别</h3>
+        <p><strong>git diff</strong> 有两个主要的应用场景。我们将在此介绍其一， 在<strong>检阅与对照</strong> 一章中，我们将介绍其二。 我们这里介绍的方式是用此命令描述已临时提交的或者已修改但尚未提交的改动。</p>
+        <h4>git diff #尚未缓存的改动</h4>
+        <p>如果没有其他参数，git diff 会以规范化的 diff 格式（一个补丁）显示自从你上次提交快照之后尚未缓存的所有更改。</p>
+<pre>
+<code data-language="shell">
+$ vim hello.rb
+$ git status -s
+ M hello.rb
+$ git diff
+diff --git a/hello.rb b/hello.rb
+index d62ac43..8d15d50 100644
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,7 @@
+ class HelloWorld
+
+   def self.hello
+-    puts "hello world"
++    puts "hola mundo"
+   end
+
+ end
+</code>
+</pre>
+        <p>所以，<strong>git status</strong>显示你上次提交更新至后所更改或者写入缓存的改动， 而 <strong>git diff</strong> 一行一行地显示这些改动具体是啥。 通常执行完 <strong>git status</strong> 之后接着跑一下 <strong>git diff</strong> 是个好习惯。</p>
+        <h4>git diff --cached #查看已缓存的改动</h4>
+        <p><strong>git diff --cached</strong> 命令会告诉你有哪些内容已经写入缓存了。 也就是说，此命令显示的是接下来要写入快照的内容。所以，如果你将上述示例中的 hello.rb 写入缓存，因为 <strong>git diff</strong> 显示的是尚未缓存的改动，所以在此执行它不会显示任何信息。</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+M hello.rb
+$ git add hello.rb 
+$ git status -s
+M  hello.rb
+$ git diff
+$ 
+</code>
+</pre>
+        <p>如果你想看看已缓存的改动，你需要执行的是 <strong>git diff --cached。</strong></p>
+<pre>
+<code data-language="shell">
+$ git status -s
+M  hello.rb
+$ git diff
+$ 
+$ git diff --cached
+diff --git a/hello.rb b/hello.rb
+index d62ac43..8d15d50 100644
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,7 @@
+ class HelloWorld
+
+   def self.hello
+-    puts "hello world"
++    puts "hola mundo"
+   end
+
+ end
+</code>
+</pre>
+        <h4>git diff HEAD 查看已缓存的与未缓存的所有改动</h4>
+        <p>如果你想一并查看已缓存的与未缓存的改动，可以执行 <strong>git diff HEAD</strong> —— 也就是说你要看到的是工作目录与上一次提交的更新的区别，无视缓存。 假设我们又改了些 ruby.rb 的内容，那缓存的与未缓存的改动我们就都有了。 以上三个 diff 命令的结果如下：</p>
+<pre>
+<code data-language="shell">
+$ vim hello.rb 
+$ git diff
+diff --git a/hello.rb b/hello.rb
+index 4f40006..2ae9ba4 100644
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,7 @@
+ class HelloWorld
+
++  # says hello
+   def self.hello
+     puts "hola mundo"
+   end
+
+ end
+$ git diff --cached
+diff --git a/hello.rb b/hello.rb
+index 2aabb6e..4f40006 100644
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,7 @@
+ class HelloWorld
+
+   def self.hello
+-    puts "hello world"
++    puts "hola mundo"
+   end
+
+ end
+$ git diff HEAD
+diff --git a/hello.rb b/hello.rb
+index 2aabb6e..2ae9ba4 100644
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,8 @@
+ class HelloWorld
+
++  # says hello
+   def self.hello
+-    puts "hello world"
++    puts "hola mundo"
+   end
+
+ end
+</code>
+</pre>
+        <h4>git diff --stat 显示摘要而非整个 diff</h4>
+        <p>如果我们不想要看整个 diff 输出，但是又想比 <strong>git status</strong> 详细点， 就可以用 <strong>--stat</strong> 选项。该选项使它显示摘要而非全文。上文示例在使用 <strong>--stat</strong> 选项时，输出如下：</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+MM hello.rb
+$ git diff --stat
+ hello.rb |    1 +
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+$ git diff --cached --stat
+ hello.rb |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+$ git diff HEAD --stat
+ hello.rb |    3 ++-
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+</code>
+</pre>
+        <p>你还可以在上述命令后面制定一个目录，从而只查看特定文件或子目录的 <strong>diff</strong> 输出。</p>
+        <p class="alert alert-info">简而言之， 执行 <strong>git diff</strong> 来查看执行 <strong>git status</strong> 的结果的详细信息 —— 一行一行地显示这些文件是如何被修改或写入缓存的。</p>
+        
+        <h3 id="commit">git commit 记录缓存内容的快照</h3>
+        <p>现在你使用 <strong>git add</strong> 命令将想要快照的内容写入了缓存， 执行 <strong>git commit</strong> 就将它实际存储快照了。 Git 为你的每一个提交都记录你的名字与电子邮箱地址，所以第一步是告诉 Git 这些都是啥。</p>
+<pre>
+<code data-language="shell">
+$ git config --global user.name 'Your Name'
+$ git config --global user.email you@somedomain.com
+</code>
+</pre>
+        <p>让我们写入缓存，并提交对 <strong>hello.rb</strong> 的所有改动。在首个例子中，我们使用 -m 选项以在命令行中提供提交注释。</p>
+<pre>
+<code data-language="shell">
+$ git add hello.rb 
+$ git status -s
+M  hello.rb
+$ git commit -m 'my hola mundo changes'
+[master 68aa034] my hola mundo changes
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+</code>
+</pre>
+        <p>现在我们已经记录了快照。如果我们再执行 <strong>git status</strong>，会看到我们有一个“干净的工作目录”。 这意味着我们在最近一次提交之后，没有做任何改动 —— 在我们的项目中没有未快照的工作。</p>
+<pre>
+<code data-language="shell">
+$ git status
+# On branch master
+nothing to commit (working directory clean)
+</code>
+</pre>
+        <p>如果你漏掉了 <strong>-m</strong> 选项，Git 会尝试为你打开一个编辑器以填写提交信息。 如果 Git 在你对它的配置中找不到相关信息，默认会打开 <strong>vim</strong>。屏幕会像这样：</p>
+<pre>
+<code data-language="shell">
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+# modified:   hello.rb
+#
+~
+~
+".git/COMMIT_EDITMSG" 9L, 257C
+</code>
+</pre>
+        <p>在此，你在文件头部添加实际的提交信息。以“#”开头的行都会被无视 ——Git 将 <strong>git status</strong> 的输出结果放在那儿以提示你都改了、缓存了啥。</p>
+        <p>通常，撰写良好的提交信息是很重要的。以开放源代码项目为例，多多少少以以下格式写你的提示消息是个不成文的规定：</p>
+        <p class="alert alert-block">
+            简短的关于改动的总结（25个字或者更少）
+            如果有必要，更详细的解释文字。约 36 字时换行。在某些情况下，
+            第一行会被作为电子邮件的开头，而剩余的则会作为邮件内容。
+            将小结从内容隔开的空行是至关重要的（除非你没有内容）；
+            如果这两个待在一起，有些 git 工具会犯迷糊。
+            
+            空行之后是更多的段落。
+            
+             - 列表也可以
+            
+             - 通常使用连字符（-）或者星号（*）来标记列表，前面有个空格，
+               在列表项之间有空行，不过这些约定也会有些变化。
+        </p>
+<pre>
+<code>
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+# modified:   hello.rb
+#
+~
+~
+~
+".git/COMMIT_EDITMSG" 25L, 884C written
+</code>
+</pre>
+        <p>提交注解是很重要的。因为 Git 很大一部分能耐就是它在组织本地提交和与他人分享的弹性， 它很给力地能够让你为逻辑独立的改变写三到四条提交注解，以便你的工作被同仁审阅。因为提交与推送改动是有区别的， 请务必花时间将各个逻辑独立的改动放到另外一个提交，并附上一份良好的提交注解， 以使与你合作的人能够方便地了解你所做的，以及你为何要这么做。</p>
+        <h4>git commit -a 自动将在提交前将已记录、修改的文件放入缓存区</h4>
+        <p>如果你觉得 <strong>git add</strong> 提交缓存的流程太过繁琐，Git 也允许你用 -a 选项跳过这一步。 基本上这句话的意思就是，为任何已有记录的文件执行 <strong>git add</strong> —— 也就是说，任何在你最近的提交中已经存在，并且之后被修改的文件。 这让你能够用更 Subversion 方式的流程，修改些文件，然后想要快照所有所做的改动的时候执行 <strong>git commit -a</strong>。 不过你仍然需要执行 <strong>git add</strong> 来添加新文件，就像 Subversion 一样。</p>
+<pre>
+<code data-language="shell">
+$ vim hello.rb
+$ git status -s
+ M  hello.rb
+$ git commit -m 'changes to hello file'
+# On branch master
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+# modified:   hello.rb
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+$ git commit -am 'changes to hello file'
+[master 78b2670] changes to hello file
+ 1 files changed, 2 insertions(+), 1 deletions(-)
+</code>
+</pre>
+        <p>注意，如果你不缓存改动，直接执行 <strong>git commit，Git</strong> 会直接给出 <strong>git status</strong> 命令的输出，提醒你啥也没缓存。我已将该消息中的重要部分高亮，它说没有添加需要提交的缓存。 如果你使用 <strong>-a</strong>，它会缓存并提交每个改动（不含新文件）。</p>
+        <p>现在你就完成了整个快照的流程 ——改些文件，然后用 <strong>git add</strong> 将要提交的改动提交到缓存， 用 <strong>git status</strong> 和 <strong>git diff</strong> 看看你都改了啥，最后 git commit 永久地保存快照。</p>
+        <p class="alert alert-info"><strong>简而言之</strong>，执行 <strong>git commit</strong> 记录缓存区的快照。如果需要的话，这个快照可以用来做比较、共享以及恢复。</p>
+        
+        <h3 id="reset">git reset HEAD 取消缓存已缓存的内容</h3>
+        <p><strong>git reset</strong> 可能是人类写的最费解的命令了。 我用 Git 有些年头了，甚至还写了本书，但有的时候还是会搞不清它会做什么。 所以，我只说三个明确的，通常有用的调用。请你跟我一样尽管用它 —— 因为它可以很有用。</p>
+        <p>在此例中，我们可以用它来将不小心缓存的东东取消缓存。假设你修改了两个文件，想要将它们记录到两个不同的提交中去。 你应该缓存并提交一个，再缓存并提交另外一个。如果你不小心两个都缓存了，那要如何才能取消缓存呢？ 你可以用 <strong>git reset HEAD -- file</strong>。 技术上说，在这里你不需要使用 -- —— 它用来告诉 Git 这时你已经不再列选项，剩下的是文件路径了。 不过养成使用它分隔选项与路径的习惯很重要，即使在你可能并不需要的时候。</p>
+        <p>好，让我们看看取消缓存是什么样子的。这里我们有两个最近提交之后又有所改动的文件。我们将两个都缓存，并取消缓存其中一个。</p>
+<pre>
+<code data-language="shell">
+$ git status -s
+ M README
+ M hello.rb
+$ git add .
+$ git status -s
+M  README
+M  hello.rb
+$ git reset HEAD -- hello.rb 
+Unstaged changes after reset:
+M hello.rb
+$ git status -s
+M  README
+ M hello.rb
+</code>
+</pre>
+        <p>现在你执行 <strong>git commit</strong> 将只记录 README 文件的改动，并不含现在并不在缓存中的 <strong>hello.rb</strong>。</p>
+        <p>如果你好奇，它实际的操作是将该文件在“索引”中的校验和重置为最近一次提交中的值。 <strong>git add</strong> 会计算一个文件的校验和，将它添加到“索引”中， 而 <strong>git reset HEAD</strong> 将它改写回原先的，从而取消缓存操作。</p>
+        <p>如果你想直接执行 <strong>git unstage</strong>，你可以在 Git 中配置个别名。 执行 <strong>git config --global alias.unstage "reset HEAD"</strong> 即可。 一旦执行完它，你就可以直接用 <strong>git unstage [file]</strong> 作为代替了。</p>
+        <p>如果你忘了取消缓存的命令，Git 的常规 <strong>git status</strong> 输出的提示会很有帮助。 例如，在你有已缓存的文件时，如果你不带 <strong>-s</strong> 执行 <strong>git status</strong>，它将告诉你怎样取消缓存：</p>
+<pre>
+<code data-language="shell">
+$ git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#   modified:   README
+#   modified:   hello.rb
+#
+</code>
+</pre>
+        <p class="alert alert-info">简而言之，执行 <strong>git reset HEAD</strong> 以取消之前 <strong>git add</strong> 添加，但不希望包含在下一提交快照中的缓存。</p>
+        
+        <h3 id="rm">git rm 将文件从缓存区移除</h3>
+        <p><strong>git rm</strong> 会将条目从缓存区中移除。这与 <strong>git reset HEAD</strong> 将条目取消缓存是有区别的。 “取消缓存”的意思就是将缓存区恢复为我们做出修改之前的样子。 在另一方面，<strong>git rm</strong> 则将该文件彻底从缓存区踢出，因此它不再下一个提交快照之内，进而有效地删除它。</p>
+        <p>默认情况下，<strong>git rm file</strong> 会将文件从缓存区和你的硬盘中（工作目录）删除。 如果要在工作目录中留着该文件，可以使用 <strong>git rm --cached</strong></p>
+        <h4>git mv git rm --cached orig; mv orig new; git add new</h4>
+        <p>不像绝大多数其他版本控制系统，Git 并不记录记录文件重命名。它反而只记录快照，并对比快照以找到有啥文件可能被重命名了。 如果一个文件从更新中删除了，而在下次快照中新添加的另一个文件的内容与它很相似，Git 就知道这极有可能是个重命名。 因此，虽然有 <strong>git mv</strong> 命令，但它有点多余 —— 它做得所有事情就是 <strong>git rm --cached</strong>， 重命名磁盘上的文件，然后再执行 <strong>git add</strong> 把新文件添加到缓存区。 你并不需要用它，不过如果觉得这样容易些，尽管用吧。</p>
+        <p>我自己并不使用此命令的普通形式 —— 删除文件。通常直接从硬盘删除文件，然后执行 <strong>git commit -a</strong> 会简单些。 它会自动将删除的文件从索引中移除。</p>
+        <p class="alert alert-info">简而言之， 执行 <strong>git rm</strong> 来删除 Git 追踪的文件。它还会删除你的工作目录中的相应文件。</p>
+        
+        <p class='more pull-left'><a href="./create.html" class="btn btn-large btn-success"><i class="icon-arrow-left"></i>获取与创建项目</a></p>
+        <p class='more pull-right'><a href="./branch.html" class="btn btn-large btn-success"><i class="icon-arrow-right"></i>到 分支与合并</a></p>
+    </div>
+</div>
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>

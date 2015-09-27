@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>剖析网页字符集的设置顺序</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="剖析网页字符集的设置顺序" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="active">
+                        <a href="/" >首页</a>
+                    </li>
+                    <li>
+                        <a href="/php" >PHP</a>
+                    </li>
+                    <li>
+                        <a href="/front" >前端</a>
+                    </li>
+                    <li>
+                        <a href="/db" >数据库</a>
+                    </li>
+                    <li>
+                        <a href="/system" >系统</a>
+                    </li>
+                    <li>
+                        <a href="/opensource" >开源</a>
+                    </li>
+                    <li>
+                        <a href="/handbook" >手册</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li>
+                        <a href="/" >首页</a>
+                    </li>
+                    <li>
+                        <a href="/php" >PHP</a>
+                    </li>
+                    <li>
+                        <a href="/front" >前端</a>
+                    </li>
+                    <li>
+                        <a href="/db" >数据库</a>
+                    </li>
+                    <li>
+                        <a href="/system" >系统</a>
+                    </li>
+                    <li>
+                        <a href="/opensource" >开源</a>
+                    </li>
+                    <li>
+                        <a href="/handbook" >手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span4 offset4 text-center"><strong>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span3 pull-right text-right"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+
+            <h2>剖析网页字符集的设置顺序</h2>
+
+<hr/>
+
+<ul>
+    <li>作者：360weboy</li>
+    <li>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+    <li>QQ群：197642724</li>
+</ul>
+
+<p>上个星期在为一个电子商务网站进行数据转移到新系统中的时候，发现一些产品描述字符老是输出乱码，确定是字符集的问题以后，对字符集再次进行了一次调研，确定了影响页面字符集的方式主要下面几种方式:</p>
+
+<ol>
+    <li>文件的编码方式</li>
+    <li>Apache2的默认字符集设置</li>
+    <li>PHP.ini中的默认字符集的设置</li>
+    <li>PHP脚本中手动输出header(‘Content-type:text/html;charset=xxx’);</li>
+    <li>html页面中加入</li>
+</ol>
+
+<p>我对以上五种方式都进行了一一测试，并且确定了5种方式对于浏览器字符集选择的优先级。首先我创建了一个以utf8编码的test.php文件，内容如下:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79kyqqU/11ox3l.jpg" class="img-polaroid" /></p>
+
+<p>我使用chrome访问test.php, 因为我的chrome浏览器的默认字符集不是utf8,应该是gb2312或者gbk，所以我在浏览器中看到了如下乱码:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79l2aX0/134nlM.jpg" class="img-polaroid" /></p>
+
+<h3>header与meta的优先级比较</h3>
+
+<p>接下来，先来测试以上的4,5两种方式。我向html页面中分别加入了，内容显示正常。</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79lphYW/6HRUK.jpg" class="img-polaroid" /></p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79lIsh2/g8AkI.jpg" class="img-polaroid" /></p>
+
+<p>去掉header中的meta标签，加入header(‘Content-type:text/html;charset=utf8′);内容显示正常。那么，meta标签和header的方式，那个优先级高呢，我在页面里同时设置了这两项，header设置为gb2312, meta设置为utf8:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79lZpxV/FGKkF.jpg" class="img-polaroid" /></p>
+
+<p>结果内容显示不正常，说明header的优先级高。浏览器先采用http头部中的字符集设置，然后是html页面中meta标签设置的字符集。</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79mnRIT/HNvI6.jpg" class="img-polaroid" /></p>
+
+<h3>php.ini中设置默认字符集以后的影响</h3>
+
+<p>接下来，我们来看下在php.ini中设置默认字符集以后的情形。为了测试下优先级，我们先将页面中的header以及meta设置的字符集都改为gb2312,那么这样内容肯定显示为乱码。然后，我们打开php.ini文件，找到如下设置，去掉前面的引号，设置字符集为utf8:
+</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79mRWdg/yAld3.jpg" class="img-polaroid" /></p>
+
+<p>设置好以后，记得要重启下apache2服务器，结果显示如下:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79n9KAT/pmRJS.jpg" class="img-polaroid" /></p>
+
+<p>我们看到，在php.ini设置默认字符集为utf8以后，它被加入到了响应头Content-type末尾，从而覆盖了在php脚本中通过header函数输出的gb2312的字符集，浏览器根据该头部中的信息，认为内容是utf8的字符集，最后内容现实正常。由此可见，php.ini中字符集设置的优先级高于header函数以及meta标签。</p>
+
+<h3>apache2中设置默认字符集</h3>
+
+<p>最后，我们来设置下apache2中的默认字符集来测试下。这次将header,meta,php.ini中的字符集都设置为gb2312,然后在apache2设置默认字符集为utf8:</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79nDJrV/L3ptM.jpg" class="img-polaroid" /></p>
+
+<p>重启apache2服务器，内容显示如下：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79nZ2vv/xwwOO.jpg" class="img-polaroid" /></p>
+
+<p>由此可见,apache2中的字符集的设置没有影响到http响应中的Content-Type头部，所以浏览器认为应该用gb2312来解码，导致出现乱码。那么，如果去掉php.ini中的字符集的设置以后内，页面是否会显示正常。经过测试，显示如下：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79oonbC/ENWvZ.jpg" class="img-polaroid" /></p>
+
+<p>看来，apache2中的字符集的优先级同样小于header函数的字符集设置。我们继续去掉header的设置看下：</p>
+
+<p><img src="http://pic.yupoo.com/sinaweibo1623108588_v/D79oKpGs/uXIQQ.jpg" class="img-polaroid" /></p>
+
+<p>以上证明，apache2中的字符集设置的优先级高于meta标签的字符集设置。charset=utf8加入到了http头部中。</p>
+
+<p>综合上述实验，得出字符集设置优先级顺序: <strong>php.ini默认字符集设置 > header函数字符集设置 > apache2默认字符集设置 > meta标签字符集设置</strong></p>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:8,showType:3};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/php">Php</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/database">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/framework">架构</a></li>
+                <li><i class="icon-tag"></i><a href="/operation-system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/session-enssence/">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/file-upload">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/curl">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/session-hijack">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/prototype">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/execution-context">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@sina.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>         
+         <script type="text/javascript" src="http://cdn.dev.skype.com/uri/skype-uri.js"></script>
+    </body>
+    
+    <script src="/scripts/all.min.js"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?f3c780e9561c585e259fe18bd4123f56";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</html>

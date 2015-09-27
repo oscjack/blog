@@ -1,0 +1,97 @@
+title: Ubuntu下安装Sublime Text2
+path: page1
+keywords: 安装sublime,ubuntu下安装sublime
+permalink: /system/:path/install-sublime.html
+---
+<h2>Ubuntu 12.04中安装Sublime Text2</h2>
+
+{% include 'layouts/publish.twig'%}
+
+<hr/>
+
+<p>Sublime Text2这个编辑器据说非常好用，今天在<a href="http://www.sublimetext.com/" target="_blank">http://www.sublimetext.com</a>上下载了一个包，安装了一下。 具体安装步骤如下：</p>
+
+<h3>第一步</h3>
+
+<p>用以下命令将下载的包解压:</p>
+
+<pre>
+    <code>
+        tar xf Sublime\ Text\ 2.0.1\ x64.tar.bz2
+    </code>
+</pre>
+
+<p>我下载的是针对linux 64位的包，因为64位的运行速度相对快些。推荐你安装64位的。</p>
+
+<div class="alert alert-info">
+    <p>注意上述\是用来转义空格的。</p>
+</div>
+
+<h3>第二步</h3>
+
+<p>解压后，你会看到Sublime Text2这个目录，个人觉得应该把它放到根目录下的opt中比较合适，所以我运行下边的命令：</p>
+
+<pre>
+    <code>
+        sudo mv Sublime\ Text\ 2 /opt/
+    </code>
+</pre>
+
+<h3>第三步</h3>
+
+<p>为了能在终端中可以直接通过输入sublime来打开所需文件，我建立了一个到sublime的软链接:</p>
+
+<pre>
+    <code>
+        sudo ln -s /opt/Sublime\ Text\ 2/sublime_text /usr/bin/sublime
+    </code>
+</pre>
+
+<h3>第四步</h3>
+
+<p>通过建立一个sublime.desktop文件，将sublime加入到应用程序菜单中。</p>
+
+<pre>
+    <code>
+        sudo sublime /usr/share/applications/sublime.desktop
+    </code>
+</pre>
+
+<p>拷贝下属内容到改文件中：</p>
+
+<pre>
+    <code>
+        [Desktop Entry]
+        Version=1.0
+        Name=Sublime Text 2
+        # Only KDE 4 seems to use GenericName, so we reuse the KDE strings.
+        # From Ubuntu's language-pack-kde-XX-base packages, version 9.04-20090413.
+        GenericName=Text Editor
+        
+        Exec=sublime
+        Terminal=false
+        Icon=/opt/Sublime Text 2/Icon/48x48/sublime_text.png
+        Type=Application
+        Categories=TextEditor;IDE;Development
+        X-Ayatana-Desktop-Shortcuts=NewWindow
+        
+        [NewWindow Shortcut Group]
+        Name=New Window
+        Exec=sublime -n
+        TargetEnvironment=Unity
+    </code>
+</pre>
+
+<h3>第五步</h3>
+
+<p>设置默认用sublime打开的文档类型，运行下面的命令行打开默认关联的文件列表：</p>
+
+<pre>
+    <code>
+        sudo sublime /usr/share/applications/defaults.list
+    </code>
+</pre>
+
+<p>搜索<strong>gedit.desktop</strong>，然后将它们替换为sublime.desktop</p>
+
+<p>安装结束！你可以使用sublime做为日常文件编辑器了，但是个人开发项目时，还是比较喜欢使用eclipse, 不过有时用用sublime处理一些文件，感觉也很方便。建议你试用下！</p>

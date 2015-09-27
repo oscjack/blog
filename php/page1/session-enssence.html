@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
+    <head>
+        <title>你必须了解的session的本质</title>
+        
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="title" content="你必须了解的session的本质" />
+        <meta name="description" content="你必须了解的session的本质" />
+        <meta name="keywords" content="session, php session, session的原理， session的本质, php session的本质， php session的原理" />
+        <meta name="author" content="360weboy" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="/media/img/boy.png" rel="shortcut icon">
+        
+        <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <style type="text/css">.main-content .container-fluid .top-adv {margin-left:0 !important;margin-top:20px;}</style>
+        
+        <!-- styles -->
+        <link rel="stylesheet" type="text/css" href="/styles/metro-bootstrap/css/all.min.css">
+        
+        <!-- scripts -->
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="container-fuid menubar">
+    <div class="row-fluid">
+        <div class="pull-left navbar">
+          <div class="navbar-inner">
+                <a class="brand" href="/"><img width="24" height="24" src="http://pic.yupoo.com/sinaweibo1623108588_v/D70ONN0J/thumb.jpg" /><strong>360weboy</strong></a>
+                <ul class="nav">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+                     <li class="nav-bookmarks">
+                        <a href="/bookmarks">书签</a>
+                    </li>
+                </ul>
+          </div>
+        </div>
+        <div class="btn-group pull-right mobile-menus">
+              <button class="btn dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-list"></i>
+              </button>
+              <ul class="dropdown-menu nav nav-list">
+                    <li class="nav-index">
+                        <a href="/">首页</a>
+                    </li>
+                    <li class="nav-backend">
+                        <a href="/backend">后端</a>
+                    </li>
+                    <li class="nav-front">
+                        <a href="/front">前端</a>
+                    </li>
+                    <li class="nav-db">
+                        <a href="/db">数据库</a>
+                    </li>
+                    <li class="nav-system">
+                        <a href="/system">系统</a>
+                    </li>
+                    <li class="nav-opensource">
+                        <a href="/opensource">开源</a>
+                    </li>
+                    <li class="nav-handbook">
+                        <a href="/handbook">手册</a>
+                    </li>
+              </ul>
+        </div>
+    </div>
+</div>        <div class="container-fluid main-content">
+            <div class="container-fluid site-description">
+                <div class="row-fluid">
+                    <p class="span5 text-center"><strong><i class="icon-hand-right"></i>互联网改变着世界 开发者改变互联网</strong></p>
+                    <p class="span4 text-center"><strong><i class="icon-hand-right"></i>专注web开发 web前端开发</strong></p>
+                    <p class="span3 pull-right text-right clearfix"><wb:follow-button uid="2963100852" type="red_3" width="100%" height="24" ></wb:follow-button></p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+            
+           <h2>你必须了解的Session的本质</h2>
+
+<div class="container-fluid publish-info clearfix">
+    <div class="row-fluid">
+      <div class="span8">
+        <p><i class="icon-user"></i>作者: 360weboy</p>
+        <p><i class="icon-comment"></i>QQ群: 197642724</p>
+        <!-- Baidu Button BEGIN -->
+        <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+        <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+        <a class="shareCount"></a>
+        </div>
+        <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6824128" ></script>
+        <script type="text/javascript" id="bdshell_js"></script>
+        <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+        </script>
+        <!-- Baidu Button END -->
+      </div>
+      <div class="top-adv span8 clearfix">
+        <script type="text/javascript">
+        var sogou_ad_id=273872;
+        var sogou_ad_height=60;
+        var sogou_ad_width=640;
+        </script>
+        <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+      </div>
+    </div>
+</div>
+
+<hr />
+
+<p>有一点我们必须承认，大多数web应用程序都离不开session的使用。这篇文章将会结合php以及http协议来分析如何建立一个安全的会话管理机制。我们先简单的了解一些http的知识，从而理解该协议的无状态特性。然后，学习一些关于cookie的基本操作。最后，我会一步步阐述如何使用一些简单，高效的方法来提高你的php应用程序的安全性以及稳定行。</p>
+
+<p>我想大多数的php初级程序员一定会认为php默认的session机制的安全性似乎是有一定保障的，事实恰好相反 – php团队只是提供了一套便捷的session的解决方案提供给程序员使用，至于安全性的话，应该由程序员来加强，这是应用程序开发团队的责任。因为，这里面的方法很多，可以这么说吧，没有最好，只有更好。攻击的方式在不断变化，防守方也需要不断变招，所以，我个人认为php团队的做法还是比较明智的。</p>
+
+<h3>无状态性</h3>
+
+<p>Http是一种无状态性的协议。这是因为此种协议不要求浏览器在每次请求中标明它自己的身份，并且浏览器以及服务器之间并没有保持一个持久性的连接用于多个页面之间的访问。当一个用户访问一个站点的时候，用户的浏览器发送一个http请求到服务器，服务器返回给浏览器一个http响应。其实很简单的一个概念，客户端一个请求，服务器端一个回复，这就是整个基于http协议的通讯过程。</p>
+
+<p>因为web应用程序是基于http协议进行通讯的，而我们已经讲过了http是无状态的，这就增加了维护web应用程序状态的难度, 对于开发者来说，是一个不小的挑战。Cookies是作为http的一个扩展诞生的，其主要用途是弥补http的无状态特性，提供了一种保持客户端与服务器端之间状态的途径，但是由于出于安全性的考虑，有的用户在浏览器中是禁止掉cookie的。这种情况下，状态信息只能通过url中的参数来传递到服务器端，不过这种方式的安全性很差。事实上，按照通常的想法，应该有客户端来表明自己的身份，从而和服务器之间维持一种状态，但是出于安全性方面的考虑，我们都应该明白一点 – 来自客户端的信息都是不能完全信任的。</p>
+
+<p>尽管这样，针对维持web应用程序状态的问题，相对来说，还是有比较优雅的解决方案的。不过，应该说是没有完美的解决方案的，再好的解决方案也不可能适用所有的情况。这篇文章将介绍一些技术。这些技术可以用来比较稳定地维持应用程序的状态以及抵御一些针对session的攻击，比如会话劫持。并且你可以学习到cookie是怎样工作的，php 的session做了那些事情，以及怎样才能劫持session。</p>
+
+<h3>HTTP 概览</h3>
+
+<P>如何才能保持web应用程序的状态以及选择最合适的解决方案呢？在回答这个问题之前，必须得先了解web的底层协议 – Hypertext Transfer Protocol (HTTP)。</p>
+
+<p>当用户访问http://example.com这个域名的时候，浏览器就会自动和服务器建立tcp/ip连接，然后发送http请求到example.com的服务器的80端口。该个请求的语法如下所示：</p>
+
+<pre>
+    <code data-language="html">
+        GET / HTTP/1.1
+        Host: example.org
+    </code>
+</pre>
+
+<p>以上第一行叫做请求行，第二个参数（一个反斜线在这个例子中）表示所请求资源的路径。反斜线代表了根目录；服务器会转换这个根目录为服务器文件系统中的一个具体目录。</p>
+
+<p>Apache的用户常用DocumentRoot这个命令来设置这个文档根路径。如果请求的url是http://example.org/path/to/script.php,那么请求的路径就是/path/to/script.php。假如document root 被定义为usr/lcoal/apache/htdocs的话,整个请求的资源路径就是/usr/local/apache/htdocs/path/to/script.php。</p>
+
+<p>第二行描述的是http头部的语法。在这个例子中的头部是Host, 它标识了浏览器希望获取资源的域名主机。还有很多其它的请求头部可以包含在http请求中，比如user-Agent头部，在php可以通过$_SERVER['HTTP_USER_AGENT']获取请求中所携带的这个头部信息。</p>
+
+<p>但是遗憾的是，在这个请求例子中，没有任何信息可以唯一标识当前这个发出请求的客户端。有些开发者借助请求中的ip头部来唯一标识发出此次请求的客户端，但是这种方式存在很多问题。因为，有些用户是通过代理来访问的，比如用户A通过代理B连接网站www.example.com, 服务器端获取的ip信息是代理B分配给A的ip地址，如果用户这时断开代理，然后再次连接代理的话，它的代理ip地址又再次改变，也就说一个用户对应了多个ip地址，这种情况下，服务器端根据ip地址来标识用户的话，会认为请求是来自不同的用户，事实上是同一个用户。 还用另外一种情况就是，比如很多用户是在同一个局域网里通过路由连接互联网，然后都访问www.example.com的话，由于这些用户共享同一个外网ip地址，这会导致服务器认为这些用户是同一个用户发出的请求，因为他们是来自同一个ip地址的访问。</p>
+
+<p>保持应用程序状态的第一步就是要知道如何来唯一地标识每个客户端。因为只有在http中请求中携带的信息才能用来标识客户端，所以在请求中必须包含某种可以用来标识客户端唯一身份的信息。Cookie设计出来就是用来解决这一问题的。</p>
+
+<h3>Cookies</h3>
+
+<p>如果你把Cookies看成为http协议的一个扩展的话，理解起来就容易的多了，其实本质上cookies就是http的一个扩展。有两个http头部是专门负责设置以及发送cookie的,它们分别是Set-Cookie以及Cookie。当服务器返回给客户端一个http响应信息时，其中如果包含Set-Cookie这个头部时，意思就是指示客户端建立一个cookie，并且在后续的http请求中自动发送这个cookie到服务器端，直到这个cookie过期。如果cookie的生存时间是整个会话期间的话，那么浏览器会将cookie保存在内存中，浏览器关闭时就会自动清除这个cookie。另外一种情况就是保存在客户端的硬盘中，浏览器关闭的话，该cookie也不会被清除，下次打开浏览器访问对应网站时，这个cookie就会自动再次发送到服务器端。一个cookie的设置以及发送过程分为以下四步：</p>
+
+<ol>
+    <li>客户端发送一个http请求到服务器端</li>
+    <li>服务器端发送一个http响应到客户端，其中包含Set-Cookie头部</li>
+    <li>客户端发送一个http请求到服务器端，其中包含Cookie头部</li>
+    <li>服务器端发送一个http响应到客户端</li>
+</ol>
+
+<p>这个通讯过程也可以用以下下示意图来描述：</p>
+
+<img alt="php session的本质" src="/media/img/the_truth_about_sessions.png" class="img-polaroid" />
+
+<p>在客户端的第二次请求中包含的Cookie头部中，提供给了服务器端可以用来唯一标识客户端身份的信息。这时，服务器端也就可以判断客户端是否启用了cookies。尽管，用户可能在和应用程序交互的过程中突然禁用cookies的使用，但是，这个情况基本是不太可能发生的，所以可以不加以考虑，这在实践中也被证明是对的。</p>
+
+<h3>GET and POST Data</h3>
+
+<p>除了cookies,客户端还可以将发送给服务器的数据包含在请求的url中，比如请求的参数或者请求的路径中。 我们来看一个例子：</p>
+
+<pre>
+    <code data-language="html">
+        GET /index.php?foo=bar HTTP/1.1
+        Host: example.org
+    </code>
+</pre>
+
+<p>以上就是一个常规的http get 请求，该get请求发送到example.org域名对应的web 服务器下的index.php脚本, 在index.php脚本中，可以通过$_GET['foo']来获取对应的url中foo参数的值，也就是’bar’。大多数php开发者都称这样的数据会GET数据，也有少数称它为查询数据或者url变量。但是大家需要注意一点，不是说GET数据就只能包含在HTTP GET类型的请求中，在HTTP POST类型的请求中同样可以包含GET数据，只要将相关GET数据包含在请求的url中即可，也就是说GET数据的传递不依赖与具体请求的类型。</p>
+
+<p>另外一种客户端传递数据到服务器端的方式是将数据包含在http请求的内容区域内。 这种方式需要请求的类型是POST的，看下面一个例子：</p>
+
+<pre>
+    <code data-language="html">
+       POST /index.php HTTP/1.1
+       Host: example.org
+       Content-Type: application/x-www-form-urlencoded 
+       Content-Length: 7 
+    
+       foo=bar
+    </code>
+</pre>
+
+<p>在这种情况下，在脚本index.php可以通过调用$_POST['foo']来获取对应的值bar。开发者称这个数据为POST数据,也就是大家熟知的form以post方式提交请求的方式。</p>
+
+<p>在一个请求中，可以同时包含这两种形式的数据：</p>
+
+<pre>
+    <code data-language="html">
+        POST /index.php?myget=foo HTTP/1.1
+        Host: example.orgContent-Type: application/x-www-form-urlencoded 
+        Content-Length: 11 
+        
+        mypost=bar
+    </code>
+</pre>
+
+<p>这两种传递数据的方式，比起用cookies来传递数据更稳定，因为cookie可能被禁用，但是以GET以及POST方式传递数据时，不存在这种情况。我们可以将PHPSESSID包含在http请求的url中，就像下面的例子一样：</p>
+
+<pre>
+    <code data-language="html">
+        GET /index.php?PHPSESSID=12345 HTTP/1.1
+        Host: example.org
+    </code>
+</pre>
+
+<p>以这种方式传递session id的话，可以跟用cookie头部传递session id一样，达到同样的效果， 但是，缺点就是需要开发者认为地将session id附加在url中或者作为隐藏字段加入到表单中。不像cookie一样，只要服务器端指示客户端创建cookie成功以后，客户端在后续的请求中，会自动第将对应的没有过期的cookie传递给服务器端。当然，php在开启session.use_trans_sid后，也可以自动地将session id 附加在url中以及表单的隐藏字段中，但是这个选项不建议开启，因为存在安全问题。这样的话，容易泄露session id, 比如有的用户会bookmark一个url或者分享一个url，那么session id也就暴露了，加入这个session id还没有过期，那是有一定的安全问题存在的，除非服务器端，除了session id外，还附加了其它方式进行验证用户的合法性！</p>
+
+<p>尽管以POST的方式来传递session id的话，相对GET的方式来说，会安全的多。但是，这种方式的缺点就是比较麻烦，因为这样的话，在你的应用程序中比较将所有的请求都转换成post的请求，这显然是不太合适的。</p>
+
+<h3>Session的管理</h3>
+
+<p>直到现在，我只讨论了如何维护应用程序的状态，只是简单地涉及到了如果保持请求之间的关系。接下来，我阐述下在实际中用到比较多的技术 – Session的管理。涉及到session的管理，就不是单单地维持各个请求之间的状态，还需要维持会话期间针对每个特定用户使用到的数据。我们常常把这种数据叫做session数据，因为这些数据是跟某个特定用户与服务器之间的会话相关联的。如果你使用php内置的session的管理机制，那么session数据一般是保存在/tmp这个服务器端的文件夹中，并且其中的session数据会被自动地保存到超级数组$_SESSION中。一个最简单的使用session的例子，就是将相关的session数据从一个页面传递(注意：实际传递的是session id)到另一个页面。下面用示例代码1, start.php, 对这个例子加以演示：</p>
+
+<h4>示例代码1 – start.php</h4>
+
+<pre>
+    <code data-language="php">
+        <?php 
+        session_start();
+        $_SESSION['foo'] = 'bar'; 
+        ?> 
+        
+        <a href="continue.php">continue.php</a>
+
+    </code>
+</pre>
+
+<p>假如用户点击start.php中的链接访问continue.php,那么在continue.php中就可以通过$_SESSION['foo']获取在start.php中的定义的值’bar’。看下面的示例代码2:</p>
+
+<h4>示例代码2 – continue.php</h4>
+
+<pre>
+    <code data-language="php">
+       <?php 
+        session_start();
+        echo $_SESSION['foo']; /* bar */ 
+        ?>
+    </code>
+</pre>
+
+<p>是不是非常简单，但是我要指出的话，如果你真的这样来写代码的话，说明你对php底层的对于session的实现机制还不是非常了解透彻。在不了解php内部给你自动做了多少事情的情况下，你会发现如果程序出错的话，这样的代码将变的很难调试，事实上，这样的代码也完全没有安全性可言。</p>
+
+<h3>Session的安全性问题</h3>
+
+<p>一直以来很多开发者都认为php内置的session管理机制是具有一定的安全性，可以对一般的session攻击起到防御。事实上，这是一种误解，php团队只实现了一种方便有效的机制。具体的安全措施，应该有应用程序的开发团队来实施。 就像开篇谈到的，没有最好的解决方案，只有最合适你的方案。</p>
+
+<p>现在，我们来看下一个比较常规的针对session的攻击：</p>
+
+<ol>
+    <li>用户访问http://www.example.org，并且登录。</li>
+    <li>example.org的服务器设置指示客户端设置相关cookie – PHPSESSID=12345</li>
+    <li>攻击者这时访问http://www.example.org/,并且在请求中携带了对应的cookie – PHPSESSID=12345</li>
+    <li>这样情况下，因为example.orge的服务器通过PHPSESSID来辨认对应的用户的，所以服务器错把攻击者当成了合法的用户。</li>
+</ol>
+
+<p>整个过程的描述，请看下面的示例图：</p>
+
+<img src="/media/img/security-session.png" class="img-polaroid" />
+
+<p>当然这种攻击的方式，前提条件是攻击者必须通过某种手段固定，劫持或者猜测出某个合法用户的PHPSESSID。虽然这看起来难度很高，但是也不是不可能的事情。</p>
+
+<h3>安全性的加强</h3>
+
+<p>有很多技术可以用来加强Session的安全性，主要思想就是要使验证的过程对于合法用户来说，越简单越好，然后对于攻击者来说，步骤要越复杂越好。当然，这似乎是比较难于平衡的，要根据你应用程序的具体设计来做决策。</p>
+
+<p>最简单的居于HTTP/1.1请求包括请求行以及一些Host的头部：</p>
+
+<pre>
+    <code data-language="html">
+        GET / HTTP/1.1
+        Host: example.org
+    </code>
+</pre>
+
+<p>如果客户端通过PHPSESSID传递相关的session标识符，可以将PHPSESSID放在cookie头部中进行传递:</p>
+
+<pre>
+    <code data-language="html">
+        GET / HTTP/1.1
+        Host: example.org
+        Cookie: PHPSESSID=12345
+    </code>
+</pre>
+
+<p>同样地，客户端也可以将session标识符放在请求的url中进行传递。</p>
+
+<pre>
+    <code data-language="html">
+        GET /?PHPSESSID=12345 
+        HTTP/1.1Host: example.org
+    </code>
+</pre>
+
+<p>当然，session标识符也可以包含在POST数据中，但是这对用户体验有影响，所以这种方式很少采用。</p>
+
+<p>因为来自TCP/IP信息也不一定可以完全信任的，所以，对于web开发者来说，利用TCP/IP中的信息来加强安全性也是不太合适的。 不过，攻击者也必须提供一个合法用户的唯一的标识符，才能假扮成合法用户进入系统。因此，看起来唯一能够有效的保护系统的措施，就是尽量地隐藏session标识符或者使之难于猜测出来。最好就是两者都能实施。</p>
+
+<p>PHP会自动生成一个随机的session ID，基本来说是不可能被猜测出来的，所以这方面的安全还是有一定保障的。但是，要防止攻击者获取一个合法的session ID是相当困难的，这基本上不是开发者所能控制的。</p>
+
+<p>事实上，许多情况下都有可能导致session ID的泄露。 比如说，如果通过GET数据来传递session ID的话，就有可能暴露这个敏感的身份信息。因为，有的用户可能会将带有session ID的链接缓存，收藏或者发送在邮件内容中。Cookies是一种像相对来说安全一点的机制，但是用户是可以在客户端中禁止掉cookies的！在一些IE的版本中也有比较严重的安全漏洞，比较有名的就是会泄露cookies给一些有安全隐患的邪恶站点。</p>
+
+<p>因此，作为一个开发者，可以肯定session ID是不能被猜测出来的，但是还是有可能被攻击者使用某些方法获取到。所以，必须采取一些额外的安全措施来防止此类情况在你的应用程序中发生。</p>
+
+<p>实际上，一个标准的HTTP请求中除了Host等必须包含的头部，还包含了一些可选的头部.举一个例子，看下面的一个请求：</p>
+
+<pre>
+    <code data-language="html">
+        GET / HTTP/1.1
+        Host: example.org
+        Cookie: PHPSESSID=12345
+        User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1
+        Accept: text/html;q=0.9, */*;q=0.1
+        Accept-Charset: ISO-8859-1, utf-8;q=0.66, *;q=0.66
+        Accept-Language: en
+    </code>
+</pre>
+
+<p>我们可以看到，在以上的一个请求例子中包含了四个额外的头部，分别是User-Agent, Accept, Accept-Charset以及Accept-Language。因为这些头部不是必须的，所以完全依赖他们在你的应用程序中发挥作用是不太明智的。但是，如果一个用户的浏览器确实发送了这些头部到服务器，那么可以肯定的是在接下来的同一个用户通过同一个浏览器发送的请求中，必然也会携带这些头部。当然，这其中也会有极少数的特殊情况发生。假如以上例子是由一个当前的跟服务器建立了会话的用户发出的请求，考虑下面的一个请求：</p>
+
+<pre>
+    <code data-language="html">
+        GET / HTTP/1.1
+        Host: example.org
+        Cookie: PHPSESSID=12345
+        User-Agent: Mozilla/5.0
+    </code>
+</pre>
+
+<p>因为有相同的session id包含在请求的Cookie头部中，所以相同的php session将会被访问到。但是，请求里的User-Agent头部跟先前的请求中的信息是不同的，系统是否可以假定这两个请求是同一个用户发出的？</p>
+
+<p>像这种情况下，发现浏览器的头部改变了，但是不能肯定这是否是一次来自攻击者的请求的话，比较好的措施就是弹出一个要求输入密码的输入框让用户输入，这样的话，对用户体验的影响不会很大，又能很有效地防止攻击。</p>
+
+<p>当然，你可以在系统中加入核查User-Agent头部的代码，类似示例3中的代码：</p>
+
+<h4>示例代码 3:</h4>
+<pre>
+    <code data-language="php">
+        <?php 
+            session_start(); 
+            
+            if (md5($_SERVER['HTTP_USER_AGENT']) != $_SESSION['HTTP_USER_AGENT']) 
+            {   /* 弹出密码输入框 */   exit;
+            } 
+            
+            /* 其它代码 */ 
+        ?>
+    </code>
+</pre>
+
+<p>当然，你先必须在第一次请求时，初始化session的时候，用MD5算法加密user agent信息并且保存在session中，类似下面示例4中的代码：</p>
+
+<h4>示例代码 4:</h4>
+<pre>
+    <code data-language="php">
+       <?php 
+        session_start(); 
+        
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']); 
+        
+        ?>
+    </code>
+</pre>
+
+<p>虽然不一定需要用MD5来加密这个User-Agent信息，但使用这种方式以后就不需要再过滤这个$_SERVER['HTTP_USER_AGENT']数据了。不然的话，在使用这个数据以前必须要进行数据过滤，因为任何来自客户端的数据都是不可信任的，必须要注意这一点。</p>
+
+<p>在你检查这个User-Agent客户端头部信息以后，做为一个攻击者必须要完成两步才能劫持一个session:</p>
+
+<ol>
+    <li>获取一个合法的session id</li>
+    <li>包含一个相同的User-Agent头部在伪造的请求中</li>
+</ol>
+
+<p>你可能会说，居然攻击者能获得有效的session id,那么以他的水平，伪造一个相同的User-Agent不是件难事。不错，但是我们可以说这至少给他添加了一些麻烦，在一定程度上也增加了session机制的安全性。</p>
+
+<p>你应该也能想到了，既然我们可以检查User-Agent这个头部来加强安全性，那么不妨再利用其它的一些头部信息，把他们组合起来生成一个加密的token，并且让客户端在后续的请求中携带这个token！这样的话，攻击者基本上不可能猜测出这样一个token是怎么生成出来的。这好比你用信用卡在超市付款，一个你必须有信用卡（好比session id），另外你也必须输入一个支付密码（好比token）,这有这两者都符合的情况下，你才能成功进入账号付款。 看下面一段代码：</p>
+
+<pre>
+    <code data-language="php">
+       <?php 
+        session_start(); 
+        
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']); 
+        
+        ?>
+    </code>
+</pre>
+
+<div class="alert alert-info">
+    <p>注意：Accept这个头部不应该被用来生成token,因为有些浏览器会自动改变这个头部，当用户刷新浏览器的时候。</p>
+</div>
+
+<p>在你的验证机制中加入了这个非常难于猜测出来的token以后，安全性会得到很大的提升。假如这个token通过像session id一样的方式来进行传递，这种情况下，一个攻击者必须完成必要的3步来劫持用户的session:</p>
+
+<ol>
+    <li>获取一个合法的session ID</li>
+    <li>在请求中加入相同的User-Agent头部,用与生成token</li>
+    <li>在请求中携带被攻击者的token</li>
+</ol>
+
+<p>这里面有个问题。如果session id以及token都是通过GET数据来传递的话，那么对于能获取session ID的攻击者，同样就能够获取到这个token。所以，比较安全靠谱的方式应该是利用两种不同的数据传递方式来分别传递session id以及token。例如，通过cookie来传递session id,然后通过GET数据来传递token。因此，假如攻击者通过某种手段获得了这个唯一的用户身份标识，也是不太可能同时轻松地获取到这个token，它相对来说依然是安全的。</p>
+
+<p>还有很多的技术手段可以用来加强你的session机制的安全性。希望你在大致了解session的内部本质以后，可以设计出适合你的应用系统的验证机制，从而大大的提高系统的安全性。毕竟，你是最熟悉当下你开发的系统的开发者之一，可以根据实际情况来实施一些特有的，额外的安全措施。</p>
+
+<h3>总结</h3>
+
+<p>以上只是大概地描述了session的工作机制，以及简单地阐述了一些安全措施。但要记住，以上的方法都是能够加强安全性，不是说能够完全保护你的系统，希望读者自己再去调研相关内容。在这个调研过程中，相信你会学到很有实际使用价值的方案。</p>
+
+            <div class="row-fluid advertisement">
+                <p>
+                    <script type="text/javascript">
+                        var sogou_ad_id=271670;
+                        var sogou_ad_height=90;
+                        var sogou_ad_width=960;
+                    </script>
+                    <script language='JavaScript' type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+                </p>
+            </div>
+            
+            <!-- UJian Button BEGIN -->
+            <div class="ujian-hook"></div>
+            <script type="text/javascript">var ujian_config = {num:6,showType:3,lkrc:4};</script>
+            <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1697615"></script>
+            <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+            <!-- UJian Button END -->
+            
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1697615"></script>
+            <!-- UY END -->
+        </div>
+         <div class="container-fluid footer">
+    <div class="row-fluid">
+        <div class="span3">
+            <h5>目录</h5>
+            <ul>
+                <li><i class="icon-tag"></i><a href="/backend">后端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/front">前端开发</a></li>
+                <li><i class="icon-tag"></i><a href="/db">数据库</a></li>
+                <li><i class="icon-tag"></i><a href="/system">操作系统</a></li>
+                <li><i class="icon-tag"></i><a href="/opensource">开源</a></li>
+                <li><i class="icon-tag"></i><a href="/handbook">手册</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>文章</h5>
+            <ul>
+                <li><i class="icon-file"></i><a href="/php/page1/session-enssence.html">你必须了解的session的本质</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/file-upload.html">深入浅出PHP下的文件上传</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/curl.html">简述Php中cURL的使用</a></li>
+                <li><i class="icon-file"></i><a href="/php/page1/session-hijack.html">session固定会话id</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/prototype.html">深入javacript之prototype</a></li>
+                <li><i class="icon-file"></i><a href="/front/page1/execution-context.html">深入javascript之执行上下文</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3 friend-links">
+            <h5>友情链接</h5>
+            <ul>
+                <li><i class="icon-bookmark"></i><a href="http://justjavac.com/" target="_blank">迷渡</a></li>
+                <li><i class="icon-bookmark"></i><a href="http:/read.cn/" target="_blank">IT技术博客大学习</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://pangee.me/" target="_blank">pangee</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.queyang.com/" target="_blank">缺氧空间</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.clanfei.com/" target="_blank">蓝飞技术部落格</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.diaoyude.cn/" target="_blank">DiaoYuDe</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://wangningmei.is-programmer.com/" target="_blank">Anitee0208's Blog</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://icementor.com/" target="_blank">随风的李</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.cnblogs.com/weidagang2046/" target="_blank">Todd Wei</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://www.byends.com/" target="_blank">彼岸雨云</a></li>
+                <li><i class="icon-bookmark"></i><a href="http://xuezaijiongtu.blog.163.com/" target="_blank">学在囧途</a></li>
+            </ul>
+        </div>
+        
+        <div class="span3">
+            <h5>联系方式</h5>
+            <ul>
+                <li><i class="icon-envelope"></i>邮箱：360weboy@gmail.com</li>
+                <li><i class="icon-share"></i>新浪微博：<a href="http://weibo.com/360weboy" target="_blank">http://weibo.com/360weboy</a></li>
+                <li><i class="icon-comment"></i>QQ群：197642724</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+     <p>Copyright © 2012 360weboy</p>
+</div>
+         <div id="toTop"><i class="icon-chevron-up"></i>回顶部</div>
+    </body>
+    
+    <script src="/scripts/all.js"></script>
+</html>
